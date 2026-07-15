@@ -7,7 +7,7 @@ PIP := $(PY) -m pip
 REQ ?= requirements.txt
 
 # ------------ targets ---------------------------------
-.PHONY: env lint test dash clean
+.PHONY: env dev lint test dash clean
 
 env:            ## create venv & install deps
 	@echo "🔧  Creating virtual environment: $(VENV)"
@@ -16,9 +16,13 @@ env:            ## create venv & install deps
 	$(PIP) install --upgrade pip
 	$(PIP) install -r $(REQ)
 
+dev:            ## create a lightweight CPU-only development environment
+	$(PYTHON_BIN) -m venv $(VENV)
+	$(PIP) install --upgrade pip
+	$(PIP) install -e ".[test]"
+
 lint:           ## run ruff + black (check only)
-	$(PY) -m ruff check 2D-multiview-generation tests
-	$(PY) -m black --check 2D-multiview-generation tests
+	$(PY) -m ruff check .
 
 test:           ## run pytest suite
 	$(PY) -m pytest -q

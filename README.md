@@ -21,9 +21,23 @@ Here is the [Hugging Face Model Card](https://huggingface.co/rmsandu/fourviews-i
 # 1. Dataset Preparation (Multi-View Image Sets)
 Collect or curate a small set of multi-view image groups. Each group should contain a few images that are related – e.g. different views of the same object or scene, or a sequence of images with a consistent theme or identity. You can use an existing multiview dataset like [MVImgNet](https://github.com/GAP-LAB-CUHK-SZ/MVImgNet) as a source: MVImgNet contains multi-view images of ~220k real-world objects across 238 classes.The goal for an MVP is a minimal viable dataset so about 10–20 image sets are sufficient (each set might have e.g. 2–4 images of a given object/scene from various angles or contexts) according to (In-Context LoRA paper)[https://ali-vilab.github.io/In-Context-LoRA-Page/]. I used 126 images from MVImgNet, which I selected in a spaced way to ensure a different viewpoint for each image in a set.
 
-# 2.Automatic Caption Generation for Multi-Image Scenes
+# 2. Automatic Caption Generation for Multi-Image Scenes
 
-`python -m src.captioner.py` is a script that generates captions for multi-image sets.
+`python -m src.dataset_builder` generates captioned 2x2 composites from an
+MVImgNet-style directory. Gemini credentials are loaded only when captioning starts.
+Set `GOOGLE_API_KEY` in your environment or a local `.env` file:
+
+```bash
+export GOOGLE_API_KEY=your-key
+python -m src.dataset_builder \
+  --objects-dir data/mvi_40 \
+  --category-file mvimgnet_category.txt \
+  --output-dir training/composites_4view_grid \
+  --cache-dir .gemini_cache \
+  --limit 63 \
+  --tile-width 512 \
+  --tile-height 512
+```
 
 For each image set, we need a single descriptive caption that encompasses all views/images. Writing these by hand is possible but to ensure scalability and consistency, we can automate caption generation using multimodal models:
 
@@ -41,7 +55,9 @@ Example composite single composite image:
 Example (two-view caption): “[TWO-VIEWS] This set of two images presents a scene from two different viewpoints. [IMAGE1] The first image shows a living room with a sofa, side tables, a television, houseplants, wall decor, and a rug. [IMAGE2] The second image shows the same room from another angle, revealing additional details from the other side.” This consistency helps the model learn the structure of multi-image prompts. The position tokens don’t carry inherent meaning, but during training the model will learn to associate them with positioning of sub-images. The captions should read like a single narrative or list of observations rather than disconnected sentences.
 
 # 3. Preprocessing: Composite Images and Merged Prompts
- `python -m src.dataset_builder` is a script that processes the multi-image sets and captions to create the training data for the model and saves each composite image as a file and put the caption text in a .txt file with the same name.
+
+The dataset builder saves each composite image and its caption as matching `.png`
+and `.txt` files. Run `python -m src.dataset_builder --help` for all options.
 
 Example data structure: *train_data/scene01.jpg... train_data/scene01.txt.*
 
@@ -60,3 +76,29 @@ LoRA (Low-Rank Adaptation) inserts trainable low-rank weight matrices into the m
 I trained a LoRA adapter on the FLUX model using the prepared multi-image dataset using the repository [AI-toolkit](https://github.com/ostris/ai-toolkit) and used as inspiration the [In-Context LoRA](https://github.com/ali-vilab/In-Context-LoRA/tree/main) config file.
 
 I added my own LoRA config file `config_4views.yaml` to the `ai_toolkit/configs` directory. This config file specifies the LoRA parameters, including the rank, dropout, and target layers for adaptation.
+
+# Development and reproducibility
+
+For CPU-only preprocessing development and tests, install the lightweight project
+dependencies rather than the CUDA training stack:
+
+```bash
+python3.11 -m venv .venv
+.venv/bin/python -m pip install -e ".[test]"
+.venv/bin/python -m ruff check .
+.venv/bin/python -m pytest
+```
+
+`requirements.txt` remains the CUDA 12.1 environment for model training. Install it
+only on a compatible GPU system. To run the local Gradio demo, supply the checkpoint
+path explicitly:
+
+```bash
+python app.py --lora-model models/4views.safetensors
+```
+
+To renumber an existing directory of image/caption pairs:
+
+```bash
+python -m src.rename_files training/composites_4view_grid --start 1
+```

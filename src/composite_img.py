@@ -6,10 +6,15 @@ def make_composite_grid(img_paths, target_h=512, target_w=512):
     Create a 2x2 grid composite image from a list of image paths.
     Each image is padded or resized to the target height and width.
     """
+    img_paths = list(img_paths)
+    if len(img_paths) != 4:
+        raise ValueError(f"Expected exactly four images, received {len(img_paths)}")
+    if target_h < 1 or target_w < 1:
+        raise ValueError("Target dimensions must be positive")
+
     imgs = []
     for p in img_paths:
         im = Image.open(p).convert("RGB")
-        print(f"Processing image before resizing: {p} with size {im.size}")
         if im.width > target_w or im.height > target_h:
             # Resize if the image is larger than the target dimensions
             im = im.resize((target_w, target_h), Image.Resampling.LANCZOS)
@@ -21,7 +26,6 @@ def make_composite_grid(img_paths, target_h=512, target_w=512):
             padded.paste(im, (x_offset, y_offset))
             im = padded
 
-        print(f"Processed image size: {im.size}")
         imgs.append(im)
 
     # Calculate dimensions for the 2x2 grid

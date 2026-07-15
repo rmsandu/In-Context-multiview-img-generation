@@ -1,121 +1,115 @@
-# --- config.py ---
-from pathlib import Path
-from PIL import Image
-from tqdm import tqdm
+import argparse
 import traceback
-import pprint
-import sys
-from .captioner import (
-    caption_four_views,
-    generate_caption_composite_grid,
-)
+from collections.abc import Iterable
+from pathlib import Path
+
+from tqdm import tqdm
+
+from .captioner import generate_caption_composite_grid
 from .composite_img import make_composite_grid
 
-# --- directory layout ---
-DATA_ROOT = Path("data")
-OBJECTS_DIR = DATA_ROOT / "mvi_40"  # change to mvi_40 if needed
-OUT_DIR = Path("training/composites_4view")
-OUT_DIR_GRID = Path("training/composites_4view_grid")
-OUT_DIR.mkdir(parents=True, exist_ok=True)
-OUT_DIR_GRID.mkdir(parents=True, exist_ok=True)
 
-CATEGORY_FILE = Path(DATA_ROOT / "mvimgnet_category.txt")
-
-# --- processing params ---
-N_OBJECTS = 63  # MVP size
-TARGET_HEIGHT = 512  # each tile resized to this height
-MODEL_NAME = "gemini-2.0-flash-preview"
-ANGLE_TAGS = ["front", "side", "back", "top"]
-TARGET_HEIGHT = 512  # each tile resized to this height
-
-# Gemini key is read from env var GOOGLE_API_KEY
+def find_image_dirs(root: Path) -> list[Path]:
+    """Return sorted leaf directories named ``images``."""
+    return sorted(path for path in root.rglob("images") if path.is_dir())
 
 
-def find_image_dirs(root: Path):
-    """Return sorted list of leaf 'images' directories."""
-    return sorted(p for p in root.rglob("images") if p.is_dir())
-
-
-def load_categories(txt: Path):
-    """Load category map from MVimgnet text file of categories."""
-    if not txt.exists():
-        print(f"Category file {txt} does not exist. Returning empty map.")
-        return {}
+def load_categories(path: Path) -> dict[str, str]:
+    """Load an MVImgNet category mapping."""
+    if not path.is_file():
+        raise FileNotFoundError(f"Category file does not exist: {path}")
     return dict(
         line.strip().split(",", maxsplit=1)
-        for line in txt.read_text(encoding="utf-8").splitlines()
-        if "," in line  # Ensure the line contains a comma
+        for line in path.read_text(encoding="utf-8").splitlines()
+        if "," in line
     )
 
 
-def choose_four_views(img_paths):
-    """Pick indices 0, 1/4, 1/2, last one through the sweep."""
+def choose_four_views(img_paths: Iterable[Path]) -> list[Path]:
+    """Choose four deterministic, spaced views, duplicating short sweeps."""
     paths = sorted(img_paths)
-    n = len(paths)
-    idx = [0, n // 4, n // 2, n - 2]
-    idx = [min(i, n - 1) for i in idx]
-    picks = [paths[i] for i in idx]
-    while len(picks) < 4:  # handle <4 frames edge-case
-        picks.append(picks[-1])
-    return picks
+    if not paths:
+        raise ValueError("Cannot choose views from an empty image set")
+    count = len(paths)
+    indices = [0, count // 4, count // 2, max(0, count - 2)]
+    return [paths[min(index, count - 1)] for index in indices]
 
 
-def process_one(img_dir, id2cat, cache_dir):
-    """
-    Process one object directory to create composite image and caption.
-    """
-
-    # pprint.pprint(id2cat)
-    obj_id = str(img_dir.parent.parent.name)
-    category = id2cat.get(obj_id, "object")
-
-    if category == "object":
-        print(
-            f"Warning: Category for {obj_id} not found in {img_dir.parent.name}, using 'object'."
-        )
-
-    # replace trailing spaces from category name with "-"
-    category = category.strip().replace(" ", "-")
-    # Select four views
+def process_one(
+    img_dir: Path,
+    id2cat: dict[str, str],
+    output_dir: Path,
+    cache_dir: Path,
+    *,
+    tile_width: int,
+    tile_height: int,
+) -> None:
+    obj_id = img_dir.parent.parent.name
+    category = id2cat.get(obj_id, "object").strip().replace(" ", "-")
     views = choose_four_views(img_dir.glob("*.jpg"))
-
-    # Generate captions with Google Gemini Flash 2.0 from captioner.py
-
-    # _, single_caption = caption_four_views(
-    #     view_paths=views,  # Corrected argument name
-    #     category_name=category,
-    #     obj_id=obj_id,
-    #     folder_id=img_dir.parent.name,
-    # )
-
-    # Create composite image and composite prompt
-    composite = make_composite_grid(views, target_h=TARGET_HEIGHT)
-
-    # Generate caption for the composite image 2x2 grid
-    joint_caption = generate_caption_composite_grid(composite, category)
-
-    # Save composite image and caption with the folder name as prefix
-    composite_file = cache_dir / f"{category}_{obj_id}_{img_dir.parent.name}.png"
-    caption_file = cache_dir / f"{category}_{obj_id}_{img_dir.parent.name}.txt"
-
-    composite.save(composite_file)
-    caption_file.write_text(joint_caption, encoding="utf-8")
-
-    print(f"Saved composite image to {composite_file}")
-    print(f"Saved caption to {caption_file}")
+    composite = make_composite_grid(
+        views, target_h=tile_height, target_w=tile_width
+    )
+    stem = f"{category}_{obj_id}_{img_dir.parent.name}"
+    cached_caption = cache_dir / f"{stem}.txt"
+    if cached_caption.exists():
+        joint_caption = cached_caption.read_text(encoding="utf-8")
+    else:
+        joint_caption = generate_caption_composite_grid(composite, category)
+        cached_caption.write_text(joint_caption, encoding="utf-8")
+    composite.save(output_dir / f"{stem}.png")
+    (output_dir / f"{stem}.txt").write_text(joint_caption, encoding="utf-8")
 
 
-def main():
-    id2cat = load_categories(CATEGORY_FILE)
-    all_dirs = find_image_dirs(OBJECTS_DIR)[:N_OBJECTS]
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        description="Build captioned 2x2 composites from an MVImgNet-style dataset."
+    )
+    parser.add_argument("--objects-dir", type=Path, required=True)
+    parser.add_argument("--category-file", type=Path, required=True)
+    parser.add_argument("--output-dir", type=Path, required=True)
+    parser.add_argument("--cache-dir", type=Path, default=Path(".gemini_cache"))
+    parser.add_argument("--limit", type=int, default=None)
+    parser.add_argument("--tile-width", type=int, default=512)
+    parser.add_argument("--tile-height", type=int, default=512)
+    return parser
 
-    for img_dir in tqdm(all_dirs, desc="Processing objects"):
+
+def main(argv: list[str] | None = None) -> int:
+    args = build_parser().parse_args(argv)
+    if not args.objects_dir.is_dir():
+        raise FileNotFoundError(f"Objects directory does not exist: {args.objects_dir}")
+    if args.limit is not None and args.limit < 1:
+        raise ValueError("--limit must be at least 1")
+    if args.tile_width < 1 or args.tile_height < 1:
+        raise ValueError("Tile dimensions must be positive")
+
+    args.cache_dir.mkdir(parents=True, exist_ok=True)
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    categories = load_categories(args.category_file)
+    image_dirs = find_image_dirs(args.objects_dir)
+    if args.limit is not None:
+        image_dirs = image_dirs[: args.limit]
+    if not image_dirs:
+        raise ValueError(f"No image directories found below {args.objects_dir}")
+
+    failures = 0
+    for img_dir in tqdm(image_dirs, desc="Processing objects"):
         try:
-            process_one(img_dir, id2cat, cache_dir=OUT_DIR_GRID)
-        except Exception as e:
-            print(f"Failed on {img_dir}: {e}")
+            process_one(
+                img_dir,
+                categories,
+                args.output_dir,
+                args.cache_dir,
+                tile_width=args.tile_width,
+                tile_height=args.tile_height,
+            )
+        except Exception as error:
+            failures += 1
+            print(f"Failed on {img_dir}: {error}")
             traceback.print_exc()
+    return 1 if failures else 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

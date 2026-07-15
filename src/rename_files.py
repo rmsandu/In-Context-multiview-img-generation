@@ -1,29 +1,35 @@
-# rename all files pairs img - txt from 001 and so on...
+import argparse
 from pathlib import Path
 
 
-def rename_files_in_directory(directory):
-    """
-    Rename all image and text file pairs in the specified directory to sequential numbers starting from 0001.
-    """
-    files = sorted(Path(directory).glob("*"))
-    img_files = [f for f in files if f.suffix in [".png", ".jpg", ".jpeg"]]
-    txt_files = [f for f in files if f.suffix == ".txt"]
+def rename_files_in_directory(directory: Path, start: int = 1) -> None:
+    """Rename paired image and caption files to sequential numeric names."""
+    if not directory.is_dir():
+        raise FileNotFoundError(f"Directory does not exist: {directory}")
+    files = sorted(directory.iterdir())
+    image_files = [path for path in files if path.suffix.lower() in {".png", ".jpg", ".jpeg"}]
+    text_files = [path for path in files if path.suffix.lower() == ".txt"]
+    if len(image_files) != len(text_files):
+        raise ValueError("The number of image files and caption files must match")
 
-    if len(img_files) != len(txt_files):
-        print("Warning: The number of image files and text files do not match.")
+    for index, (image, caption) in enumerate(zip(image_files, text_files), start=start):
+        image.rename(directory / f"{index:04d}{image.suffix.lower()}")
+        caption.rename(directory / f"{index:04d}.txt")
 
-    for i, (img, txt) in enumerate(zip(img_files, txt_files), start=64):
-        new_img_name = f"{i:04d}{img.suffix}"
-        new_txt_name = f"{i:04d}.txt"
 
-        img.rename(img.parent / new_img_name)
-        txt.rename(txt.parent / new_txt_name)
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("directory", type=Path)
+    parser.add_argument("--start", type=int, default=1)
+    return parser
 
-        print(f"Renamed {img.name} to {new_img_name}")
-        print(f"Renamed {txt.name} to {new_txt_name}")
+
+def main(argv: list[str] | None = None) -> None:
+    args = build_parser().parse_args(argv)
+    if args.start < 0:
+        raise ValueError("--start must be non-negative")
+    rename_files_in_directory(args.directory, args.start)
 
 
 if __name__ == "__main__":
-    target_directory = Path("training/composites_4view_grid")
-    rename_files_in_directory(target_directory)
+    main()

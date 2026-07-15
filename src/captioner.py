@@ -1,111 +1,112 @@
-import sys
+import json
+import os
+from pathlib import Path
+from typing import Any
 
 from dotenv import load_dotenv
-from pathlib import Path
-import random, base64, json, io, os
-from PIL import Image
 from google import genai
 from google.genai import types
-from tqdm import tqdm
-
-
-load_dotenv()
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
-client = genai.Client(api_key=GOOGLE_API_KEY)
+from PIL import Image
 
 MODEL_NAME = "gemini-2.0-flash"
-CACHE_DIR = Path(".gemini_cache")
-CACHE_DIR.mkdir(exist_ok=True)
+DEFAULT_CACHE_DIR = Path(".gemini_cache")
 
 
-def _caption_one(img_pil, category):
+def create_client() -> genai.Client:
+    """Create a Gemini client when captioning is requested."""
+    load_dotenv()
+    api_key = os.getenv("GOOGLE_API_KEY")
+    if not api_key:
+        raise RuntimeError(
+            "GOOGLE_API_KEY is required for caption generation. "
+            "Set it in the environment or in a .env file."
+        )
+    return genai.Client(api_key=api_key)
+
+
+def _caption_one(
+    img_pil: Image.Image,
+    category: str,
+    *,
+    client: Any | None = None,
+) -> str:
     prompt = (
-        f"You are describing a photograph of a single  "
-        f"{category} object for multi-view dataset curation. Focus only on the object described by the category name {category}. "
-        f"Respond with a comprehensive detailed description of the object using ONLY the name from {category}, including the viewing angle of the camera, ideally in degrees."
-        "EXAMPLE ANSWER if category is backpack: This photo shows a 0-degree angle front-view shot of a blue of backpack with a front pocket and two zippers. "
+        f"You are describing a photograph of a single {category} object for "
+        "multi-view dataset curation. Focus only on the object described by "
+        f"the category name {category}. Respond with a comprehensive detailed "
+        f"description of the object using ONLY the name from {category}, including "
+        "the viewing angle of the camera, ideally in degrees. EXAMPLE ANSWER if "
+        "category is backpack: This photo shows a 0-degree angle front-view shot "
+        "of a blue backpack with a front pocket and two zippers."
     )
-    resp = client.models.generate_content(
+    caption_client = client or create_client()
+    response = caption_client.models.generate_content(
         model=MODEL_NAME,
         contents=[img_pil, prompt],
-        config=types.GenerateContentConfig(
-            max_output_tokens=100,  # limit to 50 tokens
-            temperature=0.4,  # low temperature for consistency
-        ),
+        config=types.GenerateContentConfig(max_output_tokens=100, temperature=0.4),
     )
-    # print(resp.text)
-    return resp.text.strip().rstrip(".")  # remove trailing period if any
+    return response.text.strip().rstrip(".")
 
 
 def caption_four_views(
-    view_paths, category_name, obj_id, folder_id
+    view_paths: list[Path],
+    category_name: str,
+    obj_id: str,
+    folder_id: str,
+    *,
+    cache_dir: Path = DEFAULT_CACHE_DIR,
+    client: Any | None = None,
 ) -> tuple[list[str], str]:
-    """
-    Returns (clauses list[4], IC-LoRA joint caption)
-    caches individual clauses in .gemini_cache/<hash>.json
-    """
+    """Caption four views and return their clauses and a joint caption."""
+    if len(view_paths) != 4:
+        raise ValueError(f"Expected exactly four view paths, received {len(view_paths)}")
 
+    cache_dir.mkdir(parents=True, exist_ok=True)
     unique_prefix = f"{category_name}_{obj_id}_{folder_id}_"
     cache_key = f"{unique_prefix}-" + "-".join(p.stem for p in view_paths) + ".json"
-    cache_file = CACHE_DIR / cache_key
+    cache_file = cache_dir / cache_key
     if cache_file.exists():
-        clauses = json.loads(cache_file.read_text())
+        clauses = json.loads(cache_file.read_text(encoding="utf-8"))
     else:
+        caption_client = client or create_client()
         clauses = [
-            _caption_one(Image.open(p).convert("RGB"), category_name)
-            for p in view_paths
+            _caption_one(Image.open(path).convert("RGB"), category_name, client=caption_client)
+            for path in view_paths
         ]
         cache_file.write_text(json.dumps(clauses), encoding="utf-8")
 
     joint = (
-        (
-            f"[FOUR-VIEWS] This set of four images shows different viewing angles of the same {category_name}; "
-            + "; ".join(
-                f"[IMAGE{i+1}] {c.replace('Here is a description of the object in the image:', '').strip()}"
-                for i, c in enumerate(clauses)
-            )
-            + "."
+        f"[FOUR-VIEWS] This set of four images shows different viewing angles of "
+        f"the same {category_name}; "
+        + "; ".join(
+            f"[IMAGE{i + 1}] "
+            f"{clause.replace('Here is a description of the object in the image:', '').strip()}"
+            for i, clause in enumerate(clauses)
         )
-        .replace("\n", "")
-        .replace("  ", " ")
-    )
-    return clauses, joint
+        + "."
+    ).replace("\n", "")
+    return clauses, " ".join(joint.split())
 
 
-def generate_caption_composite_grid(composite_img_pil, category):
-    """
-    Generate a caption for a composite image of four views.
-    This function is a placeholder and should be implemented as needed.
-    """
+def generate_caption_composite_grid(
+    composite_img_pil: Image.Image,
+    category: str,
+    *,
+    client: Any | None = None,
+) -> str:
+    """Generate a joint caption for a 2x2 composite image."""
     prompt = (
-        f"You are an expert data annotator for 3D computer vision."
-        f'Your task is to generate a single-line "joint caption" for a 2x2 grid of images showing different views of the same object which belongs to the category: {category}.'
-        f"Your task is to analyze the camera angle of each of the four views in the grid and create a single, continuous line of text that describes the object in details and the specific viewpoint in each grid position."
-        f"You must follow the strict formatting rules for the caption: [FOUR-VIEWS]  This set of four images show SHORT DESCRIPTION of object {category} in the photo; [TOP-LEFT], [TOP-RIGHT], [BOTTOM-LEFT], and [BOTTOM-RIGHT]"
-        f"EXAMPLE ANSWER: [FOUR-VIEWS] This set of four images image shows different viewing angles of the same blue bag with a flower pattern; [TOP-LEFT] This photo shows a 45-degree angle shot of a blue bag; [TOP-RIGHT] This photo shows high-angle view shot of a blue bag; [BOTTOM-LEFT] This photo shows another side view shot of a blue bag with a dragon on it; [BOTTOM-RIGHT] This photo shows the back view of a blue bag with two straps."
+        "You are an expert data annotator for 3D computer vision. "
+        "Generate a single-line joint caption for a 2x2 grid of images showing "
+        f"different views of the same {category}. Describe the object and the "
+        "camera viewpoint at each grid position. Use exactly these position tags: "
+        "[FOUR-VIEWS], [TOP-LEFT], [TOP-RIGHT], [BOTTOM-LEFT], and [BOTTOM-RIGHT]."
     )
-
-    resp = client.models.generate_content(
+    caption_client = client or create_client()
+    response = caption_client.models.generate_content(
         model=MODEL_NAME,
         contents=[composite_img_pil, prompt],
-
-            temperature=0.3,  # low temperature for consistency
-        ),
+        config=types.GenerateContentConfig(max_output_tokens=200, temperature=0.3),
     )
-    return (
-        resp.text.strip() + "."
-        if not resp.text.strip().endswith(".")
-        else resp.text.strip()
-    )  # make sure it ends with a period
-
-
-if __name__ == "__main__":
-    print("Captioner module loaded. Use caption_four_views() to caption images.")
-    if len(sys.argv) > 1:
-        print("Usage: python captioner.py")
-        print("This module is not meant to be run directly. Use it as a library.")
-        sys.exit(1)
-
-    img_dir = Path("/mnt/data/4-views/00000/")
-    obj_id = img_dir.parent.parent.name
-    print(f"Extracted obj_id: {obj_id}")
+    text = response.text.strip()
+    return text if text.endswith(".") else f"{text}."

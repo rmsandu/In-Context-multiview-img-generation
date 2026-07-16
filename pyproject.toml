@@ -10,12 +10,16 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "google-genai>=1.0",
+    "numpy>=1.26",
     "pillow>=10.3",
     "python-dotenv>=1.0",
     "tqdm>=4.66.2",
 ]
 
 [project.optional-dependencies]
+preprocessing = [
+    "pycolmap==4.1.0",
+]
 test = [
     "pytest>=8.0",
     "ruff>=0.5",

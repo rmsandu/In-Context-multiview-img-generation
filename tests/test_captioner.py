@@ -24,6 +24,12 @@ def test_composite_caption_uses_expected_payload_and_config():
     assert caption == "[FOUR-VIEWS] caption."
     assert models.call["model"] == MODEL_NAME
     assert models.call["contents"][0] is image
-    assert "bag" in models.call["contents"][1]
+    prompt = models.call["contents"][1]
+    assert "bag" in prompt
+    assert "Do not claim camera angles" in prompt
+    assert "front/back orientation" in prompt
+    assert "elevation" in prompt
+    assert "precise camera poses" in prompt
+    assert "[TOP-LEFT]" in prompt
     assert models.call["config"].temperature == 0.3
     assert models.call["config"].max_output_tokens == 200

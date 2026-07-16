@@ -16,15 +16,13 @@ def make_composite_grid(img_paths, target_h=512, target_w=512):
     for p in img_paths:
         im = Image.open(p).convert("RGB")
         if im.width > target_w or im.height > target_h:
-            # Resize if the image is larger than the target dimensions
-            im = im.resize((target_w, target_h), Image.Resampling.LANCZOS)
-        else:
-            # Pad the image to the target dimensions
-            padded = Image.new("RGB", (target_w, target_h), (0, 0, 0))  # Black padding
-            x_offset = (target_w - im.width) // 2
-            y_offset = (target_h - im.height) // 2
-            padded.paste(im, (x_offset, y_offset))
-            im = padded
+            im.thumbnail((target_w, target_h), Image.Resampling.LANCZOS)
+
+        padded = Image.new("RGB", (target_w, target_h), (0, 0, 0))
+        x_offset = (target_w - im.width) // 2
+        y_offset = (target_h - im.height) // 2
+        padded.paste(im, (x_offset, y_offset))
+        im = padded
 
         imgs.append(im)
 

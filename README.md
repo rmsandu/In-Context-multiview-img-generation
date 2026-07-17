@@ -6,10 +6,33 @@ The key idea is to concatenate multiple images into one larger image during trai
 
 ## Project status
 
-The structured preprocessing pipeline is implemented, but the current 63 image/caption
-pairs in `training/composites_4view_grid_mvi32` have not been regenerated with the new
-schema or validated as the final research training set. The complete experimental
-protocol and decision rules are in [PLANS.md](PLANS.md).
+The structured preprocessing and resumable Gemini batch-captioning pipelines are
+implemented. A complete Gemini 3.5 Flash run over every eligible four-view instance
+under `data/` finished successfully in July 2026. It produced 423 accepted training
+pairs and retained 106 ambiguous composites for abstention analysis. This is the
+current generated dataset, but it is not yet the final research training set: the
+gold benchmark, model comparison, confidence calibration, and human review described
+in [PLANS.md](PLANS.md) still need to be completed.
+
+### Latest dataset build
+
+| Item | Result |
+| --- | ---: |
+| Input root | `data/` |
+| Model | `gemini-3.5-flash` |
+| Eligible four-view instances | 529 |
+| Selected source images | 2,116 |
+| Accepted image/caption pairs | 423 |
+| Abstention composites | 106 |
+| Invalid cached responses after repair | 0 |
+| Unexpected processing failures | 0 |
+
+The scan also found 1,367 `images/` directories without four usable `.jpg` files;
+these were deterministically skipped rather than submitted. The completed run used
+six primary batch jobs plus one two-request repair batch and consumed 973,038 tokens
+including the repair requests. Generated data is written to
+`training/composites_4view_grid_all`, with ambiguous examples in
+`training/composites_4view_grid_all_abstention`.
 
 ### Research questions
 
@@ -26,11 +49,19 @@ protocol and decision rules are in [PLANS.md](PLANS.md).
 - [x] Raw-response caching with model, prompt, latency, and image metadata.
 - [x] Deterministic caption rendering.
 - [x] Separate accepted and abstention manifests.
+- [x] Resumable Batch API preparation, submission, polling, and collection.
+- [x] Keyed JSONL chunks with persisted job IDs and per-request result matching.
+- [x] Gemini-compatible flattened structured-output schema.
+- [x] Conservative normalization of impossible lateral-side combinations to
+  `indeterminate`, while retaining the original raw response.
+- [x] Full Gemini 3.5 Flash batch run over all 529 eligible instances in `data/`.
 - [x] Existing FLUX LoRA checkpoint and local demo.
-- [x] Unit tests for annotation, cache, rendering, and preprocessing behavior.
+- [x] Unit tests for annotation, cache, rendering, preprocessing, and batch payloads.
 
 ### Next steps
 
+- [ ] Review the 106 abstentions and spot-check the 423 accepted annotations before
+  treating the generated output as training data.
 - [ ] Convert `framing` to a controlled enum.
 - [ ] Build and adjudicate the 100-composite gold benchmark.
 - [ ] Benchmark the four selected Gemini models.
@@ -98,6 +129,30 @@ The cache now consists of versioned JSON envelopes. Each entry preserves the exa
 raw model text, parsed annotation, validation result, model and prompt versions,
 latency, composite-image hash, and hashes of the four source images. Old free-form
 `.txt` cache entries are left untouched and are not reused by the structured pipeline.
+
+For hundreds of composites, use the resumable Gemini Batch API workflow instead of
+the synchronous builder. Preparation creates keyed JSONL chunks, submission records
+each job before continuing, and collection downloads, validates, caches, and renders
+the completed dataset:
+
+```bash
+python -m src.batch_dataset_builder prepare \
+  --objects-dir data \
+  --category-file data/mvimgnet_category.txt \
+  --output-dir training/composites_4view_grid_all \
+  --abstention-dir training/composites_4view_grid_all_abstention \
+  --cache-dir .gemini_cache \
+  --work-dir .gemini_batch/all_data \
+  --model gemini-3.5-flash
+python -m src.batch_dataset_builder submit --work-dir .gemini_batch/all_data
+python -m src.batch_dataset_builder collect --work-dir .gemini_batch/all_data --wait
+```
+
+The commands are resumable. `state.json` records every submitted job ID, successful
+responses are stored in the versioned cache, and rerunning `prepare` excludes valid
+cached annotations while retrying invalid ones. The July 2026 run used the paths in
+the example above and produced the counts reported in
+[Latest dataset build](#latest-dataset-build).
 
 For each image set, we need a single descriptive caption that encompasses all views/images. Writing these by hand is possible but to ensure scalability and consistency, we can automate caption generation using multimodal models:
 

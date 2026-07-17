@@ -9,10 +9,10 @@ description = "Preprocessing utilities for multi-view image generation"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "google-genai>=1.0",
+    "google-genai>=1.55,<2",
     "numpy>=1.26",
     "pillow>=10.3",
-    "pydantic>=2.7",
+    "pydantic>=2.7,<2.12",
     "python-dotenv>=1.0",
     "tqdm>=4.66.2",
 ]

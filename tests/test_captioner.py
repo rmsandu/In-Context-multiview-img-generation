@@ -7,12 +7,14 @@ from PIL import Image
 
 from src.captioner import (
     ANNOTATION_JSON_SCHEMA,
+    GEMINI_RESPONSE_SCHEMA,
     HORIZONTAL_VIEWS,
+    MAX_OUTPUT_TOKENS,
     PROMPT_VERSION,
     AnnotationValidationError,
-    MultiviewAnnotation,
     eligibility_reasons,
     generate_structured_annotation,
+    normalize_lateral_abstentions,
     render_caption,
     validate_annotation,
 )
@@ -82,9 +84,7 @@ def test_structured_caption_uses_expected_schema_and_payload():
     image = Image.new("RGB", (8, 8))
 
     selected_model = "gemini-test-model"
-    response = generate_structured_annotation(
-        image, "bag", model_id=selected_model, client=client
-    )
+    response = generate_structured_annotation(image, "bag", model_id=selected_model, client=client)
 
     assert response.annotation == valid_annotation()
     assert response.validation_errors == ()
@@ -100,9 +100,13 @@ def test_structured_caption_uses_expected_schema_and_payload():
     assert "can openers" in prompt
     config = models.call["config"]
     assert config.response_mime_type == "application/json"
-    assert config.response_schema is MultiviewAnnotation
+    assert config.response_schema == GEMINI_RESPONSE_SCHEMA
+    assert "additionalProperties" not in json.dumps(config.response_schema)
+    assert "$defs" not in json.dumps(config.response_schema)
+    assert "$ref" not in json.dumps(config.response_schema)
     assert config.temperature == 0.0
-    assert config.max_output_tokens == 1000
+    assert config.max_output_tokens == MAX_OUTPUT_TOKENS
+    assert config.thinking_config.thinking_budget == 0
     assert ANNOTATION_JSON_SCHEMA["properties"]["views"]["minItems"] == 4
     view_reference = ANNOTATION_JSON_SCHEMA["properties"]["views"]["items"]["$ref"]
     view_schema = ANNOTATION_JSON_SCHEMA["$defs"][view_reference.rsplit("/", 1)[-1]]
@@ -148,6 +152,19 @@ def test_indeterminate_view_is_valid_but_not_eligible_or_renderable():
     ]
     with pytest.raises(AnnotationValidationError, match="ineligible"):
         render_caption(annotation)
+
+
+def test_lateral_view_without_a_side_is_normalized_to_abstention():
+    annotation = valid_annotation()
+    annotation["views"][0]["horizontal_view"] = "side"
+    annotation["views"][0]["side"] = "neither"
+
+    normalized = normalize_lateral_abstentions(annotation)
+
+    assert normalized["views"][0]["horizontal_view"] == "indeterminate"
+    assert normalized["views"][0]["side"] == "indeterminate"
+    assert annotation["views"][0]["horizontal_view"] == "side"
+    assert validate_annotation(normalized) == []
 
 
 @pytest.mark.parametrize(

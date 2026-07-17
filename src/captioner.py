@@ -3,6 +3,7 @@ import io
 import json
 import os
 import time
+from copy import deepcopy
 from dataclasses import dataclass
 from typing import Annotated, Any, Literal
 
@@ -20,7 +21,8 @@ from pydantic import (
 )
 
 MODEL_NAME = "gemini-3.5-flash"
-PROMPT_VERSION = "structured-viewpoints-v3"
+PROMPT_VERSION = "structured-viewpoints-v5"
+MAX_OUTPUT_TOKENS = 1024
 
 TILES = ("top_left", "top_right", "bottom_left", "bottom_right")
 HORIZONTAL_VIEWS = (
@@ -81,15 +83,10 @@ class ViewAnnotation(BaseModel):
             "rear_three_quarter",
         } and self.side not in {"left", "right"}:
             raise ValueError(f"side must be left or right for {self.horizontal_view}")
-        if (
-            self.horizontal_view in {"front", "back", "top", "bottom"}
-            and self.side != "neither"
-        ):
+        if self.horizontal_view in {"front", "back", "top", "bottom"} and self.side != "neither":
             raise ValueError(f"side must be neither for {self.horizontal_view}")
         if self.horizontal_view == "indeterminate" and self.side != "indeterminate":
-            raise ValueError(
-                "side must be indeterminate when horizontal_view is indeterminate"
-            )
+            raise ValueError("side must be indeterminate when horizontal_view is indeterminate")
         return self
 
 
@@ -114,6 +111,30 @@ class MultiviewAnnotation(BaseModel):
 
 
 ANNOTATION_JSON_SCHEMA = MultiviewAnnotation.model_json_schema()
+
+
+def _schema_for_gemini(value: Any, *, root: dict[str, Any] | None = None) -> Any:
+    """Inline references and remove JSON Schema keywords rejected by Gemini."""
+    if root is None:
+        if not isinstance(value, dict):
+            raise TypeError("The root JSON schema must be an object")
+        root = value
+    if isinstance(value, dict):
+        reference = value.get("$ref")
+        if isinstance(reference, str) and reference.startswith("#/$defs/"):
+            definition = root["$defs"][reference.rsplit("/", 1)[-1]]
+            return _schema_for_gemini(definition, root=root)
+        return {
+            key: _schema_for_gemini(child, root=root)
+            for key, child in value.items()
+            if key not in {"$defs", "additionalProperties", "title"}
+        }
+    if isinstance(value, list):
+        return [_schema_for_gemini(child, root=root) for child in value]
+    return value
+
+
+GEMINI_RESPONSE_SCHEMA = _schema_for_gemini(ANNOTATION_JSON_SCHEMA)
 
 PROMPT_TEMPLATE = """Analyze this 2x2 grid of four views of the same {category}.
 Return only JSON matching the supplied schema. Classify every tile independently with
@@ -179,6 +200,24 @@ def validate_annotation(annotation: Any) -> list[str]:
             messages.append(f"{prefix}{detail['msg']}")
         return messages
     return []
+
+
+def normalize_lateral_abstentions(annotation: Any) -> Any:
+    """Conservatively abstain when a lateral view has no meaningful left/right side."""
+    if not isinstance(annotation, dict) or not isinstance(annotation.get("views"), list):
+        return annotation
+    normalized = deepcopy(annotation)
+    for view in normalized["views"]:
+        if not isinstance(view, dict):
+            continue
+        if view.get("horizontal_view") in {
+            "front_three_quarter",
+            "side",
+            "rear_three_quarter",
+        } and view.get("side") in {"neither", "indeterminate"}:
+            view["horizontal_view"] = "indeterminate"
+            view["side"] = "indeterminate"
+    return normalized
 
 
 def eligibility_reasons(annotation: dict[str, Any]) -> list[str]:
@@ -252,10 +291,11 @@ def generate_structured_annotation(
         model=model_id,
         contents=[composite_img_pil, prompt],
         config=types.GenerateContentConfig(
-            max_output_tokens=1000,
+            max_output_tokens=MAX_OUTPUT_TOKENS,
             temperature=0.0,
             response_mime_type="application/json",
-            response_schema=MultiviewAnnotation,
+            response_schema=GEMINI_RESPONSE_SCHEMA,
+            thinking_config=types.ThinkingConfig(thinking_budget=0),
         ),
     )
     latency_ms = (time.perf_counter() - started) * 1000
@@ -268,6 +308,7 @@ def generate_structured_annotation(
         errors.append(f"response is not valid JSON: {error.msg}")
     else:
         try:
+            parsed = normalize_lateral_abstentions(parsed)
             annotation = MultiviewAnnotation.model_validate(parsed).model_dump(mode="json")
         except ValidationError:
             errors.extend(validate_annotation(parsed))

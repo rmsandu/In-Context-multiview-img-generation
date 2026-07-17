@@ -54,6 +54,7 @@ models/
 *.safetensors
 *.cfg
 .gemini_cache/
+.gemini_batch/
 # Hugging Face cache    
 
 # Large model weights (will re-download)

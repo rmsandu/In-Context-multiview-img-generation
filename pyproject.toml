@@ -12,6 +12,7 @@ dependencies = [
     "google-genai>=1.0",
     "numpy>=1.26",
     "pillow>=10.3",
+    "pydantic>=2.7",
     "python-dotenv>=1.0",
     "tqdm>=4.66.2",
 ]

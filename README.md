@@ -33,15 +33,37 @@ python -m src.dataset_builder \
   --objects-dir data/mvi_40 \
   --category-file mvimgnet_category.txt \
   --output-dir training/composites_4view_grid \
+  --abstention-dir training/composites_4view_grid_abstention \
   --cache-dir .gemini_cache \
+  --model gemini-3.5-flash \
   --limit 63 \
   --tile-width 512 \
   --tile-height 512
 ```
 
+Gemini 3.5 Flash (`gemini-3.5-flash`) returns a JSON annotation constrained by the
+`MultiviewAnnotation` Pydantic output schema rather than a free-form caption. Each
+tile receives an absolute horizontal viewpoint, side, vertical angle, framing,
+visible features, and confidence. Python validates the annotation and renders the
+final caption deterministically.
+
+Annotations containing an `indeterminate` viewpoint field are not written into the
+LoRA training directory. Their composites and annotations
+are retained in the abstention directory for evaluating whether the vision-language
+model declines ambiguous orientation judgments. If `--abstention-dir` is omitted, it
+defaults to a sibling named `<output-dir>_abstention`.
+
+The cache now consists of versioned JSON envelopes. Each entry preserves the exact
+raw model text, parsed annotation, validation result, model and prompt versions,
+latency, composite-image hash, and hashes of the four source images. Old free-form
+`.txt` cache entries are left untouched and are not reused by the structured pipeline.
+
 For each image set, we need a single descriptive caption that encompasses all views/images. Writing these by hand is possible but to ensure scalability and consistency, we can automate caption generation using multimodal models:
 
-I used Gemini 2.0 Flash to generate captions for each image set. After testing a bit with the captioning I find it the prompt is better when the images have already been concatenated into a single composite image. 
+The captioning pipeline defaults to Gemini 3.5 Flash (`gemini-3.5-flash`) for each
+image set. Override it explicitly with `--model` when running another model.
+The prompt works best when the images have already been concatenated into a single
+composite image.
 
 Example composite single composite image:
 

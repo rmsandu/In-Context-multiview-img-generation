@@ -13,8 +13,8 @@ torchaudio     # ← all three ship cp311-manylinux wheels
 diffusers==0.33.1           # includes FluxPipeline and non-fused LoRA controls
 transformers==4.40.0
 peft==0.10.0
-bitsandbytes==0.43.1        # cp311 wheel, kernels compiled with CUDA 11.8
-accelerate==0.28.0
+bitsandbytes==0.43.3        # compatible with Diffusers 0.33 and PEFT 0.10 LoRA injection
+accelerate>=0.28,<1         # compatible device-map behavior for quantized models
 safetensors==0.4.3
 
 # ------------------------------------------------------------------

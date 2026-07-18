@@ -1,6 +1,6 @@
 job: extension
 config:
-  name: study1_pilot
+  name: study1_pilot_v2
   process:
   - type: sd_trainer
     training_folder: output
@@ -13,7 +13,7 @@ config:
     save:
       dtype: float16
       save_every: 50
-      max_step_saves_to_keep: 10
+      max_step_saves_to_keep: 100
       push_to_hub: false
     datasets:
     - folder_path: training/study1_pilot/train

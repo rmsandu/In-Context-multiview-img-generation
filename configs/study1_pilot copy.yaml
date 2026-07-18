@@ -1,0 +1,65 @@
+---
+job: extension
+config:
+  name: "study1_pilot_v2"
+  process:
+    - type: "sd_trainer"
+      training_folder: "output"
+      performance_log_every: 50
+      device: cuda:0
+      network:
+        type: "lora"
+        linear: 16
+        linear_alpha: 16
+      save:
+        dtype: float16
+        save_every: 50
+        max_step_saves_to_keep: 100
+        push_to_hub: false
+      datasets:
+        - folder_path: "training/study1_pilot/train"
+          caption_ext: "txt"
+          caption_dropout_rate: 0.05
+          shuffle_tokens: false
+          cache_latents_to_disk: true
+          resolution: [512, 768, 1024]
+      logging:
+        use_wandb: true
+        log_every: 10
+        project_name: "incontext-lora"
+      train:
+        batch_size: 1
+        steps: 500
+        gradient_accumulation_steps: 4
+        train_unet: true
+        train_text_encoder: false
+        gradient_checkpointing: true
+        noise_scheduler: "flowmatch"
+        optimizer: "adamw8bit"
+        lr: 1e-4
+        ema_config:
+          use_ema: true
+          ema_decay: 0.99
+        dtype: bf16
+      model:
+        name_or_path: "black-forest-labs/FLUX.1-dev"
+        is_flux: true
+        quantize: true
+      sample:
+        sampler: "flowmatch"
+        sample_every: 50
+        width: 1024
+        height: 1024
+        prompts:
+          - >-
+            [FOUR-VIEWS] Four views of An orange toy racing motorcycle with black wheels, white training wheels, and 'TOP RACING' decals, shown from four different angles on a blue-spotted textured surface.; [TOP-LEFT] Right side, high angle; orange body, black front and rear wheels, white training wheel on the right side, silver windshield, black seat, TOP RACING decals; [TOP-RIGHT] Front-right three-quarter, high angle; front wheel, silver windshield with 65 RACING decal, orange body, black seat, white training wheel on the right side; [BOTTOM-LEFT] Front-left three-quarter, high angle; front wheel, silver windshield with 65 RACING decal, orange body, black seat, black training wheel on the left side; [BOTTOM-RIGHT] Left side, high angle; orange body, black front and rear wheels, black training wheel on the left side, silver windshield, black seat, TOP RACING decals.
+          - >-
+            [FOUR-VIEWS] Four views of A pink backpack featuring a black cat graphic inside a yellow cup, with the text 'KIKI'S' and 'sweety cat service' printed on the front pocket.; [TOP-LEFT] Front-right three-quarter, high angle; pink fabric body, black cat graphic in yellow cup, KIKI'S text, sweety cat service text, front pocket, carrying handles, shoulder strap; [TOP-RIGHT] Front-right three-quarter, high angle; pink fabric body, black cat graphic in yellow cup, KIKI'S text, sweety cat service text, front pocket, carrying handles, shoulder strap; [BOTTOM-LEFT] Front, high angle; pink fabric body, black cat graphic in yellow cup, KIKI'S text, sweety cat service text, front pocket, carrying handles, shoulder strap; [BOTTOM-RIGHT] Front-left three-quarter, high angle; pink fabric body, black cat graphic in yellow cup, KIKI'S text, sweety cat service text, front pocket, carrying handles, shoulder strap.
+        neg: ""
+        seed: 17
+        walk_seed: false
+        guidance_scale: 3.5
+        sample_steps: 20
+meta:
+  name: "study1_pilot"
+  version: "1.0"

@@ -1,18 +1,14 @@
 # Multi-Image Generation with In-Context LoRA
 
-This repo aims to generate coherent 2D multi-view scenes (multiple images with intrinsic relationships, such as different viewpoints of the same object or scene) using minimal training data and limited compute. The approach builds on In-Context LoRA, a method to adapt diffusion transformer (DiT) models to multi-image outputs without changing the model architecture.
-
-The key idea is to concatenate multiple images into one larger image during training, use a joint caption describing all sub-images, and fine-tune only lightweight LoRA adapters on a small dataset (on the order of 10–100 image sets). This enables high-fidelity multi-image generation that adheres well to the prompt, even with limited data.
+This repo aims to generate and evaluate coherent 2D multi-view scenes (multiple images with intrinsic relationships, such as different viewpoints of the same object or scene) using minimal training data and limited compute. The approach builds on [In-Context LoRA](https://ali-vilab.github.io/In-Context-LoRA-Page/), a method to adapt diffusion transformer (DiT) models to multi-image outputs without changing the model architecture. The key idea is to concatenate multiple images into one larger image during training, use a joint caption describing all sub-images, and fine-tune on a small dataset . The limitation of the paper is that only qualitative visual evaluation has been performed. This repo aims to implement a quantitative approach for evaluating In-Context LoRA vs Base Flux.1 model. Essentialy, we are trying to answer: **Does LoRA preserves object identity without duplicating views?**
 
 ## Project status
 
-The structured preprocessing and resumable Gemini batch-captioning pipelines are
-implemented. A complete Gemini 3.5 Flash run over every eligible four-view instance
+The 4x4 grid composite images have been automatically captioned with Gemini 3.5 Flash. This run over every eligible four-view instance
 under `data/` produced 423 accepted training pairs and retained 106 ambiguous
-composites for abstention analysis. The minimal Study 1 pilot split, training config,
-paired generation harness, and blinded scorecard are implemented, but GPU training
-and evaluation have not been run. The gold benchmark, model comparison, confidence
-calibration, and human review described in [PLANS.md](PLANS.md) also remain future
+composites for abstention analysis. Another model can be used instead of Gemini 3.5 Flash for captioning. The minimal Study 1 pilot split, training config,
+paired generation harness, and blinded scorecard are implemented in `configs/study1_pilot.yaml`  The gold benchmark, model comparison, confidence
+calibration, and human review described in [PLANS.md](PLANS.md) detail future
 work.
 
 ### Latest dataset build
@@ -43,7 +39,7 @@ The second shows four examples:
 
 ![Sanity-check contact sheet with four accepted four-view composites and captions](sanity_check_4_imgs.png)
 
-Generate another deterministic contact sheet with:
+If you want to display another deterministic contact sheet with the captioned composite images RUN:
 
 ```bash
 .venv/bin/python -m src.sanity_check \
@@ -56,67 +52,9 @@ Generate another deterministic contact sheet with:
 
 ### Research questions
 
-- [Does LoRA improve identity without duplicating views?](PLANS.md#study-1-does-lora-improve-identity-without-duplicating-views)
+- [Does LoRA preserves object identity without duplicating views?](PLANS.md#study-1-does-lora-improve-identity-without-duplicating-views)
 - [Which Gemini model annotates viewpoints best?](PLANS.md#study-2-which-gemini-model-annotates-viewpoints-best)
 
-### Implemented
-
-- [x] Deterministic four-view selection and 2×2 composite construction.
-- [x] Duplicate source-image detection and hashing.
-- [x] Gemini model selection through `--model`.
-- [x] Pydantic structured annotation schema.
-- [x] Controlled viewpoint labels and explicit `indeterminate` abstention.
-- [x] Raw-response caching with model, prompt, latency, and image metadata.
-- [x] Deterministic caption rendering.
-- [x] Separate accepted and abstention manifests.
-- [x] Resumable Batch API preparation, submission, polling, and collection.
-- [x] Keyed JSONL chunks with persisted job IDs and per-request result matching.
-- [x] Gemini-compatible flattened structured-output schema.
-- [x] Conservative normalization of impossible lateral-side combinations to
-  `indeterminate`, while retaining the original raw response.
-- [x] Full Gemini 3.5 Flash batch run over all 529 eligible instances in `data/`.
-- [x] Existing FLUX LoRA checkpoint and local demo.
-- [x] Unit tests for annotation, cache, rendering, preprocessing, and batch payloads.
-- [x] Seed-17 instance-level Study 1 pilot split with leakage checks.
-- [x] Minimal 500-step Study 1 LoRA config with fixed holdout monitor prompts.
-- [x] Paired base-FLUX/LoRA generation manifest and blinded scoring CSV tooling.
-
-### Next steps
-
-- [ ] Review the 106 abstentions and spot-check the 423 accepted annotations before
-  treating the generated output as training data.
-- [ ] Convert `framing` to a controlled enum.
-- [ ] Build and adjudicate the 100-composite gold benchmark.
-- [ ] Benchmark the four selected Gemini models.
-- [ ] Calibrate the low-confidence threshold.
-- [ ] Add benchmark, strict-pose, and appearance-only dataset exports.
-- [ ] Verify that identity captions never contain pose labels or `indeterminate`.
-- [ ] Train pose-conditioned and appearance-only LoRAs with three seeds each.
-- [ ] Run the Study 1 pilot training, paired generation, and blinded human scoring.
-- [ ] Add DINOv2, DreamSim, LPIPS, and perceptual-hash supporting metrics.
-- [ ] Run the statistical analysis and answer both research questions.
-
-## Try the Demo on Hugging Face :hugging_face:
-
-Here is the [Hugging Face Model Card](https://huggingface.co/rmsandu/fourviews-incontext-lora) and the [Hugging Face Demo Space](https://huggingface.co/spaces/rmsandu/fourviews-incontext-lora?).
-
-### Historical example outputs :image:
-
-These outputs and free-form captions predate the current structured annotation
-pipeline. They are retained as historical examples and are not the final research
-caption format.
-
-![Example Output](example_output1.jpeg)
-
-```
- [FOUR-VIEWS] a red desk lamp from multiple views;[TOP-LEFT] This photo shows a 45-degree angle of desk lamp;[TOP-RIGHT] This photo shows a high-angle shot of the lamp; [BOTTOM-LEFT] Here is a side view shot of lamp; [BOTTOM-RIGHT] The back view of the desk lamp.
-```
-
-![Example Output](example_output2.jpeg)
-
-```
-[FOUR-VIEWS] a bedroom from multiple views;[TOP-LEFT] This photo shows a 45-degree angle of the bedroom;[TOP-RIGHT] This photo shows a high-angle shot of the bedroom; [BOTTOM-LEFT] Here is a side view shot of bedroom; [BOTTOM-RIGHT] A low angle view of the bedroom.
-```
 
 ## 1. Dataset Preparation (Multi-View Image Sets)
 
@@ -147,11 +85,11 @@ python -m src.dataset_builder \
   --tile-height 512
 ```
 
-Gemini 3.5 Flash (`gemini-3.5-flash`) returns a JSON annotation constrained by the
-`MultiviewAnnotation` Pydantic output schema rather than a free-form caption. Each
-tile receives an absolute horizontal viewpoint, side, vertical angle, framing,
+Gemini 3.5 Flash (`gemini-3.5-flash`) returns a **JSON annotation constrained by the
+`MultiviewAnnotation` Pydantic output schema** rather than a free-form caption. Each
+tile receives an **absolute horizontal viewpoint, side, vertical angle, framing,
 visible features, and confidence. Python validates the annotation and renders the
-final caption deterministically.
+final caption deterministically.**
 
 Annotations containing an `indeterminate` viewpoint field are not written into the
 LoRA training directory. Their composites and annotations
@@ -159,13 +97,13 @@ are retained in the abstention directory for evaluating whether the vision-langu
 model declines ambiguous orientation judgments. If `--abstention-dir` is omitted, it
 defaults to a sibling named `<output-dir>_abstention`.
 
-The cache now consists of versioned JSON envelopes. Each entry preserves the exact
+The cache consists of versioned JSON envelopes. Each entry preserves the exact
 raw model text, parsed annotation, validation result, model and prompt versions,
 latency, composite-image hash, and hashes of the four source images. Old free-form
 `.txt` cache entries are left untouched and are not reused by the structured pipeline.
 
-For hundreds of composites, use the resumable Gemini Batch API workflow instead of
-the synchronous builder. Preparation creates keyed JSONL chunks, submission records
+**For hundreds of composites, use the resumable Gemini Batch API workflow instead of
+the synchronous builder**. Preparation creates keyed JSONL chunks, submission records
 each job before continuing, and collection downloads, validates, caches, and renders
 the completed dataset:
 
@@ -188,55 +126,34 @@ cached annotations while retrying invalid ones. The July 2026 run used the paths
 the example above and produced the counts reported in
 [Latest dataset build](#latest-dataset-build).
 
-For each image set, we need a single descriptive caption that encompasses all views/images. Writing these by hand is possible but to ensure scalability and consistency, we can automate caption generation using multimodal models:
+For each image set, we need a single descriptive caption that encompasses all views/images. Writing these by hand is possible but to ensure scalability and consistency, we can automate caption generation using multimodal models: The captioning pipeline defaults to Gemini 3.5 Flash (`gemini-3.5-flash`) for each
+image set. Override it explicitly with `--model` when running another model. The prompt works best when the images have already been concatenated into a single
+composite image (also cheaper).
 
-The captioning pipeline defaults to Gemini 3.5 Flash (`gemini-3.5-flash`) for each
-image set. Override it explicitly with `--model` when running another model.
-The prompt works best when the images have already been concatenated into a single
-composite image.
-
-Example composite image:
-
-![Composite Image Example](composite_example.jpeg)
-
-**Example caption for a composite image:**
-
-```
-[FOUR-VIEWS] This set of four images show different angles of a light blue bag with a hexagonal pattern; [TOP-LEFT] This photo shows a side view of the bag leaning against a wall; [TOP-RIGHT] This photo shows another side view of the bag; [BOTTOM-LEFT] This photo shows a front view of the bag; [BOTTOM-RIGHT] This photo shows a back view of the bag.
-```
-
-Example (two-view caption): “[TWO-VIEWS] This set of two images presents a scene from two different viewpoints. [IMAGE1] The first image shows a living room with a sofa, side tables, a television, houseplants, wall decor, and a rug. [IMAGE2] The second image shows the same room from another angle, revealing additional details from the other side.” This consistency helps the model learn the structure of multi-image prompts. The position tokens don’t carry inherent meaning, but during training the model will learn to associate them with positioning of sub-images. The captions should read like a single narrative or list of observations rather than disconnected sentences.
-
-## 3. Preprocessing: Composite Images and Merged Prompts
-
-The dataset builder saves each composite image and its caption as matching `.png`
-and `.txt` files. Run `python -m src.dataset_builder --help` for all options.
-
-Example data structure: *train_data/scene01.jpg... train_data/scene01.txt.*
-
-Turn each multi-image set into the paired training data for the model.
-
-- **Concatenate Images**: Concatenate the images in each set into a single larger image. For example, for two images, you can place them side by side or one above the other, for four images, a 2×2 grid is convenient otherwise one long line of concatenated images might take too much memory. Ensure the composite image has a consistent size and aspect ratio across your dataset. The idea is to mimic how the model will output multiple images in one go. Arrange images in a consistent order and orientation (the order should match the order in your caption). Add minimal spacing or dividing lines if needed (but typically just concatenating directly is fine so the model sees one continuous image).
-
-- **Composite image dimensions**: Choose dimensions that match the layout, such as
-  512×1024 for two side-by-side images or 1024×1024 for a four-image grid. Keep the
-  layout and caption position tags consistent, and avoid resizing source images in a
-  way that distorts their aspect ratios.
-
-## 4. Fine-tuning In-Context LoRA on the FLUX model
+## 2. Fine-tuning In-Context LoRA on the FLUX model
 
 To train the model, we will use the In-Context LoRA approach on a diffusion transformer model like FLUX.
 
-LoRA (Low-Rank Adaptation) inserts trainable low-rank weight matrices into the model (typically into attention layers) and freezes the original model weights. This drastically reduces the number of parameters that need updating (and thus memory usage), making it feasible to train on a single high-end GPU.
-
-I trained a LoRA adapter on the FLUX model using the prepared multi-image dataset using the repository [AI-toolkit](https://github.com/ostris/ai-toolkit) and used as inspiration the [In-Context LoRA](https://github.com/ali-vilab/In-Context-LoRA/tree/main) config file.
+LoRA (Low-Rank Adaptation) inserts trainable low-rank weight matrices into the model (typically into attention layers) and freezes the original model weights. This drastically reduces the number of parameters that need updating (and thus memory usage), making it feasible to train on a single high-end RTX 4090 NVIDIA GPU. I trained a LoRA adapter on the FLUX model using the prepared multi-image dataset using the repository [AI-toolkit](https://github.com/ostris/ai-toolkit) and used as inspiration the [In-Context LoRA](https://github.com/ali-vilab/In-Context-LoRA/tree/main) config file.
 
 The repository retains the original `config_4views.yaml` and now includes the
-reproducible pilot config at `configs/study1_pilot.yaml`. Run the pilot config through
-the neighboring AI Toolkit checkout using the command in
-[Study 1 pilot](#study-1-pilot).
+reproducible pilot config at `configs/study1_pilot.yaml`. 
 
-## Development and reproducibility
+### RUN Fine-tuning with LoRA
+
+You can remove the [Wandb](https://wandb.ai/) login (I use it for monitoring the loss). You need to login into HuggingFace to accept the FLUX model license usage.
+
+```bash
+../ai-toolkit/.venv/bin/wandb login
+../ai-toolkit/.venv/bin/huggingface-cli login
+
+WANDB_MODE=online CUDA_VISIBLE_DEVICES=0 \
+  ../ai-toolkit/.venv/bin/python \
+  ../ai-toolkit/run.py \
+  configs/study1_pilot.yaml
+```
+
+###  Development and reproducibility
 
 For CPU-only preprocessing development and tests, install the lightweight project
 dependencies rather than the CUDA training stack:
@@ -248,7 +165,7 @@ python3.11 -m venv .venv
 .venv/bin/python -m pytest
 ```
 
-`requirements.txt` remains the CUDA 12.1 environment for model training. Install it
+`requirements.txt` remains the ** CUDA 12.1** environment for model training. Install it
 only on a compatible GPU system. To run the local Gradio demo, supply the checkpoint
 path explicitly:
 
@@ -262,7 +179,7 @@ To renumber an existing directory of image/caption pairs:
 python -m src.rename_files training/composites_4view_grid --start 1
 ```
 
-## Study 1 pilot
+### Study 1 Pilot Fine-Tuning LoRA
 
 The minimal pilot uses a deterministic, source-instance-level 90/10 split of the
 423 accepted pairs. Seed 17 produces 381 training pairs and 42 holdout pairs. The
@@ -319,4 +236,61 @@ Give raters `scorecard.csv` and the adjacent `images/` directory, but withhold
 
 ```bash
 .venv/bin/python -m pytest tests/test_study1_split.py tests/test_evaluation_pairing.py
+```
+
+
+### Implemented
+
+- [x] Deterministic four-view selection and 2×2 composite construction.
+- [x] Duplicate source-image detection and hashing.
+- [x] Gemini model selection through `--model`.
+- [x] Pydantic structured annotation schema.
+- [x] Controlled viewpoint labels and explicit `indeterminate` abstention.
+- [x] Raw-response caching with model, prompt, latency, and image metadata.
+- [x] Deterministic caption rendering.
+- [x] Separate accepted and abstention manifests.
+- [x] Resumable Batch API preparation, submission, polling, and collection.
+- [x] Keyed JSONL chunks with persisted job IDs and per-request result matching.
+- [x] Gemini-compatible flattened structured-output schema.
+- [x] Full Gemini 3.5 Flash batch run over all 529 eligible instances in `data/`.
+- [x] Existing FLUX LoRA checkpoint
+- [x] Unit tests for annotation, cache, rendering, preprocessing, and batch payloads.
+- [x] Seed-17 instance-level Study 1 pilot split with leakage checks.
+- [x] Minimal 500-step Study 1 LoRA config with fixed holdout monitor prompts.
+- [x] Paired base-FLUX/LoRA generation manifest and blinded scoring CSV tooling.
+
+### Next steps
+
+- [ ] Review the 106 abstentions and spot-check the 423 accepted annotations before
+  treating the generated output as training data.
+- [ ] Build and adjudicate the 100-composite gold benchmark.
+- [ ] Benchmark the four selected Gemini models.
+- [ ] Calibrate the low-confidence threshold.
+- [ ] Add benchmark, strict-pose, and appearance-only dataset exports.
+- [ ] Verify that identity captions never contain pose labels or `indeterminate`.
+- [ ] Train pose-conditioned and appearance-only LoRAs with three seeds each.
+- [ ] Run the Study 1 pilot training, paired generation, and blinded human scoring.
+- [ ] Add DINOv2, DreamSim, LPIPS, and perceptual-hash supporting metrics.
+
+
+## Try the Demo on Hugging Face :hugging_face:
+
+Here is the [Hugging Face Model Card](https://huggingface.co/rmsandu/fourviews-incontext-lora) and the [Hugging Face Demo Space](https://huggingface.co/spaces/rmsandu/fourviews-incontext-lora?).
+
+### Historical example outputs :image:
+
+These outputs and free-form captions predate the current structured annotation
+pipeline. They are retained as historical examples and are not the final research
+caption format.
+
+![Example Output](example_output1.jpeg)
+
+```
+ [FOUR-VIEWS] a red desk lamp from multiple views;[TOP-LEFT] This photo shows a 45-degree angle of desk lamp;[TOP-RIGHT] This photo shows a high-angle shot of the lamp; [BOTTOM-LEFT] Here is a side view shot of lamp; [BOTTOM-RIGHT] The back view of the desk lamp.
+```
+
+![Example Output](example_output2.jpeg)
+
+```
+[FOUR-VIEWS] a bedroom from multiple views;[TOP-LEFT] This photo shows a 45-degree angle of the bedroom;[TOP-RIGHT] This photo shows a high-angle shot of the bedroom; [BOTTOM-LEFT] Here is a side view shot of bedroom; [BOTTOM-RIGHT] A low angle view of the bedroom.
 ```

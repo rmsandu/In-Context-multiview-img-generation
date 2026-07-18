@@ -8,11 +8,12 @@ The key idea is to concatenate multiple images into one larger image during trai
 
 The structured preprocessing and resumable Gemini batch-captioning pipelines are
 implemented. A complete Gemini 3.5 Flash run over every eligible four-view instance
-under `data/`  produced 423 accepted training
-pairs and retained 106 ambiguous composites for abstention analysis. This is the
-current generated dataset, but it is not yet the final research training set: the
-gold benchmark, model comparison, confidence calibration, and human review described
-in [PLANS.md](PLANS.md) still need to be completed.
+under `data/` produced 423 accepted training pairs and retained 106 ambiguous
+composites for abstention analysis. The minimal Study 1 pilot split, training config,
+paired generation harness, and blinded scorecard are implemented, but GPU training
+and evaluation have not been run. The gold benchmark, model comparison, confidence
+calibration, and human review described in [PLANS.md](PLANS.md) also remain future
+work.
 
 ### Latest dataset build
 
@@ -27,9 +28,31 @@ in [PLANS.md](PLANS.md) still need to be completed.
 | Invalid cached responses after repair | 0 |
 | Unexpected processing failures | 0 |
 
- Generated data is written to
+Generated data is written to
 `training/composites_4view_grid_all`, with ambiguous examples in
 `training/composites_4view_grid_all_abstention`.
+
+### Current structured-data examples
+
+The following contact sheets sample accepted 2×2 composites together with their
+structured captions. The first shows two examples:
+
+![Sanity-check contact sheet with two accepted four-view composites and captions](sanity_check_2_imgs.png)
+
+The second shows four examples:
+
+![Sanity-check contact sheet with four accepted four-view composites and captions](sanity_check_4_imgs.png)
+
+Generate another deterministic contact sheet with:
+
+```bash
+.venv/bin/python -m src.sanity_check \
+  --input-dir training/composites_4view_grid_all \
+  --output sanity_check.png \
+  --count 4 \
+  --columns 4 \
+  --seed 17
+```
 
 ### Research questions
 
@@ -54,6 +77,9 @@ in [PLANS.md](PLANS.md) still need to be completed.
 - [x] Full Gemini 3.5 Flash batch run over all 529 eligible instances in `data/`.
 - [x] Existing FLUX LoRA checkpoint and local demo.
 - [x] Unit tests for annotation, cache, rendering, preprocessing, and batch payloads.
+- [x] Seed-17 instance-level Study 1 pilot split with leakage checks.
+- [x] Minimal 500-step Study 1 LoRA config with fixed holdout monitor prompts.
+- [x] Paired base-FLUX/LoRA generation manifest and blinded scoring CSV tooling.
 
 ### Next steps
 
@@ -66,8 +92,8 @@ in [PLANS.md](PLANS.md) still need to be completed.
 - [ ] Add benchmark, strict-pose, and appearance-only dataset exports.
 - [ ] Verify that identity captions never contain pose labels or `indeterminate`.
 - [ ] Train pose-conditioned and appearance-only LoRAs with three seeds each.
-- [ ] Add a paired base-FLUX/LoRA generation harness.
-- [ ] Add DINOv2, DreamSim, LPIPS, perceptual-hash, and human evaluation.
+- [ ] Run the Study 1 pilot training, paired generation, and blinded human scoring.
+- [ ] Add DINOv2, DreamSim, LPIPS, and perceptual-hash supporting metrics.
 - [ ] Run the statistical analysis and answer both research questions.
 
 ## Try the Demo on Hugging Face :hugging_face:
@@ -94,7 +120,12 @@ caption format.
 
 ## 1. Dataset Preparation (Multi-View Image Sets)
 
-Collect or curate a small set of multi-view image groups. Each group should contain a few images that are related – e.g. different views of the same object or scene, or a sequence of images with a consistent theme or identity. You can use an existing multiview dataset like [MVImgNet](https://github.com/GAP-LAB-CUHK-SZ/MVImgNet) as a source: MVImgNet contains multi-view images of ~220k real-world objects across 238 classes.The goal for an MVP is a minimal viable dataset so about 10–20 image sets are sufficient (each set might have e.g. 2–4 images of a given object/scene from various angles or contexts) according to [In-Context LoRA paper](https://ali-vilab.github.io/In-Context-LoRA-Page/). I used 126 images from MVImgNet, which I selected in a spaced way to ensure a different viewpoint for each image in a set.
+Collect or curate groups containing multiple views of the same object or scene.
+[MVImgNet](https://github.com/GAP-LAB-CUHK-SZ/MVImgNet) is one suitable source.
+The current dataset build found 529 eligible instances and deterministically selected
+four spaced views from each; structured annotation accepted 423 of the resulting
+composites. The original small-scale experiments used 126 selected images, while the
+current Study 1 pilot uses the larger accepted dataset described above.
 
 ## 2. Automatic Caption Generation for Multi-Image Scenes
 
@@ -164,7 +195,7 @@ image set. Override it explicitly with `--model` when running another model.
 The prompt works best when the images have already been concatenated into a single
 composite image.
 
-Example composite single composite image:
+Example composite image:
 
 ![Composite Image Example](composite_example.jpeg)
 
@@ -187,7 +218,10 @@ Turn each multi-image set into the paired training data for the model.
 
 - **Concatenate Images**: Concatenate the images in each set into a single larger image. For example, for two images, you can place them side by side or one above the other, for four images, a 2×2 grid is convenient otherwise one long line of concatenated images might take too much memory. Ensure the composite image has a consistent size and aspect ratio across your dataset. The idea is to mimic how the model will output multiple images in one go. Arrange images in a consistent order and orientation (the order should match the order in your caption). Add minimal spacing or dividing lines if needed (but typically just concatenating directly is fine so the model sees one continuous image).
 
-- **Composite image dimensions**: Choose a fixed size for composite images, e.g. 512x1024 for two images side by side, or 1024x1024 for four images in a grid. This ensures uniformity and helps the model learn to generate multi-image outputs. You can also stack vertically or in grid; just ensure your caption format corresponds (e.g., if you do a vertical stack of three, maybe use [TOP], [MIDDLE], [BOTTOM] markers or [IMAGE1]/[IMAGE2]/[IMAGE3] in top-to-bottom order). Keep in mind the final composite size affects memory usage during training, so choose a size that fits your GPU memory limits. Aso sometimes it might not be smart to try to fit your images into a fixed aspect radio, e.g. like a square one 512x512 as I have done, as this might distort the images too much.
+- **Composite image dimensions**: Choose dimensions that match the layout, such as
+  512×1024 for two side-by-side images or 1024×1024 for a four-image grid. Keep the
+  layout and caption position tags consistent, and avoid resizing source images in a
+  way that distorts their aspect ratios.
 
 ## 4. Fine-tuning In-Context LoRA on the FLUX model
 
@@ -197,7 +231,10 @@ LoRA (Low-Rank Adaptation) inserts trainable low-rank weight matrices into the m
 
 I trained a LoRA adapter on the FLUX model using the prepared multi-image dataset using the repository [AI-toolkit](https://github.com/ostris/ai-toolkit) and used as inspiration the [In-Context LoRA](https://github.com/ali-vilab/In-Context-LoRA/tree/main) config file.
 
-I added my own LoRA config file `config_4views.yaml` to the `ai_toolkit/configs` directory. This config file specifies the LoRA parameters, including the rank, dropout, and target layers for adaptation.
+The repository retains the original `config_4views.yaml` and now includes the
+reproducible pilot config at `configs/study1_pilot.yaml`. Run the pilot config through
+the neighboring AI Toolkit checkout using the command in
+[Study 1 pilot](#study-1-pilot).
 
 ## Development and reproducibility
 
@@ -223,4 +260,63 @@ To renumber an existing directory of image/caption pairs:
 
 ```bash
 python -m src.rename_files training/composites_4view_grid --start 1
+```
+
+## Study 1 pilot
+
+The minimal pilot uses a deterministic, source-instance-level 90/10 split of the
+423 accepted pairs. Seed 17 produces 381 training pairs and 42 holdout pairs. The
+split command verifies matching PNG/TXT stems and rejects source-instance, composite
+image SHA-256, or selected source-image SHA-256 overlap across partitions:
+
+```bash
+.venv/bin/python -m src.study1_split
+```
+
+This writes `training/study1_pilot/train`, `training/study1_pilot/holdout`, and
+`training/study1_pilot/split_manifest.jsonl`. The manifest records every source
+instance, destination path, split parameter, composite hash, and selected source
+image hashes. Re-running the command is idempotent when the existing files match;
+it refuses to overwrite a different file or accept stale extra pairs.
+
+Training uses the neighboring AI Toolkit checkout already expected by this project.
+From this repository root, launch the 500-step pilot explicitly with:
+
+```bash
+python3.11 ../ai-toolkit/run.py configs/study1_pilot.yaml
+```
+
+The config trains one rank-16/alpha-16 LoRA and samples two fixed holdout captions
+every 100 steps. This repository never launches that GPU command automatically.
+
+After selecting the desired AI Toolkit checkpoint, generate the controlled base/LoRA
+pairs with the eight synthetic prompts and two fixed seeds:
+
+```bash
+.venv/bin/python -m evaluation.generate_pairs \
+  --lora output/study1_pilot/study1_pilot.safetensors \
+  --cpu-offload
+```
+
+The generator produces 32 grids: eight prompts × seeds 1001 and 1002 × base and
+LoRA. Both conditions use guidance 3.5, 20 steps, and 1024×1024 resolution. It
+recreates the CPU-backed torch generator immediately before every condition, leaves
+the LoRA unfused, and writes all settings, hashes, and output paths to
+`evaluation/outputs/study1_pilot/generation_manifest.jsonl`.
+
+Create randomized A/B image copies, a blank scoring CSV, and a separate condition
+key with:
+
+```bash
+.venv/bin/python -m evaluation.create_blinded_scorecard \
+  --generation-manifest evaluation/outputs/study1_pilot/generation_manifest.jsonl \
+  --output-dir evaluation/outputs/study1_pilot_blinded \
+  --blind-seed 17
+```
+
+Give raters `scorecard.csv` and the adjacent `images/` directory, but withhold
+`blind_key.jsonl` until scoring is complete. Run the focused CPU checks with:
+
+```bash
+.venv/bin/python -m pytest tests/test_study1_split.py tests/test_evaluation_pairing.py
 ```

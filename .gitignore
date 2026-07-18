@@ -69,6 +69,8 @@ models/
 *.png
 *.jpg
 *.webm
+!sanity_check_2_imgs.png
+!sanity_check_4_imgs.png
 training/
 
 # ─────────────────────────────

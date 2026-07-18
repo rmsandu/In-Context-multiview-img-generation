@@ -10,7 +10,7 @@ torchaudio     # ← all three ship cp311-manylinux wheels
 # ------------------------------------------------------------------
 # Core diffusion / LoRA stack
 # ------------------------------------------------------------------
-diffusers==0.28.0           # needs xformers ≥ 0.26 for flash-attn
+diffusers==0.33.1           # includes FluxPipeline and non-fused LoRA controls
 transformers==4.40.0
 peft==0.10.0
 bitsandbytes==0.43.1        # cp311 wheel, kernels compiled with CUDA 11.8

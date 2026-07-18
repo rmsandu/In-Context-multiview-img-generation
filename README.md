@@ -8,7 +8,7 @@ The key idea is to concatenate multiple images into one larger image during trai
 
 The structured preprocessing and resumable Gemini batch-captioning pipelines are
 implemented. A complete Gemini 3.5 Flash run over every eligible four-view instance
-under `data/` finished successfully in July 2026. It produced 423 accepted training
+under `data/`  produced 423 accepted training
 pairs and retained 106 ambiguous composites for abstention analysis. This is the
 current generated dataset, but it is not yet the final research training set: the
 gold benchmark, model comparison, confidence calibration, and human review described
@@ -27,10 +27,7 @@ in [PLANS.md](PLANS.md) still need to be completed.
 | Invalid cached responses after repair | 0 |
 | Unexpected processing failures | 0 |
 
-The scan also found 1,367 `images/` directories without four usable `.jpg` files;
-these were deterministically skipped rather than submitted. The completed run used
-six primary batch jobs plus one two-request repair batch and consumed 973,038 tokens
-including the repair requests. Generated data is written to
+ Generated data is written to
 `training/composites_4view_grid_all`, with ambiguous examples in
 `training/composites_4view_grid_all_abstention`.
 
@@ -74,6 +71,7 @@ including the repair requests. Generated data is written to
 - [ ] Run the statistical analysis and answer both research questions.
 
 ## Try the Demo on Hugging Face :hugging_face:
+
 Here is the [Hugging Face Model Card](https://huggingface.co/rmsandu/fourviews-incontext-lora) and the [Hugging Face Demo Space](https://huggingface.co/spaces/rmsandu/fourviews-incontext-lora?).
 
 ### Historical example outputs :image:
@@ -83,15 +81,20 @@ pipeline. They are retained as historical examples and are not the final researc
 caption format.
 
 ![Example Output](example_output1.jpeg)
+
 ```
  [FOUR-VIEWS] a red desk lamp from multiple views;[TOP-LEFT] This photo shows a 45-degree angle of desk lamp;[TOP-RIGHT] This photo shows a high-angle shot of the lamp; [BOTTOM-LEFT] Here is a side view shot of lamp; [BOTTOM-RIGHT] The back view of the desk lamp.
-``` 
+```
+
 ![Example Output](example_output2.jpeg)
+
 ```
 [FOUR-VIEWS] a bedroom from multiple views;[TOP-LEFT] This photo shows a 45-degree angle of the bedroom;[TOP-RIGHT] This photo shows a high-angle shot of the bedroom; [BOTTOM-LEFT] Here is a side view shot of bedroom; [BOTTOM-RIGHT] A low angle view of the bedroom.
 ```
+
 ## 1. Dataset Preparation (Multi-View Image Sets)
-Collect or curate a small set of multi-view image groups. Each group should contain a few images that are related – e.g. different views of the same object or scene, or a sequence of images with a consistent theme or identity. You can use an existing multiview dataset like [MVImgNet](https://github.com/GAP-LAB-CUHK-SZ/MVImgNet) as a source: MVImgNet contains multi-view images of ~220k real-world objects across 238 classes.The goal for an MVP is a minimal viable dataset so about 10–20 image sets are sufficient (each set might have e.g. 2–4 images of a given object/scene from various angles or contexts) according to (In-Context LoRA paper)[https://ali-vilab.github.io/In-Context-LoRA-Page/]. I used 126 images from MVImgNet, which I selected in a spaced way to ensure a different viewpoint for each image in a set.
+
+Collect or curate a small set of multi-view image groups. Each group should contain a few images that are related – e.g. different views of the same object or scene, or a sequence of images with a consistent theme or identity. You can use an existing multiview dataset like [MVImgNet](https://github.com/GAP-LAB-CUHK-SZ/MVImgNet) as a source: MVImgNet contains multi-view images of ~220k real-world objects across 238 classes.The goal for an MVP is a minimal viable dataset so about 10–20 image sets are sufficient (each set might have e.g. 2–4 images of a given object/scene from various angles or contexts) according to [In-Context LoRA paper](https://ali-vilab.github.io/In-Context-LoRA-Page/). I used 126 images from MVImgNet, which I selected in a spaced way to ensure a different viewpoint for each image in a set.
 
 ## 2. Automatic Caption Generation for Multi-Image Scenes
 
@@ -102,7 +105,7 @@ Set `GOOGLE_API_KEY` in your environment or a local `.env` file:
 ```bash
 export GOOGLE_API_KEY=your-key
 python -m src.dataset_builder \
-  --objects-dir data/mvi_40 \
+  --objects-dir data/ \
   --category-file mvimgnet_category.txt \
   --output-dir training/composites_4view_grid \
   --abstention-dir training/composites_4view_grid_abstention \
@@ -166,7 +169,8 @@ Example composite single composite image:
 ![Composite Image Example](composite_example.jpeg)
 
 **Example caption for a composite image:**
-``` 
+
+```
 [FOUR-VIEWS] This set of four images show different angles of a light blue bag with a hexagonal pattern; [TOP-LEFT] This photo shows a side view of the bag leaning against a wall; [TOP-RIGHT] This photo shows another side view of the bag; [BOTTOM-LEFT] This photo shows a front view of the bag; [BOTTOM-RIGHT] This photo shows a back view of the bag.
 ```
 
@@ -179,14 +183,14 @@ and `.txt` files. Run `python -m src.dataset_builder --help` for all options.
 
 Example data structure: *train_data/scene01.jpg... train_data/scene01.txt.*
 
-
 Turn each multi-image set into the paired training data for the model.
+
 - **Concatenate Images**: Concatenate the images in each set into a single larger image. For example, for two images, you can place them side by side or one above the other, for four images, a 2×2 grid is convenient otherwise one long line of concatenated images might take too much memory. Ensure the composite image has a consistent size and aspect ratio across your dataset. The idea is to mimic how the model will output multiple images in one go. Arrange images in a consistent order and orientation (the order should match the order in your caption). Add minimal spacing or dividing lines if needed (but typically just concatenating directly is fine so the model sees one continuous image).
 
- - **Composite image dimensions**: Choose a fixed size for composite images, e.g. 512x1024 for two images side by side, or 1024x1024 for four images in a grid. This ensures uniformity and helps the model learn to generate multi-image outputs. You can also stack vertically or in grid; just ensure your caption format corresponds (e.g., if you do a vertical stack of three, maybe use [TOP], [MIDDLE], [BOTTOM] markers or [IMAGE1]/[IMAGE2]/[IMAGE3] in top-to-bottom order). Keep in mind the final composite size affects memory usage during training, so choose a size that fits your GPU memory limits. Aso sometimes it might not be smart to try to fit your images into a fixed aspect radio, e.g. like a square one 512x512 as I have done, as this might distort the images too much.
-
+- **Composite image dimensions**: Choose a fixed size for composite images, e.g. 512x1024 for two images side by side, or 1024x1024 for four images in a grid. This ensures uniformity and helps the model learn to generate multi-image outputs. You can also stack vertically or in grid; just ensure your caption format corresponds (e.g., if you do a vertical stack of three, maybe use [TOP], [MIDDLE], [BOTTOM] markers or [IMAGE1]/[IMAGE2]/[IMAGE3] in top-to-bottom order). Keep in mind the final composite size affects memory usage during training, so choose a size that fits your GPU memory limits. Aso sometimes it might not be smart to try to fit your images into a fixed aspect radio, e.g. like a square one 512x512 as I have done, as this might distort the images too much.
 
 ## 4. Fine-tuning In-Context LoRA on the FLUX model
+
 To train the model, we will use the In-Context LoRA approach on a diffusion transformer model like FLUX.
 
 LoRA (Low-Rank Adaptation) inserts trainable low-rank weight matrices into the model (typically into attention layers) and freezes the original model weights. This drastically reduces the number of parameters that need updating (and thus memory usage), making it feasible to train on a single high-end GPU.

@@ -1,7 +1,7 @@
 ---
 job: extension
 config:
-  name: "study1_pilot_v2"
+  name: "study1_pilot"
   process:
     - type: "sd_trainer"
       training_folder: "output"

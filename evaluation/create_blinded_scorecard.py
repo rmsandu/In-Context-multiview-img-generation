@@ -66,6 +66,7 @@ def create_scorecard(
                 {
                     "pair_id": pair_id,
                     "prompt_id": prompt_id,
+                    "prompt_group": record.get("prompt_group", ""),
                     "seed": seed,
                     "blind_label": blind_label,
                     "image_path": blind_path.relative_to(output_dir).as_posix(),
@@ -80,6 +81,7 @@ def create_scorecard(
                     "original_output_path": record["output_path"],
                     "pair_id": pair_id,
                     "prompt_id": prompt_id,
+                    "prompt_group": record.get("prompt_group", ""),
                     "seed": seed,
                 }
             )
@@ -89,6 +91,7 @@ def create_scorecard(
     fieldnames = [
         "pair_id",
         "prompt_id",
+        "prompt_group",
         "seed",
         "blind_label",
         "image_path",
@@ -113,10 +116,10 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--generation-manifest",
         type=Path,
-        default=Path("evaluation/outputs/study1_pilot/generation_manifest.jsonl"),
+        default=Path("evaluation/results/generation_manifest.jsonl"),
     )
     parser.add_argument(
-        "--output-dir", type=Path, default=Path("evaluation/outputs/study1_pilot_blinded")
+        "--output-dir", type=Path, default=Path("evaluation/results/blinded")
     )
     parser.add_argument("--blind-seed", type=int, default=17)
     return parser

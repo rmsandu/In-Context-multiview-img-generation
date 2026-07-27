@@ -72,6 +72,9 @@ models/
 !sanity_check_2_imgs.png
 !sanity_check_4_imgs.png
 training/
+evaluation/results/images/
+evaluation/results/generation_manifest.jsonl
+evaluation/results/blinded/
 
 # ─────────────────────────────
 #  Environment / secrets

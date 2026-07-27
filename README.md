@@ -197,37 +197,57 @@ image hashes. Re-running the command is idempotent when the existing files match
 it refuses to overwrite a different file or accept stale extra pairs.
 
 Training uses the neighboring AI Toolkit checkout already expected by this project.
-From this repository root, launch the 500-step pilot explicitly with:
+The config name determines the output directory: `study1_pilot` writes to
+`output/study1_pilot`. To make a genuinely fresh run, preserve any existing directory
+under a different name before launching training. From this repository root, launch
+the 500-step pilot explicitly with:
 
 ```bash
-python3.11 ../ai-toolkit/run.py configs/study1_pilot.yaml
+WANDB_MODE=online CUDA_VISIBLE_DEVICES=0 \
+  ../ai-toolkit/.venv/bin/python \
+  ../ai-toolkit/run.py \
+  configs/study1_pilot.yaml
 ```
 
 The config trains one rank-16/alpha-16 LoRA and samples two fixed holdout captions
-every 100 steps. This repository never launches that GPU command automatically.
+every 50 steps. AI Toolkit copies the effective run configuration to
+`output/study1_pilot/config.yaml`; keep that file with the resulting checkpoints.
+This repository never launches the GPU command automatically.
 
-After selecting the desired AI Toolkit checkpoint, generate the controlled base/LoRA
-pairs with the eight synthetic prompts and two fixed seeds:
+After training finishes, generate the controlled base/LoRA pairs with the exact final
+checkpoint and its copied run configuration:
 
 ```bash
-.venv/bin/python -m evaluation.generate_pairs \
+CUDA_VISIBLE_DEVICES=0 .venv/bin/python -m evaluation.generate_pairs \
   --lora output/study1_pilot/study1_pilot.safetensors \
+  --training-config output/study1_pilot/config.yaml \
+  --output-dir evaluation/results \
+  --seeds 1001 1002 \
   --cpu-offload
 ```
 
-The generator produces 32 grids: eight prompts × seeds 1001 and 1002 × base and
-LoRA. Both conditions use guidance 3.5, 20 steps, and 1024×1024 resolution. It
-recreates the CPU-backed torch generator immediately before every condition, leaves
-the LoRA unfused, and writes all settings, hashes, and output paths to
-`evaluation/outputs/study1_pilot/generation_manifest.jsonl`.
+This one command produces 32 grids: eight prompts × seeds 1001 and 1002 × base and
+LoRA. It generates every pristine base-FLUX result before loading the LoRA, then
+generates the LoRA phase with the same prompt, scheduler, guidance 3.5, 20 steps,
+1024×1024 resolution, and freshly reset CPU generator for every output. The adapter
+is never fused.
+
+Each pair is saved under
+`evaluation/results/images/<prompt_id>/<seed>/{base,lora}.png`. The adjacent
+`metadata.json` records the prompt group and text, seed, dimensions, inference
+settings, base-model revision, scheduler configuration, training-config and prompt
+hashes, exact LoRA path and hash, adapter scale, software versions, device/offload
+mode, and output hashes. A flat `evaluation/results/generation_manifest.jsonl`
+contains one row per generated grid for downstream metrics. The command refuses to
+replace an existing paired run unless `--overwrite` is explicitly supplied.
 
 Create randomized A/B image copies, a blank scoring CSV, and a separate condition
 key with:
 
 ```bash
 .venv/bin/python -m evaluation.create_blinded_scorecard \
-  --generation-manifest evaluation/outputs/study1_pilot/generation_manifest.jsonl \
-  --output-dir evaluation/outputs/study1_pilot_blinded \
+  --generation-manifest evaluation/results/generation_manifest.jsonl \
+  --output-dir evaluation/results/blinded \
   --blind-seed 17
 ```
 

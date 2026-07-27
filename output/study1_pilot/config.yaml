@@ -4,7 +4,7 @@ config:
   process:
   - type: sd_trainer
     training_folder: output
-    performance_log_every: 100
+    performance_log_every: 50
     device: cuda:0
     network:
       type: lora
@@ -12,8 +12,8 @@ config:
       linear_alpha: 16
     save:
       dtype: float16
-      save_every: 100
-      max_step_saves_to_keep: 5
+      save_every: 50
+      max_step_saves_to_keep: 10
       push_to_hub: false
     datasets:
     - folder_path: training/study1_pilot/train
@@ -27,8 +27,8 @@ config:
       - 1024
     logging:
       use_wandb: true
+      log_every: 10
       project_name: incontext-lora
-      run_name: study1-pilot
     train:
       batch_size: 1
       steps: 500
@@ -49,32 +49,34 @@ config:
       quantize: true
     sample:
       sampler: flowmatch
-      sample_every: 100
+      sample_every: 50
       width: 1024
       height: 1024
       prompts:
-      - '[FOUR-VIEWS] Four views of A clear plastic container of Chinese snacks, specifically
-        sesame candy, labeled with a green and white ''Weilong Moyu Shuang'' brand
-        tag.; [TOP-LEFT] Left side, high angle; clear plastic container lid and body,
-        green and white brand tag with Chinese characters, barcode on the side of
-        the tag, partially visible sesame candy inside; [TOP-RIGHT] Front, high angle;
-        front of the green and white brand tag with ''Moyu Shuang'' logo, clear plastic
-        container lid, sesame candy visible inside the container; [BOTTOM-LEFT] Front-right
-        three-quarter, high angle; front of the green and white brand tag, green label
-        on the side of the container with ''Sesame Candy'' in Chinese, stacked clear
-        plastic containers, sesame candy visible inside; [BOTTOM-RIGHT] Rear-right
-        three-quarter, high angle; back of the green label on the container, green
-        and white brand tag, stacked clear plastic containers, background showing
-        a store aisle with people.'
-      - '[FOUR-VIEWS] Four views of A light beige long-sleeved baby sweatshirt with
-        a small chest pocket, hanging on a blue hanger from a white coat rack.; [TOP-LEFT]
-        Front-right three-quarter, eye-level; right sleeve, front chest pocket, crew
-        neckline, blue hanger, white coat rack stand; [TOP-RIGHT] Front, eye-level;
-        front chest pocket, both sleeves, crew neckline, blue hanger, white coat rack
-        stand; [BOTTOM-LEFT] Front, eye-level; front chest pocket, both sleeves, crew
-        neckline, blue hanger, white coat rack stand; [BOTTOM-RIGHT] Front-left three-quarter,
-        eye-level; left sleeve, front chest pocket, crew neckline, blue hanger, white
-        coat rack stand.'
+      - '[FOUR-VIEWS] Four views of An orange toy racing motorcycle with black wheels,
+        white training wheels, and ''TOP RACING'' decals, shown from four different
+        angles on a blue-spotted textured surface.; [TOP-LEFT] Right side, high angle;
+        orange body, black front and rear wheels, white training wheel on the right
+        side, silver windshield, black seat, TOP RACING decals; [TOP-RIGHT] Front-right
+        three-quarter, high angle; front wheel, silver windshield with 65 RACING decal,
+        orange body, black seat, white training wheel on the right side; [BOTTOM-LEFT]
+        Front-left three-quarter, high angle; front wheel, silver windshield with
+        65 RACING decal, orange body, black seat, black training wheel on the left
+        side; [BOTTOM-RIGHT] Left side, high angle; orange body, black front and rear
+        wheels, black training wheel on the left side, silver windshield, black seat,
+        TOP RACING decals.'
+      - '[FOUR-VIEWS] Four views of A pink backpack featuring a black cat graphic
+        inside a yellow cup, with the text ''KIKI''S'' and ''sweety cat service''
+        printed on the front pocket.; [TOP-LEFT] Front-right three-quarter, high angle;
+        pink fabric body, black cat graphic in yellow cup, KIKI''S text, sweety cat
+        service text, front pocket, carrying handles, shoulder strap; [TOP-RIGHT]
+        Front-right three-quarter, high angle; pink fabric body, black cat graphic
+        in yellow cup, KIKI''S text, sweety cat service text, front pocket, carrying
+        handles, shoulder strap; [BOTTOM-LEFT] Front, high angle; pink fabric body,
+        black cat graphic in yellow cup, KIKI''S text, sweety cat service text, front
+        pocket, carrying handles, shoulder strap; [BOTTOM-RIGHT] Front-left three-quarter,
+        high angle; pink fabric body, black cat graphic in yellow cup, KIKI''S text,
+        sweety cat service text, front pocket, carrying handles, shoulder strap.'
       neg: ''
       seed: 17
       walk_seed: false

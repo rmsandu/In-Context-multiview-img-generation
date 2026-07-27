@@ -1,0 +1,96 @@
+{
+  "base_model_id": "black-forest-labs/FLUX.1-dev",
+  "checkpoints": {
+    "100": {
+      "path": "/home/raluca/2D-multiview-generation/output/study1_pilot/study1_pilot_000000100.safetensors",
+      "sha256": "73534558c601552193e877481075b8a97c70bc91bef1887469f0e559bfef6f15"
+    },
+    "300": {
+      "path": "/home/raluca/2D-multiview-generation/output/study1_pilot/study1_pilot_000000300.safetensors",
+      "sha256": "2b6faee53f6e637fa50d0a655de16c99a55bbe3426e22762b07d53f96b7843de"
+    },
+    "500": {
+      "path": "/home/raluca/2D-multiview-generation/output/study1_pilot/study1_pilot.safetensors",
+      "sha256": "4f473eae00e01dd3fe2db8d2b60785eb40d0b2c2e972fff73f46a1e44aadde6c"
+    }
+  },
+  "config_path": "/home/raluca/2D-multiview-generation/configs/study1_pilot.yaml",
+  "dtype": "bfloat16",
+  "expected_lora_components": [
+    "transformer"
+  ],
+  "generator": {
+    "device": "cpu",
+    "reset_before_every_generation": true
+  },
+  "gpu": "NVIDIA GeForce RTX 4090",
+  "guidance_scale": 3.5,
+  "images": {
+    "base": {
+      "checkpoint_path": null,
+      "checkpoint_sha256": null,
+      "dtype": "bfloat16",
+      "elapsed_seconds": 21.082819,
+      "gpu": "NVIDIA GeForce RTX 4090",
+      "output_path": "/home/raluca/2D-multiview-generation/evaluation/results_8bit/snack_container/base.png",
+      "peak_vram_bytes": 22948359168,
+      "quantization": "8bit",
+      "reused": true
+    },
+    "checkpoint_100": {
+      "checkpoint_path": "/home/raluca/2D-multiview-generation/output/study1_pilot/study1_pilot_000000100.safetensors",
+      "checkpoint_sha256": "73534558c601552193e877481075b8a97c70bc91bef1887469f0e559bfef6f15",
+      "dtype": "bfloat16",
+      "elapsed_seconds": 31.76418,
+      "gpu": "NVIDIA GeForce RTX 4090",
+      "output_path": "/home/raluca/2D-multiview-generation/evaluation/results_8bit/snack_container/checkpoint_100.png",
+      "peak_vram_bytes": 23518536704,
+      "quantization": "8bit",
+      "reused": true
+    },
+    "checkpoint_300": {
+      "checkpoint_path": "/home/raluca/2D-multiview-generation/output/study1_pilot/study1_pilot_000000300.safetensors",
+      "checkpoint_sha256": "2b6faee53f6e637fa50d0a655de16c99a55bbe3426e22762b07d53f96b7843de",
+      "dtype": "bfloat16",
+      "elapsed_seconds": 31.224185,
+      "gpu": "NVIDIA GeForce RTX 4090",
+      "output_path": "/home/raluca/2D-multiview-generation/evaluation/results_8bit/snack_container/checkpoint_300.png",
+      "peak_vram_bytes": 23510468608,
+      "quantization": "8bit",
+      "reused": true
+    },
+    "checkpoint_500": {
+      "checkpoint_path": "/home/raluca/2D-multiview-generation/output/study1_pilot/study1_pilot.safetensors",
+      "checkpoint_sha256": "4f473eae00e01dd3fe2db8d2b60785eb40d0b2c2e972fff73f46a1e44aadde6c",
+      "dtype": "bfloat16",
+      "elapsed_seconds": 33.16883,
+      "gpu": "NVIDIA GeForce RTX 4090",
+      "output_path": "/home/raluca/2D-multiview-generation/evaluation/results_8bit/snack_container/checkpoint_500.png",
+      "peak_vram_bytes": 23515819008,
+      "quantization": "8bit",
+      "reused": false
+    }
+  },
+  "inference_steps": 20,
+  "lora_fused": false,
+  "output_paths": {
+    "base": "/home/raluca/2D-multiview-generation/evaluation/results_8bit/snack_container/base.png",
+    "checkpoint_100": "/home/raluca/2D-multiview-generation/evaluation/results_8bit/snack_container/checkpoint_100.png",
+    "checkpoint_300": "/home/raluca/2D-multiview-generation/evaluation/results_8bit/snack_container/checkpoint_300.png",
+    "checkpoint_500": "/home/raluca/2D-multiview-generation/evaluation/results_8bit/snack_container/checkpoint_500.png",
+    "comparison": "/home/raluca/2D-multiview-generation/evaluation/results_8bit/snack_container/comparison.png",
+    "log": "/home/raluca/2D-multiview-generation/evaluation/results_8bit/snack_container/generation.log",
+    "manifest": "/home/raluca/2D-multiview-generation/evaluation/results_8bit/snack_container/manifest.json"
+  },
+  "prompt": "[FOUR-VIEWS] Four views of A clear plastic container of Chinese snacks, specifically sesame candy, labeled with a green and white 'Weilong Moyu Shuang' brand tag.; [TOP-LEFT] Left side, high angle; clear plastic container lid and body, green and white brand tag with Chinese characters, barcode on the side of the tag, partially visible sesame candy inside; [TOP-RIGHT] Front, high angle; front of the green and white brand tag with 'Moyu Shuang' logo, clear plastic container lid, sesame candy visible inside the container; [BOTTOM-LEFT] Front-right three-quarter, high angle; front of the green and white brand tag, green label on the side of the container with 'Sesame Candy' in Chinese, stacked clear plastic containers, sesame candy visible inside; [BOTTOM-RIGHT] Rear-right three-quarter, high angle; back of the green label on the container, green and white brand tag, stacked clear plastic containers, background showing a store aisle with people.",
+  "prompt_id": "snack_container",
+  "quantization": "8bit",
+  "resolution": {
+    "height": 1024,
+    "width": 1024
+  },
+  "scheduler": "flowmatch",
+  "scheduler_class": "FlowMatchEulerDiscreteScheduler",
+  "seed": 17,
+  "train_text_encoder": false
+}

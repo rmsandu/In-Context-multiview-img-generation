@@ -88,6 +88,19 @@ def test_prompt_file_has_eight_structured_prompts() -> None:
     assert {prompt["group"] for prompt in prompts} == {"synthetic_pose_conditioned"}
 
 
+def test_holdout_prompt_file_has_grouped_prompts() -> None:
+    prompts = load_prompts(Path("evaluation/prompts_holdout.jsonl"))
+
+    assert len(prompts) == 42
+    assert len({prompt["id"] for prompt in prompts}) == 42
+    assert {prompt["group"] for prompt in prompts} == {
+        "holdout_packaging_containers",
+        "holdout_soft_goods_decor",
+        "holdout_tools_sports",
+        "holdout_toys_vehicles",
+    }
+
+
 def test_generation_plan_is_paired_and_resets_generator(tmp_path: Path) -> None:
     plan = build_generation_plan([_prompt()])
     fake_torch = _FakeTorch()

@@ -112,3 +112,10 @@ Thumbs.db
 
 # Local working notes (exported assistant transcripts) - kept out of the repo
 LORA_PROJECT_CONVERSATIONS.md
+
+# Fetched third-party code (see scripts/fetch_orient_anything.sh)
+third_party/
+.venv-eval/
+
+# Per-image metric cache (rebuildable)
+.metric_cache/

@@ -69,9 +69,8 @@ MVImgNet ships settled it.
   0.70x shrinkage; same-view pairs 39% vs 17%.
 * Gemini's labels go the other way: path length 180 deg vs 109 deg true. Two
   instruments, opposite biases. The camera poses are the referee.
-* Figure idea: per-pair scatter of measured vs true relative angle, Orient
-  Anything and Gemini side by side, with the y = x line (TBD, from
-  `results/real_arcs/pairs.csv`).
+* Figure: `results/real_arcs/angles.png`, measured vs true angle for both
+  instruments. Gemini's "180 deg apart" covers true angles from 15 to 165 deg.
 * Recorded as protocol deviation 1, before any LoRA grid was scored.
 
 **Your angle:**

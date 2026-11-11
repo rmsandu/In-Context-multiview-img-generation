@@ -69,6 +69,19 @@ class _FakePipe:
         return SimpleNamespace(images=[_FakeImage(payload)])
 
 
+class _InterruptingPipe(_FakePipe):
+    def __init__(self, successful_calls: int) -> None:
+        super().__init__()
+        self.successful_calls = successful_calls
+        self.calls = 0
+
+    def __call__(self, prompt: str, *, generator: _FakeGenerator, **kwargs):
+        if self.calls >= self.successful_calls:
+            raise RuntimeError("simulated interruption")
+        self.calls += 1
+        return super().__call__(prompt, generator=generator, **kwargs)
+
+
 def _prompt(prompt_id: str = "object") -> dict[str, str]:
     return {
         "id": prompt_id,
@@ -195,6 +208,176 @@ def test_generation_refuses_to_overwrite_existing_results(tmp_path: Path) -> Non
 
     with pytest.raises(FileExistsError, match="--overwrite"):
         generate(_FakePipe(), plan, **kwargs)
+
+
+def test_generation_resumes_only_missing_verified_outputs(tmp_path: Path) -> None:
+    plan = build_generation_plan([_prompt()], seeds=[1001, 1002])
+    manifest = tmp_path / "generation_manifest.jsonl"
+    run_config = {"base_model": "test", "lora_path": "test.safetensors"}
+
+    with pytest.raises(RuntimeError, match="simulated interruption"):
+        generate(
+            _InterruptingPipe(successful_calls=3),
+            plan,
+            torch_module=_FakeTorch(),
+            output_dir=tmp_path,
+            manifest_path=manifest,
+            run_config=run_config,
+        )
+
+    existing_paths = [
+        tmp_path / "images" / "object" / "1001" / "base.png",
+        tmp_path / "images" / "object" / "1002" / "base.png",
+        tmp_path / "images" / "object" / "1001" / "lora.png",
+    ]
+    existing_payloads = {path: path.read_bytes() for path in existing_paths}
+    orphan = tmp_path / "images" / "object" / "1002" / "lora.png"
+    orphan.write_bytes(b"unmanifested partial output")
+    fake_torch = _FakeTorch()
+
+    records = generate(
+        _FakePipe(),
+        plan,
+        torch_module=fake_torch,
+        output_dir=tmp_path,
+        manifest_path=manifest,
+        run_config=run_config,
+        resume=True,
+    )
+
+    assert len(records) == 4
+    assert len(fake_torch.generators) == 1
+    assert fake_torch.generators[0].seed == 1002
+    assert all(path.read_bytes() == payload for path, payload in existing_payloads.items())
+    assert orphan.read_bytes() != b"unmanifested partial output"
+    assert len(manifest.read_text(encoding="utf-8").splitlines()) == 4
+    metadata = json.loads(
+        (tmp_path / "images" / "object" / "1002" / "metadata.json").read_text(encoding="utf-8")
+    )
+    assert set(metadata["outputs"]) == {"base", "lora"}
+
+
+def test_resume_rejects_changed_run_configuration(tmp_path: Path) -> None:
+    plan = build_generation_plan([_prompt()], seeds=[1001])
+    manifest = tmp_path / "generation_manifest.jsonl"
+    generate(
+        _FakePipe(),
+        plan,
+        torch_module=_FakeTorch(),
+        output_dir=tmp_path,
+        manifest_path=manifest,
+        run_config={"base_model": "test", "lora_path": "first.safetensors"},
+    )
+
+    with pytest.raises(ValueError, match="does not match the current run"):
+        generate(
+            _FakePipe(),
+            plan,
+            torch_module=_FakeTorch(),
+            output_dir=tmp_path,
+            manifest_path=manifest,
+            run_config={"base_model": "test", "lora_path": "different.safetensors"},
+            resume=True,
+        )
+
+
+def test_resume_accepts_reordered_scheduler_default_metadata(tmp_path: Path) -> None:
+    plan = build_generation_plan([_prompt()], seeds=[1001])
+    manifest = tmp_path / "generation_manifest.jsonl"
+    saved_scheduler = {
+        "_use_default_values": ["use_karras_sigmas", "invert_sigmas"],
+        "shift": 3.0,
+    }
+    with pytest.raises(RuntimeError, match="simulated interruption"):
+        generate(
+            _InterruptingPipe(successful_calls=1),
+            plan,
+            torch_module=_FakeTorch(),
+            output_dir=tmp_path,
+            manifest_path=manifest,
+            run_config={
+                "base_model": "test",
+                "lora_path": "test.safetensors",
+                "scheduler_config": saved_scheduler,
+            },
+        )
+
+    records = generate(
+        _FakePipe(),
+        plan,
+        torch_module=_FakeTorch(),
+        output_dir=tmp_path,
+        manifest_path=manifest,
+        run_config={
+            "base_model": "test",
+            "lora_path": "test.safetensors",
+            "scheduler_config": {
+                "_use_default_values": ["invert_sigmas", "use_karras_sigmas"],
+                "shift": 3.0,
+            },
+        },
+        resume=True,
+    )
+
+    assert len(records) == 2
+    assert all(record["scheduler_config"] == saved_scheduler for record in records)
+    with pytest.raises(ValueError, match="scheduler_config"):
+        generate(
+            _FakePipe(),
+            plan,
+            torch_module=_FakeTorch(),
+            output_dir=tmp_path,
+            manifest_path=manifest,
+            run_config={
+                "base_model": "test",
+                "lora_path": "test.safetensors",
+                "scheduler_config": {
+                    "_use_default_values": ["invert_sigmas", "use_karras_sigmas"],
+                    "shift": 4.0,
+                },
+            },
+            resume=True,
+        )
+
+
+def test_resume_rejects_modified_manifest_backed_output(tmp_path: Path) -> None:
+    plan = build_generation_plan([_prompt()], seeds=[1001])
+    manifest = tmp_path / "generation_manifest.jsonl"
+    run_config = {"base_model": "test", "lora_path": "test.safetensors"}
+    generate(
+        _FakePipe(),
+        plan,
+        torch_module=_FakeTorch(),
+        output_dir=tmp_path,
+        manifest_path=manifest,
+        run_config=run_config,
+    )
+    (tmp_path / "images" / "object" / "1001" / "base.png").write_bytes(b"modified")
+
+    with pytest.raises(ValueError, match="output hash does not match"):
+        generate(
+            _FakePipe(),
+            plan,
+            torch_module=_FakeTorch(),
+            output_dir=tmp_path,
+            manifest_path=manifest,
+            run_config=run_config,
+            resume=True,
+        )
+
+
+def test_resume_and_overwrite_are_mutually_exclusive(tmp_path: Path) -> None:
+    with pytest.raises(ValueError, match="mutually exclusive"):
+        generate(
+            _FakePipe(),
+            build_generation_plan([_prompt()], seeds=[1001]),
+            torch_module=_FakeTorch(),
+            output_dir=tmp_path,
+            manifest_path=tmp_path / "generation_manifest.jsonl",
+            run_config={"base_model": "test", "lora_path": "test.safetensors"},
+            resume=True,
+            overwrite=True,
+        )
 
 
 def test_pair_validation_rejects_missing_condition() -> None:

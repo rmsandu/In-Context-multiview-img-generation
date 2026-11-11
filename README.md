@@ -239,7 +239,12 @@ settings, base-model revision, scheduler configuration, training-config and prom
 hashes, exact LoRA path and hash, adapter scale, software versions, device/offload
 mode, and output hashes. A flat `evaluation/results/generation_manifest.jsonl`
 contains one row per generated grid for downstream metrics. The command refuses to
-replace an existing paired run unless `--overwrite` is explicitly supplied.
+replace an existing paired run unless `--overwrite` is explicitly supplied. After
+an interrupted run, repeat the exact command with `--resume`. Resume mode validates
+the manifest records, output hashes, prompts, checkpoint, training config, scheduler,
+software versions, and generation settings before skipping an output. It generates
+only missing records and rebuilds their adjacent metadata. `--resume` and
+`--overwrite` are mutually exclusive.
 
 Create randomized A/B image copies, a blank scoring CSV, and a separate condition
 key with:

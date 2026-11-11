@@ -84,6 +84,17 @@ def _json_safe(value: Any) -> Any:
     return str(value)
 
 
+def _canonical_scheduler_config(value: Any) -> Any:
+    """Normalize unordered Diffusers bookkeeping without changing scheduler values."""
+    config = _json_safe(value)
+    if not isinstance(config, dict):
+        return config
+    default_values = config.get("_use_default_values")
+    if isinstance(default_values, list) and all(isinstance(item, str) for item in default_values):
+        config["_use_default_values"] = sorted(default_values)
+    return config
+
+
 def load_prompts(path: Path) -> list[dict[str, str]]:
     prompts: list[dict[str, str]] = []
     seen_ids: set[str] = set()
@@ -96,12 +107,10 @@ def load_prompts(path: Path) -> list[dict[str, str]]:
         except (json.JSONDecodeError, KeyError, TypeError) as exc:
             raise ValueError(f"Invalid prompt record on {path}:{line_number}") from exc
         if not all(
-            isinstance(item, str) and item.strip()
-            for item in (prompt_id, prompt_group, prompt)
+            isinstance(item, str) and item.strip() for item in (prompt_id, prompt_group, prompt)
         ):
             raise ValueError(
-                f"Prompt id, group, and text must be non-empty strings on "
-                f"{path}:{line_number}"
+                f"Prompt id, group, and text must be non-empty strings on {path}:{line_number}"
             )
         if prompt_id in seen_ids:
             raise ValueError(f"Duplicate prompt id: {prompt_id}")
@@ -184,6 +193,10 @@ def _metadata_path(output_dir: Path, item: Generation) -> Path:
     return output_dir / "images" / item.prompt_id / str(item.seed) / "metadata.json"
 
 
+def _generation_key(item: Generation) -> tuple[str, int, str]:
+    return (item.prompt_id, item.seed, item.condition)
+
+
 def _pair_metadata(records: list[dict[str, Any]]) -> dict[str, Any]:
     first = records[0]
     parameter_exclusions = {
@@ -232,10 +245,145 @@ def _write_pair_metadata(
         if record["prompt_id"] == item.prompt_id and record["seed"] == item.seed
     ]
     metadata_path = _metadata_path(output_dir, item)
+    metadata_path.parent.mkdir(parents=True, exist_ok=True)
     metadata_path.write_text(
         json.dumps(_pair_metadata(pair), indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
     )
+
+
+def _load_resume_records(
+    *,
+    plan: list[Generation],
+    output_dir: Path,
+    manifest_path: Path,
+    run_config: dict[str, Any],
+) -> list[dict[str, Any]]:
+    """Load and verify records that are safe to reuse during a resumed run."""
+    if not manifest_path.exists():
+        existing = [path for item in plan if (path := _output_path(output_dir, item)).exists()]
+        if existing:
+            preview = ", ".join(path.as_posix() for path in existing[:3])
+            raise ValueError(
+                f"Cannot resume without {manifest_path}; existing outputs have no "
+                f"verifiable provenance ({preview})."
+            )
+        return []
+
+    plan_by_key = {_generation_key(item): item for item in plan}
+    expected_paths = {_output_path(output_dir, item).resolve() for item in plan}
+    images_dir = output_dir / "images"
+    actual_paths = (
+        {
+            path.resolve()
+            for condition in CONDITIONS
+            for path in images_dir.rglob(f"{condition}.png")
+        }
+        if images_dir.is_dir()
+        else set()
+    )
+    unexpected_paths = sorted(actual_paths - expected_paths)
+    if unexpected_paths:
+        preview = ", ".join(path.as_posix() for path in unexpected_paths[:3])
+        raise ValueError(f"Cannot resume with outputs outside the current plan: {preview}")
+
+    records: list[dict[str, Any]] = []
+    seen_keys: set[tuple[str, int, str]] = set()
+    for line_number, line in enumerate(manifest_path.read_text(encoding="utf-8").splitlines(), 1):
+        try:
+            record = json.loads(line)
+        except json.JSONDecodeError as exc:
+            raise ValueError(
+                f"Invalid JSON in resume manifest {manifest_path}:{line_number}"
+            ) from exc
+        if not isinstance(record, dict):
+            raise ValueError(
+                f"Resume manifest record must be an object on {manifest_path}:{line_number}"
+            )
+        try:
+            prompt_id = record["prompt_id"]
+            seed = record["seed"]
+            condition = record["condition"]
+        except KeyError as exc:
+            raise ValueError(
+                f"Resume manifest record is missing {exc.args[0]!r} on "
+                f"{manifest_path}:{line_number}"
+            ) from exc
+        if (
+            not isinstance(prompt_id, str)
+            or not isinstance(seed, int)
+            or isinstance(seed, bool)
+            or condition not in CONDITIONS
+        ):
+            raise ValueError(
+                f"Invalid generation key in resume manifest {manifest_path}:{line_number}"
+            )
+        key = (prompt_id, seed, str(condition))
+        if key in seen_keys:
+            raise ValueError(f"Duplicate resume manifest record for {key}")
+        try:
+            item = plan_by_key[key]
+        except KeyError as exc:
+            raise ValueError(
+                f"Resume manifest record {key} is outside the current generation plan"
+            ) from exc
+
+        output_path = _output_path(output_dir, item)
+        metadata_path = _metadata_path(output_dir, item)
+        expected_record = {
+            **asdict(item),
+            **run_config,
+            "generator_device": "cpu",
+            "generator_reset_per_condition": True,
+            "lora_fused": False,
+            "adapter_active": item.condition == "lora",
+            "model": item.condition,
+            "output_path": _relative_or_absolute(output_path, manifest_path.parent),
+            "metadata_path": _relative_or_absolute(metadata_path, manifest_path.parent),
+        }
+        mismatched_fields = [
+            field
+            for field, expected in expected_record.items()
+            if field not in record
+            or (
+                _canonical_scheduler_config(record[field]) != _canonical_scheduler_config(expected)
+                if field == "scheduler_config"
+                else record[field] != expected
+            )
+        ]
+        if mismatched_fields:
+            raise ValueError(
+                f"Resume manifest record {key} does not match the current run for "
+                f"fields: {', '.join(mismatched_fields)}"
+            )
+        if not output_path.is_file():
+            raise ValueError(
+                f"Resume manifest record {key} references a missing output: {output_path}"
+            )
+        output_hash = record.get("output_sha256")
+        if not isinstance(output_hash, str) or sha256_file(output_path) != output_hash:
+            raise ValueError(
+                f"Resume output hash does not match the manifest for {key}: {output_path}"
+            )
+        seen_keys.add(key)
+        records.append(record)
+    return records
+
+
+def _restore_resume_metadata(
+    *,
+    records: list[dict[str, Any]],
+    plan: list[Generation],
+    output_dir: Path,
+) -> None:
+    """Recreate derived metadata files from verified manifest records."""
+    recorded_pairs = {(str(record["prompt_id"]), int(record["seed"])) for record in records}
+    restored_pairs: set[tuple[str, int]] = set()
+    for item in plan:
+        pair_key = (item.prompt_id, item.seed)
+        if pair_key in recorded_pairs and pair_key not in restored_pairs:
+            _write_pair_metadata(records=records, item=item, output_dir=output_dir)
+            restored_pairs.add(pair_key)
 
 
 def _default_condition_controller(pipe: Any, condition: str) -> None:
@@ -281,27 +429,53 @@ def generate(
     run_config: dict[str, Any],
     condition_controller: Callable[[str], None] | None = None,
     overwrite: bool = False,
+    resume: bool = False,
 ) -> list[dict[str, Any]]:
     """Run base then LoRA, recreating a CPU torch generator for every output."""
-    existing = [path for item in plan if (path := _output_path(output_dir, item)).exists()]
-    if manifest_path.exists():
-        existing.append(manifest_path)
-    if existing and not overwrite:
-        preview = ", ".join(path.as_posix() for path in existing[:3])
-        raise FileExistsError(
-            f"Paired-generation outputs already exist ({preview}). "
-            "Use a new --output-dir or pass --overwrite."
+    if overwrite and resume:
+        raise ValueError("--overwrite and --resume are mutually exclusive")
+
+    if resume:
+        records = _load_resume_records(
+            plan=plan,
+            output_dir=output_dir,
+            manifest_path=manifest_path,
+            run_config=run_config,
         )
+        if records and "scheduler_config" in run_config:
+            run_config = {
+                **run_config,
+                "scheduler_config": records[0]["scheduler_config"],
+            }
+        _restore_resume_metadata(records=records, plan=plan, output_dir=output_dir)
+    else:
+        existing = [path for item in plan if (path := _output_path(output_dir, item)).exists()]
+        if manifest_path.exists():
+            existing.append(manifest_path)
+        if existing and not overwrite:
+            preview = ", ".join(path.as_posix() for path in existing[:3])
+            raise FileExistsError(
+                f"Paired-generation outputs already exist ({preview}). "
+                "Use a new --output-dir, pass --resume, or pass --overwrite."
+            )
+        records = []
 
     controller = condition_controller or (
         lambda condition: _default_condition_controller(pipe, condition)
     )
     output_dir.mkdir(parents=True, exist_ok=True)
     manifest_path.parent.mkdir(parents=True, exist_ok=True)
-    manifest_path.write_text("", encoding="utf-8")
-    records: list[dict[str, Any]] = []
+    if not resume:
+        manifest_path.write_text("", encoding="utf-8")
+    completed_keys = {
+        (str(record["prompt_id"]), int(record["seed"]), str(record["condition"]))
+        for record in records
+    }
     active_condition: str | None = None
     for item in plan:
+        item_key = _generation_key(item)
+        if item_key in completed_keys:
+            continue
         if item.condition != active_condition:
             controller(item.condition)
             active_condition = item.condition
@@ -334,6 +508,7 @@ def generate(
         with manifest_path.open("a", encoding="utf-8") as handle:
             handle.write(json.dumps(record, sort_keys=True) + "\n")
         _write_pair_metadata(records=records, item=item, output_dir=output_dir)
+        completed_keys.add(item_key)
     validate_paired_records(records)
     return records
 
@@ -365,20 +540,22 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--num-inference-steps", type=int, default=STEPS)
     parser.add_argument("--width", type=int, default=WIDTH)
     parser.add_argument("--height", type=int, default=HEIGHT)
-    parser.add_argument("--overwrite", action="store_true")
+    existing_output_mode = parser.add_mutually_exclusive_group()
+    existing_output_mode.add_argument(
+        "--resume",
+        action="store_true",
+        help="Verify and reuse manifest-backed outputs, generating only missing records",
+    )
+    existing_output_mode.add_argument("--overwrite", action="store_true")
     return parser
 
 
 def main(argv: list[str] | None = None) -> None:
     args = build_parser().parse_args(argv)
     if not args.lora.is_file():
-        raise FileNotFoundError(
-            f"--lora must name the exact LoRA checkpoint file: {args.lora}"
-        )
+        raise FileNotFoundError(f"--lora must name the exact LoRA checkpoint file: {args.lora}")
     if not args.training_config.is_file():
-        raise FileNotFoundError(
-            f"Training config does not exist: {args.training_config}"
-        )
+        raise FileNotFoundError(f"Training config does not exist: {args.training_config}")
     training_run_name = validate_training_checkpoint(args.training_config, args.lora)
 
     import torch
@@ -397,7 +574,7 @@ def main(argv: list[str] | None = None) -> None:
 
     manifest_path = args.output_dir / "generation_manifest.jsonl"
     lora_hash = sha256_file(args.lora) if args.lora.is_file() else None
-    scheduler_config = _json_safe(getattr(pipe.scheduler, "config", {}))
+    scheduler_config = _canonical_scheduler_config(getattr(pipe.scheduler, "config", {}))
     run_config = {
         "base_model": args.base_model,
         "base_model_revision": args.base_model_revision,
@@ -451,8 +628,9 @@ def main(argv: list[str] | None = None) -> None:
                 adapter_name=training_run_name,
             ),
             overwrite=args.overwrite,
+            resume=args.resume,
         )
-    print(f"Generated {len(records)} outputs and wrote {manifest_path}")
+    print(f"Run contains {len(records)} outputs and wrote {manifest_path}")
 
 
 if __name__ == "__main__":

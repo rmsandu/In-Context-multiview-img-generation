@@ -241,20 +241,28 @@ def _mean_ci(values: np.ndarray, rng) -> tuple[float, float, float]:
 
 def figure_identity_vs_views(main: pd.DataFrame, controls: pd.DataFrame, out: Path) -> None:
     import matplotlib.pyplot as plt
+    from matplotlib.patches import Rectangle
 
     rng = np.random.default_rng(SEED)
-    fig, ax = plt.subplots(figsize=(6.4, 4.6), dpi=200, facecolor=SURFACE)
+    fig, (full, zoom) = plt.subplots(
+        1, 2, figsize=(10.4, 4.6), dpi=200, facecolor=SURFACE, gridspec_kw={"width_ratios": [1, 1]}
+    )
     _style(
-        ax,
+        full,
         "Identity vs. viewpoint diversity (per-prompt means, 95% CI)",
         "distinct viewpoints in the grid (of 4)",
         "identity: masked DINOv2 cosine between tiles",
     )
+    _style(zoom, "Zoom: base vs. the three LoRA runs", "distinct viewpoints in the grid (of 4)", "")
 
-    def point(frame, colour, label, size=42, label_dx=0.04, label_dy=0.0, ink=INK):
+    def estimate(frame):
         per_prompt = frame.groupby("prompt_id")[["identity_dino", "distinct_views"]].mean()
-        x = _mean_ci(per_prompt["distinct_views"].to_numpy(), rng)
-        y = _mean_ci(per_prompt["identity_dino"].to_numpy(), rng)
+        return (
+            _mean_ci(per_prompt["distinct_views"].to_numpy(), rng),
+            _mean_ci(per_prompt["identity_dino"].to_numpy(), rng),
+        )
+
+    def draw(ax, x, y, colour, marker="o", size=42, label=None):
         ax.errorbar(
             x[0],
             y[0],
@@ -264,27 +272,86 @@ def figure_identity_vs_views(main: pd.DataFrame, controls: pd.DataFrame, out: Pa
             ecolor=colour,
             elinewidth=1,
             capsize=0,
-            alpha=0.7,
+            alpha=0.6,
         )
-        ax.scatter(x[0], y[0], s=size, color=colour, edgecolor=SURFACE, linewidth=1.5, zorder=3)
+        ax.scatter(
+            x[0],
+            y[0],
+            s=size,
+            color=colour,
+            marker=marker,
+            edgecolor=SURFACE,
+            linewidth=1.5,
+            zorder=3,
+            label=label,
+        )
+
+    def tag(ax, x, y, text, ink=INK, dx=0.05, dy=0.0, ha="left"):
         ax.annotate(
-            label,
+            text,
             (x[0], y[0]),
-            xytext=(x[0] + label_dx, y[0] + label_dy),
+            xytext=(x[0] + dx, y[0] + dy),
             fontsize=8,
             color=ink,
             va="center",
+            ha=ha,
         )
 
-    for arm, label in (("dup4", "same tile x4"), ("mixed", "4 different objects")):
-        point(controls[controls["arm"] == arm], MUTED, label, size=30, ink=INK_2)
-    point(controls[controls["arm"] == "real"], REAL, "real photos (holdout)")
-    point(main[main["arm"] == "base"], BASE, "FLUX base")
-    for rep in REPLICATES:
-        if rep in set(main["arm"]):
-            point(main[main["arm"] == rep], LORA, f"LoRA {rep}", size=34)
-    ax.set_xlim(0.8, 4.0)
-    ax.set_ylim(0.0, 1.05)
+    for arm, text in (("dup4", "same tile x4"), ("mixed", "4 different objects")):
+        x, y = estimate(controls[controls["arm"] == arm])
+        draw(full, x, y, MUTED, size=30)
+        tag(full, x, y, text, ink=INK_2, dy=0.04 if arm == "mixed" else 0.0)
+    x, y = estimate(controls[controls["arm"] == "real"])
+    draw(full, x, y, REAL)
+    tag(full, x, y, "real photos (holdout)", dx=-0.05, dy=0.045, ha="left")
+
+    arms = [("base", BASE, "o", "FLUX base")] + [
+        (rep, LORA, marker, f"LoRA {rep}")
+        for rep, marker in zip(REPLICATES, ("s", "^", "D"))
+        if rep in set(main["arm"])
+    ]
+    points = {arm: estimate(main[main["arm"] == arm]) for arm, *_ in arms}
+    for arm, colour, marker, label in arms:
+        draw(full, *points[arm], colour, marker=marker, size=26)
+        draw(zoom, *points[arm], colour, marker=marker, size=46, label=label)
+    bx, by = points["base"]
+    for arm, *_ in arms[1:]:
+        lx, ly = points[arm]
+        zoom.annotate(
+            "",
+            (lx[0], ly[0]),
+            xytext=(bx[0], by[0]),
+            arrowprops={"arrowstyle": "->", "color": LORA, "lw": 0.8, "alpha": 0.7},
+        )
+
+    lo_x = min(p[0][1] for p in points.values()) - 0.05
+    hi_x = max(p[0][2] for p in points.values()) + 0.05
+    lo_y = min(p[1][1] for p in points.values()) - 0.01
+    hi_y = max(p[1][2] for p in points.values()) + 0.01
+    full.add_patch(
+        Rectangle(
+            (lo_x, lo_y),
+            hi_x - lo_x,
+            hi_y - lo_y,
+            fill=False,
+            edgecolor=INK_2,
+            linewidth=0.8,
+            linestyle="--",
+        )
+    )
+    full.annotate(
+        "base and LoRA\n(zoom on the right)",
+        (hi_x, (lo_y + hi_y) / 2),
+        xytext=(hi_x + 0.06, (lo_y + hi_y) / 2),
+        fontsize=8,
+        color=INK_2,
+        va="center",
+    )
+    full.set_xlim(0.8, 4.0)
+    full.set_ylim(0.0, 1.05)
+    zoom.set_xlim(lo_x, hi_x)
+    zoom.set_ylim(lo_y, hi_y)
+    zoom.legend(loc="upper left", fontsize=8, frameon=False, labelcolor=INK_2)
     fig.tight_layout()
     fig.savefig(out, facecolor=SURFACE)
     plt.close(fig)
@@ -444,7 +511,7 @@ def write_report(summary: dict, out: Path) -> None:
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--metrics", type=Path, default=Path("results/metrics"))
-    parser.add_argument("--generations", type=Path, default=Path("evaluation/results/study1_8bit"))
+    parser.add_argument("--generations", type=Path, default=Path("results/generation"))
     parser.add_argument("--humans", type=Path, default=Path("results/humans/summary.json"))
     parser.add_argument("--output-dir", type=Path, default=Path("results/study1"))
     args = parser.parse_args(argv)

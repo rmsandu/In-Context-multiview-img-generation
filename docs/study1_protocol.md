@@ -273,3 +273,42 @@ What changes:
 The main generation run had started but no generated LoRA grid had been scored
 when this was written. The git timestamp of this section precedes
 `results/metrics/main/`.
+
+### 2. Notes written after the LoRA results (2026-11-12)
+
+Nothing in the registered analysis changed. The verdict in
+[`results/study1/report.md`](../results/study1/report.md) is the rule above applied
+as written: A1 fails (pooled delta `identity_dino` +0.006, 95% CI -0.009 to
++0.020, though all three replicates are positive), A2 and V pass, H1 is pending
+and cannot change the outcome.
+
+**Provenance flag on the main run.** Every main-run record says
+`python_sources_dirty: true`. At launch, the only uncommitted Python file was the
+untracked `analysis/build_explorer.py`, which generation does not import. It was
+committed 11 minutes later (`d3f649f`). `git diff 2a4a886 2338908 -- evaluation src`
+is empty, and the sweep, run from the clean commit `2338908`, reproduced all 24
+shared base images and all 24 shared r1 images byte for byte.
+
+**Post-hoc analysis: how far does the adapter move each image?**
+(`analysis/adapter_effect.py`, `results/adapter_effect/`). Added after seeing that
+the deltas were small, so it explains the result but is not evidence for or
+against the hypothesis.
+
+* With prompt and seed fixed, the median per-tile DreamSim distance between the
+  base and LoRA images is 0.025-0.045, against 0.30 between two seeds of the base
+  model. It grows with scale (0.009 at 0.25 to 0.055 at 1.5) and with training
+  step (0.005 at step 100 to 0.034 at step 500).
+* The three replicates move each tile in the same direction: the median cosine
+  between their DreamSim displacements is 0.49-0.73, against 0.003-0.010 when one
+  displacement comes from a different prompt. Their weight updates have cosine
+  0.02-0.03 ([lora_notes.md](lora_notes.md)).
+* Every training composite has black side bars (median 44% of the tile). No
+  generated grid has any, in any arm, at any scale up to 1.5, by the registered
+  detector or by a looser one. The LoRA did not pick up the most consistent visual
+  feature of its training set.
+
+Reading: the adapter's effect is real and consistent across training runs, but
+small. At 500 steps and lr 1e-4 it changes the picture far less than a new seed
+does. The most likely explanation for the null result is that this recipe is too
+weak, not that In-Context LoRA cannot improve identity. Only a stronger training
+run that does learn the bars can test that.

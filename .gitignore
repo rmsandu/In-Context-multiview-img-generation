@@ -72,6 +72,7 @@ models/
 !docs/assets/*.png
 !results/lora_anatomy/*.png
 !results/study1/figures/*.png
+!results/real_arcs/*.png
 training/
 evaluation/results/
 

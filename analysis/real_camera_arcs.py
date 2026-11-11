@@ -180,6 +180,82 @@ def compare(pairs, measured: str, reference: str = "gt_rel_azimuth") -> dict:
     }
 
 
+def figure(pairs, out: Path) -> None:
+    """Measured vs true camera angle between tiles, for Orient Anything and Gemini."""
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    ink, ink_2, muted, grid, surface, mark = (
+        "#0b0b0b",
+        "#52514e",
+        "#898781",
+        "#e1e0d9",
+        "#fcfcfb",
+        "#2a78d6",
+    )
+    rng = np.random.default_rng(0)
+    fig, axes = plt.subplots(1, 2, figsize=(9.6, 4.4), sharex=True)
+    fig.patch.set_facecolor(surface)
+    oa = pairs.dropna(subset=["oa_rel_azimuth"])
+    gem = pairs[(pairs.source == "accepted")].dropna(subset=["gemini_rel_azimuth"])
+    panels = [
+        (axes[0], oa, "oa_rel_azimuth", "Orient Anything V2 (19 composites)"),
+        (axes[1], gem, "gemini_rel_azimuth", "Gemini 3.5 Flash labels (187 composites)"),
+    ]
+    for ax, frame, column, title in panels:
+        truth = frame.gt_rel_azimuth.abs().to_numpy()
+        said = frame[column].abs().to_numpy()
+        ax.set_facecolor(surface)
+        ax.grid(True, color=grid, linewidth=0.6)
+        ax.set_axisbelow(True)
+        for side in ("top", "right"):
+            ax.spines[side].set_visible(False)
+        for side in ("left", "bottom"):
+            ax.spines[side].set_color(grid)
+        ax.tick_params(colors=ink_2, labelsize=9, length=0)
+        ax.plot([0, 190], [0, 190], color=muted, linestyle="--", linewidth=1)
+        ax.text(150, 160, "agreement", color=muted, fontsize=8.5, rotation=40)
+        if column == "gemini_rel_azimuth":
+            jitter = rng.uniform(-7, 7, size=len(said))
+            ax.scatter(truth, said + jitter, s=9, color=mark, alpha=0.35, linewidth=0)
+            for level in sorted(set(said)):
+                med = np.median(truth[said == level])
+                ax.scatter(
+                    [med],
+                    [level],
+                    marker="D",
+                    s=46,
+                    color=ink,
+                    zorder=3,
+                    edgecolor=surface,
+                    linewidth=1.5,
+                )
+            ax.text(
+                np.median(truth[said == 180]) + 8,
+                180,
+                "median true angle",
+                color=ink,
+                fontsize=8.5,
+                va="center",
+            )
+            ax.set_yticks([0, 45, 90, 135, 180])
+        else:
+            ax.scatter(truth, said, s=22, color=mark, alpha=0.75, edgecolor=surface, linewidth=1)
+            slope = float(np.sum(said * truth) / np.sum(truth * truth))
+            ax.plot([0, 185], [0, 185 * slope], color=ink, linewidth=1.5)
+            ax.text(178, 185 * slope - 14, f"{slope:.2f}x", color=ink, fontsize=9, ha="right")
+        ax.set_xlim(0, 190)
+        ax.set_ylim(-10, 195)
+        ax.set_title(title, loc="left", fontsize=10.5, color=ink)
+        ax.set_xlabel("true angle between two tiles, from COLMAP (deg)", color=ink_2, fontsize=9)
+    axes[0].set_ylabel("angle the instrument reports (deg)", color=ink_2, fontsize=9)
+    fig.tight_layout()
+    fig.savefig(out, dpi=200, facecolor=surface)
+    plt.close(fig)
+
+
 def main(argv: list[str] | None = None) -> None:
     import pandas as pd
 
@@ -194,7 +270,11 @@ def main(argv: list[str] | None = None) -> None:
     )
     parser.add_argument("--controls", type=Path, default=Path("results/metrics/controls/pairs.csv"))
     parser.add_argument("--output-dir", type=Path, default=Path("results/real_arcs"))
+    parser.add_argument("--plot-only", action="store_true", help="redraw from pairs.csv")
     args = parser.parse_args(argv)
+    if args.plot_only:
+        figure(pd.read_csv(args.output_dir / "pairs.csv"), args.output_dir / "angles.png")
+        return
 
     sources = [
         ("accepted", args.accepted / "manifest.jsonl"),
@@ -263,6 +343,7 @@ def main(argv: list[str] | None = None) -> None:
     grids.to_csv(args.output_dir / "composites.csv", index=False)
     pairs.to_csv(args.output_dir / "pairs.csv", index=False)
     (args.output_dir / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
+    figure(pairs, args.output_dir / "angles.png")
     print(json.dumps(summary, indent=2))
 
 

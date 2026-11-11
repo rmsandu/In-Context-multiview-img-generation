@@ -69,8 +69,7 @@ models/
 *.png
 *.jpg
 *.webm
-!sanity_check_2_imgs.png
-!sanity_check_4_imgs.png
+!docs/assets/*.png
 training/
 evaluation/results/
 
@@ -110,3 +109,6 @@ Thumbs.db
 # ─────────────────────────────
 #  End of file
 # ─────────────────────────────
+
+# Local working notes (exported assistant transcripts) - kept out of the repo
+LORA_PROJECT_CONVERSATIONS.md

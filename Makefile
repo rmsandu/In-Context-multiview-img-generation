@@ -7,7 +7,7 @@ PIP := $(PY) -m pip
 REQ ?= requirements.txt
 
 # ------------ targets ---------------------------------
-.PHONY: env dev lint test dash clean
+.PHONY: env dev lint test clean
 
 env:            ## create venv & install deps
 	@echo "🔧  Creating virtual environment: $(VENV)"
@@ -21,14 +21,11 @@ dev:            ## create a lightweight CPU-only development environment
 	$(PIP) install --upgrade pip
 	$(PIP) install -e ".[test]"
 
-lint:           ## run ruff + black (check only)
+lint:           ## run ruff (check only)
 	$(PY) -m ruff check .
 
 test:           ## run pytest suite
 	$(PY) -m pytest -q
-
-dash:           ## open latest W&B run in browser (Linux)
-	@xdg-open "$$( $(PY) common/wandb_utils.py --latest-url )"
 
 clean:          ## remove caches & artefacts
 	rm -rf .cache __pycache__ */__pycache__ *.egg-info $(VENV)

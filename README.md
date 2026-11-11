@@ -33,11 +33,11 @@ Generated data is written to
 The following contact sheets sample accepted 2×2 composites together with their
 structured captions. The first shows two examples:
 
-![Sanity-check contact sheet with two accepted four-view composites and captions](sanity_check_2_imgs.png)
+![Sanity-check contact sheet with two accepted four-view composites and captions](docs/assets/sanity_check_2_imgs.png)
 
 The second shows four examples:
 
-![Sanity-check contact sheet with four accepted four-view composites and captions](sanity_check_4_imgs.png)
+![Sanity-check contact sheet with four accepted four-view composites and captions](docs/assets/sanity_check_4_imgs.png)
 
 If you want to display another deterministic contact sheet with the captioned composite images RUN:
 
@@ -308,13 +308,13 @@ These outputs and free-form captions predate the current structured annotation
 pipeline. They are retained as historical examples and are not the final research
 caption format.
 
-![Example Output](example_output1.jpeg)
+![Example Output](docs/assets/example_output1.jpeg)
 
 ```
  [FOUR-VIEWS] a red desk lamp from multiple views;[TOP-LEFT] This photo shows a 45-degree angle of desk lamp;[TOP-RIGHT] This photo shows a high-angle shot of the lamp; [BOTTOM-LEFT] Here is a side view shot of lamp; [BOTTOM-RIGHT] The back view of the desk lamp.
 ```
 
-![Example Output](example_output2.jpeg)
+![Example Output](docs/assets/example_output2.jpeg)
 
 ```
 [FOUR-VIEWS] a bedroom from multiple views;[TOP-LEFT] This photo shows a 45-degree angle of the bedroom;[TOP-RIGHT] This photo shows a high-angle shot of the bedroom; [BOTTOM-LEFT] Here is a side view shot of bedroom; [BOTTOM-RIGHT] A low angle view of the bedroom.

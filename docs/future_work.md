@@ -1,16 +1,39 @@
-# Research Plan: Four-View LoRA and Gemini Annotation Quality
+# Future work: the full design
 
-## Research questions
+This was the original research plan. What actually ran is a cut-down pilot of
+Study 1 ([protocol](study1_protocol.md)) and a 30-composite audit in place of
+Study 2 (`analysis/gemini_audit.py`). The full design is kept here because it is
+still the right next step, with these changes from what the pilot taught:
+
+* **Use the camera poses.** MVImgNet ships COLMAP reconstructions for about 44%
+  of instances. They give the true angle between any two tiles, which is a better
+  reference for "distinct views" than either a VLM or a pose model
+  (`analysis/real_camera_arcs.py`). Pick benchmark composites from posed
+  instances.
+* **Don't trust a pose model's angles uncalibrated.** Orient Anything V2 reads
+  relative azimuths at about 0.70x their true size on these photos, and fails on
+  top-down shots.
+* **Define left and right in the prompt.** The Gemini prompt never said whose
+  left, so `side` labels can't be graded exactly.
+* **The captions overstate the arcs.** The four frames cover a median of about
+  110 deg of camera motion, but Gemini's labels imply 180 deg. A pose-conditioned
+  LoRA is trained on captions that promise more rotation than the photos show.
+  Choosing frames by measured angle instead of by frame index would fix this at
+  the source.
+* **Budget for variance.** Three training seeds per condition was right: two
+  runs from different seeds share almost none of their weight update (cosine
+  0.02), so a single run says little.
+
+The two research questions:
 
 1. Does a four-view LoRA improve identity consistency across generated views compared
    with base FLUX.1-dev, without merely duplicating the same view?
 2. Which Gemini model produces the most accurate, specific, and non-hallucinated
    structured viewpoint annotations for four-view object composites?
 
-The studies share a reproducible data layer but use separate evaluations. Ambiguous
-examples remain labelled `indeterminate` in the Gemini benchmark. They are excluded
-from pose-conditioned training, but may be used for appearance-only identity training
-without uncertain pose words.
+Ambiguous examples stay labelled `indeterminate` in the Gemini benchmark. They are
+excluded from pose-conditioned training, but may be used for appearance-only identity
+training without uncertain pose words.
 
 ## Study 1: Does LoRA improve identity without duplicating views?
 
@@ -170,20 +193,6 @@ generation.
   accounting, duplicate-threshold calibration, and metric aggregation.
 - Save environment and package versions, base and LoRA checkpoint hashes, training
   configs, prompt lists, random seeds, gold-label revisions, and per-example scores.
-
-## Implementation milestones
-
-- [x] Deterministic four-view selection and composite construction.
-- [x] Pydantic structured Gemini annotations and abstention-aware caching.
-- [x] Accepted and abstention output manifests.
-- [ ] Controlled framing enum and versioned schema migration.
-- [ ] Gold-label format and annotation instructions.
-- [ ] Four-model Gemini benchmark runner and report generator.
-- [ ] Confidence calibration and three dataset-export policies.
-- [ ] Two LoRA training configurations with three seeds each.
-- [ ] Paired base/LoRA generation harness.
-- [ ] Automated and human evaluation tooling.
-- [ ] Final statistical analysis and research report.
 
 ## References
 

@@ -198,6 +198,8 @@ def quantization_check(main: pd.DataFrame, bf16: pd.DataFrame) -> dict:
 
 
 def code_versions(manifest: Path) -> dict:
+    if not manifest.is_file():
+        return {"manifest": f"{manifest} not available (generation outputs are not in git)"}
     rows = [json.loads(line) for line in manifest.read_text().splitlines() if line.strip()]
     commits = {}
     for row in rows:

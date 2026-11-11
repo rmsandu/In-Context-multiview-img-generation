@@ -8,7 +8,7 @@ The 4x4 grid composite images have been automatically captioned with Gemini 3.5 
 under `data/` produced 423 accepted training pairs and retained 106 ambiguous
 composites for abstention analysis. Another model can be used instead of Gemini 3.5 Flash for captioning. The minimal Study 1 pilot split, training config,
 paired generation harness, and blinded scorecard are implemented in `configs/study1_pilot.yaml`  The gold benchmark, model comparison, confidence
-calibration, and human review described in [PLANS.md](PLANS.md) detail future
+calibration, and human review described in [docs/future_work.md](docs/future_work.md) detail future
 work.
 
 ### Latest dataset build
@@ -52,8 +52,8 @@ If you want to display another deterministic contact sheet with the captioned co
 
 ### Research questions
 
-- [Does LoRA preserves object identity without duplicating views?](PLANS.md#study-1-does-lora-improve-identity-without-duplicating-views)
-- [Which Gemini model annotates viewpoints best?](PLANS.md#study-2-which-gemini-model-annotates-viewpoints-best)
+- [Does LoRA preserves object identity without duplicating views?](docs/future_work.md#study-1-does-lora-improve-identity-without-duplicating-views)
+- [Which Gemini model annotates viewpoints best?](docs/future_work.md#study-2-which-gemini-model-annotates-viewpoints-best)
 
 
 ## 1. Dataset Preparation (Multi-View Image Sets)

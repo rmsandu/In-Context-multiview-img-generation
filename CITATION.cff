@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this code or the evaluation results, please cite it as below."
+title: "Four views, one object? Measuring an In-Context LoRA for multi-view grids on FLUX.1-dev"
+type: software
+authors:
+  - family-names: Sandu
+    given-names: Raluca
+repository-code: "https://github.com/rmsandu/2D-multiview-generation"
+license: Apache-2.0
+keywords:
+  - LoRA
+  - FLUX.1-dev
+  - multi-view generation
+  - evaluation
+  - DINOv2
+  - DreamSim
+  - MVImgNet

@@ -123,7 +123,9 @@ What the failures mean, after looking at the photos:
   0.39). So the failed `distinct_views` check was a wrong assumption about the
   ceiling, not proof that the metric is broken. Both duplicate controls are
   detected cleanly. The bigger consequence is about the LoRA: **its training data
-  shows nearby views while its captions name distant ones.**
+  shows nearby views while its captions name distant ones.** *(Later corrected
+  with camera poses: Orient Anything compresses angles to about 0.70x, so the
+  true arcs are wider than this. See [Deviations](#deviations).)*
 * **Orient Anything is unreliable on top-down shots.** For a hammer filmed from
   above while the camera circles it, the model reports at most 65 deg where the
   photos show about 180 deg. Only 18 of 168 real tiles get a unique-front
@@ -226,5 +228,48 @@ numbers. None of them used a LoRA image.
 
 ## Deviations
 
-None yet. Any change after this file was committed is listed here with its date
-and reason.
+Any change after this file was committed is listed here with its date and reason.
+
+### 1. Camera poses show Orient Anything compresses angles (2026-11-11, before any LoRA metric)
+
+MVImgNet ships COLMAP reconstructions for part of the data. 189 of the 423
+accepted composites, 42 of the 106 abstentions and 19 of the 42 holdout composites
+have one, so their true camera arcs can be measured
+(`analysis/real_camera_arcs.py`, `results/real_arcs/`). On the 19 holdout
+composites, the two disagree like this:
+
+| | COLMAP | Orient Anything |
+| --- | --: | --: |
+| median step between consecutive tiles | 38 deg | 24 deg |
+| median first-to-last span | 122 deg | 70 deg |
+| tile pairs under 30 deg ("same view") | 17% | 39% |
+| mean distinct views at 30 deg | 3.21 | 1.84 |
+
+Orient Anything's relative azimuths are about 0.70x the true ones (least-squares
+slope and median ratio agree). Its error is small for nearby views (median 13 deg
+below 30 deg) and large for distant ones (50 deg above 90 deg). The sign agrees
+with COLMAP, and Gemini's labels have the opposite sign, which confirms the frozen
+caption-to-pose-model sign of -1.
+
+So the "narrow arcs" paragraph above is only half right. The real views are closer
+together than the captions claim (true median span 109 deg over all posed accepted
+composites, against 180 deg path length implied by the Gemini labels), but much
+less close than Orient Anything said. The failed `distinct_views` control is partly
+the metric's compression, not only the data.
+
+What changes:
+
+* **A2 stays as registered** (30 deg threshold on Orient Anything angles). A
+  uniform compression shrinks differences between arms but does not bias their
+  sign, so the paired comparison is still valid, just less sensitive.
+* **Added sensitivity analysis A2-cal:** `distinct_views` recomputed from
+  `pairs.csv` with a 21 deg threshold, which is 30 deg x 0.70 and also the
+  threshold that best reproduces the COLMAP same-view labels (balanced accuracy
+  0.78; 21-24 deg in leave-one-composite-out). It is reported next to A2 and does
+  not enter the verdict. Caveat: only 19 truly same-view pairs went into it.
+* Absolute `distinct_views` numbers are reported as "Orient Anything views", not
+  as view counts.
+
+The main generation run had started but no generated LoRA grid had been scored
+when this was written. The git timestamp of this section precedes
+`results/metrics/main/`.

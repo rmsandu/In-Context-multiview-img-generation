@@ -18,6 +18,7 @@ import numpy as np
 import pandas as pd
 
 from evaluation.metrics.stats import holm, paired_cluster_bootstrap, wilcoxon_signed_rank
+from evaluation.metrics.views import count_distinct_views
 
 REPLICATES = ("r1", "r2", "r3")
 PRIMARY = {"A1": "identity_dino", "A2": "distinct_views"}
@@ -26,11 +27,16 @@ REPORTED = (
     "identity_dreamsim",
     "identity_dino_unmasked",
     "distinct_views",
+    "distinct_views_cal",
     "any_same_view",
     "valid_grid",
     "max_letterbox_fraction",
     "pose_accuracy",
 )
+# Protocol deviation 1: Orient Anything reads camera angles at ~0.70x their COLMAP
+# value, so 30 deg of real camera motion shows up as ~21 deg. A2-cal recounts
+# distinct views with this threshold as a sensitivity analysis; A2 is unchanged.
+CALIBRATED_SAME_VIEW_DEG = 21.0
 N_BOOT = 10_000
 SEED = 17
 
@@ -47,7 +53,20 @@ def load_grids(path: Path) -> pd.DataFrame:
     grids = pd.read_csv(path / "grids.csv")
     for column in ("any_same_view", "valid_grid"):
         grids[column] = grids[column].astype(float)
+    if (path / "pairs.csv").is_file():
+        grids["distinct_views_cal"] = grids["grid_id"].map(
+            calibrated_distinct_views(pd.read_csv(path / "pairs.csv"))
+        )
     return grids
+
+
+def calibrated_distinct_views(pairs: pd.DataFrame) -> pd.Series:
+    """Distinct views per grid at CALIBRATED_SAME_VIEW_DEG. A missing angle is 'not same'."""
+    wrapped = (pairs["rel_azimuth"] + 180.0) % 360.0 - 180.0
+    pairs = pairs.assign(same=wrapped.abs() < CALIBRATED_SAME_VIEW_DEG)
+    return pairs.groupby("grid_id")[["i", "j", "same"]].apply(
+        lambda g: count_distinct_views({(int(r.i), int(r.j)): bool(r.same) for r in g.itertuples()})
+    )
 
 
 def cell_matrix(grids: pd.DataFrame, arm: str, metric: str, prompts, seeds) -> np.ndarray:

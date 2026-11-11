@@ -60,6 +60,9 @@ class _FakePipe:
     def load_lora_weights(self, path: str, *, adapter_name: str) -> None:
         self.events.append(f"load_lora:{path}:{adapter_name}")
 
+    def unload_lora_weights(self) -> None:
+        self.events.append("unload_lora")
+
     def set_adapters(self, adapter_name: str, *, adapter_weights: list[float]) -> None:
         self.events.append(f"set_adapter:{adapter_name}:{adapter_weights[0]}")
         self.condition = "lora"
@@ -606,3 +609,23 @@ def test_blinded_scorecard_selects_one_arm_and_writes_pairwise_sheet(tmp_path: P
     keys = [json.loads(line) for line in key.read_text().splitlines()]
     assert {k["condition"] for k in keys} == {"base", "r2"}
     assert all((tmp_path / "blind" / row["image_A"]).is_file() for row in pairwise)
+
+
+def test_controller_keeps_one_adapter_file_resident() -> None:
+    from evaluation.generate_pairs import AdapterArm
+
+    pipe = _FakePipe()
+    arms = [
+        AdapterArm("r1", Path("r1.safetensors"), 1.0, "a0"),
+        AdapterArm("r2", Path("r2.safetensors"), 1.0, "a1"),
+    ]
+    controller = build_condition_controller(pipe, arms=arms)
+    controller("r1")
+    controller("r2")
+    assert pipe.events == [
+        "load_lora:r1.safetensors:a0",
+        "set_adapter:a0:1.0",
+        "unload_lora",
+        "load_lora:r2.safetensors:a1",
+        "set_adapter:a1:1.0",
+    ]

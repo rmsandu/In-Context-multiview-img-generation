@@ -472,8 +472,8 @@ def build_condition_controller(
     """Keep the base phase pristine, then load and activate exact LoRA files.
 
     Nothing is loaded until the first adapter condition, so base images come from
-    an untouched pipeline. Each distinct file is loaded once; arms that share a file
-    (a scale sweep) only change the adapter weight. ``set_adapters`` activates the
+    an untouched pipeline. Only one adapter file is resident at a time; arms that
+    share a file (a scale sweep) only change the adapter weight. ``set_adapters`` activates the
     requested adapter and deactivates every other loaded one.
     """
     if arms is None:
@@ -496,8 +496,15 @@ def build_condition_controller(
             pipe.enable_lora()
             disabled = False
         if arm.adapter_name not in loaded:
-            if not loaded and before_first_load is not None:
-                before_first_load()
+            if loaded:
+                # One resident adapter at a time: on a 24 GB card every extra
+                # adapter pushes the 8-bit pipeline into shared memory (2-4x slower).
+                # unload (not delete_adapters): Diffusers 0.33 cannot load a new
+                # adapter into a quantized FLUX after delete_adapters.
+                pipe.unload_lora_weights()
+                loaded.clear()
+            if before_first_load is not None:
+                before_first_load()  # idempotent; restored modules need it again
             pipe.load_lora_weights(str(arm.path), adapter_name=arm.adapter_name)
             loaded.add(arm.adapter_name)
         pipe.set_adapters(arm.adapter_name, adapter_weights=[arm.scale])

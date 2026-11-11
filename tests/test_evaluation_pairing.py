@@ -393,7 +393,7 @@ def test_pair_validation_rejects_missing_condition() -> None:
         "height": 1024,
     }
 
-    with pytest.raises(ValueError, match="one base and one LoRA"):
+    with pytest.raises(ValueError, match="one output per condition"):
         validate_paired_records([record])
 
 
@@ -439,3 +439,170 @@ def test_blinded_scorecard_hides_condition_and_has_scoring_fields(tmp_path: Path
     assert all(field in rows[0] for field in SCORE_FIELDS)
     assert "condition" not in rows[0]
     assert len(key.read_text().splitlines()) == 2
+
+
+def test_multi_arm_plan_shares_one_base_phase(tmp_path: Path) -> None:
+    from evaluation.generate_pairs import AdapterArm
+
+    plan = build_generation_plan([_prompt()], seeds=[1001, 1002], arms=["r1", "s0.5"])
+    assert [item.condition for item in plan] == ["base", "base", "r1", "r1", "s0.5", "s0.5"]
+    pipe = _FakePipe()
+    arms = [
+        AdapterArm("r1", Path("run1/run1.safetensors"), 1.0, "a0_run1"),
+        AdapterArm("s0.5", Path("run1/run1.safetensors"), 0.5, "a0_run1"),
+    ]
+    arm_configs = {
+        "base": {"lora_label": None, "lora_scale": 0.0},
+        "r1": {"lora_label": "r1", "lora_scale": 1.0},
+        "s0.5": {"lora_label": "s0.5", "lora_scale": 0.5},
+    }
+    records = generate(
+        pipe,
+        plan,
+        torch_module=_FakeTorch(),
+        output_dir=tmp_path,
+        manifest_path=tmp_path / "generation_manifest.jsonl",
+        run_config={"base_model": "test"},
+        condition_controller=build_condition_controller(pipe, arms=arms),
+        arm_configs=arm_configs,
+    )
+    # The shared file is loaded once; the sweep only changes the adapter weight.
+    assert pipe.events == [
+        "load_lora:run1/run1.safetensors:a0_run1",
+        "set_adapter:a0_run1:1.0",
+        "set_adapter:a0_run1:0.5",
+    ]
+    assert len(records) == 6
+    assert {r["condition"]: r["lora_scale"] for r in records} == {
+        "base": 0.0,
+        "r1": 1.0,
+        "s0.5": 0.5,
+    }
+    assert all("code_version" in r and "elapsed_seconds" in r for r in records)
+    metadata = json.loads((tmp_path / "images/object/1001/metadata.json").read_text())
+    assert set(metadata["outputs"]) == {"base", "r1", "s0.5"}
+    assert metadata["outputs"]["s0.5"]["lora_scale"] == 0.5
+    assert "lora_scale" not in metadata["generation_parameters"]
+
+
+def test_multi_arm_resume_ignores_timing_and_code_version(tmp_path: Path) -> None:
+    plan = build_generation_plan([_prompt()], seeds=[1001], arms=["r1", "r2"])
+    arm_configs = {
+        "base": {"lora_label": None},
+        "r1": {"lora_label": "r1"},
+        "r2": {"lora_label": "r2"},
+    }
+    kwargs = {
+        "torch_module": _FakeTorch(),
+        "output_dir": tmp_path,
+        "manifest_path": tmp_path / "generation_manifest.jsonl",
+        "run_config": {"base_model": "test"},
+        "arm_configs": arm_configs,
+    }
+    with pytest.raises(RuntimeError, match="simulated interruption"):
+        generate(_InterruptingPipe(successful_calls=2), plan, **kwargs)
+    manifest = kwargs["manifest_path"]
+    rows = [json.loads(line) for line in manifest.read_text().splitlines()]
+    for row in rows:  # a later commit and a different machine speed must not block resume
+        row["code_version"] = {"git_commit": "other", "python_sources_dirty": True}
+        row["elapsed_seconds"] = 999.0
+    manifest.write_text("".join(json.dumps(row) + "\n" for row in rows))
+    pipe = _FakePipe()
+    records = generate(pipe, plan, resume=True, **kwargs)
+    assert sorted(r["condition"] for r in records) == ["base", "r1", "r2"]
+    # Changing an arm's identity is still caught.
+    with pytest.raises(ValueError, match="lora_label"):
+        generate(
+            _FakePipe(),
+            plan,
+            resume=True,
+            **(kwargs | {"arm_configs": {**arm_configs, "r2": {"lora_label": "x"}}}),
+        )
+
+
+def test_controller_reenables_adapters_after_base() -> None:
+    from evaluation.generate_pairs import AdapterArm
+
+    pipe = _FakePipe()
+    controller = build_condition_controller(
+        pipe,
+        arms=[AdapterArm("r1", Path("a.safetensors"), 1.0, "a0")],
+        before_first_load=lambda: pipe.events.append("prep"),
+    )
+    controller("base")
+    controller("r1")
+    controller("base")
+    controller("r1")
+    assert pipe.events == [
+        "prep",
+        "load_lora:a.safetensors:a0",
+        "set_adapter:a0:1.0",
+        "disable_lora",
+        "enable_lora",
+        "set_adapter:a0:1.0",
+    ]
+
+
+@pytest.mark.parametrize("labels", [[], ["base"], ["r1", "r1"], ["bad/label"]])
+def test_invalid_arm_labels_are_rejected(labels) -> None:
+    with pytest.raises(ValueError):
+        build_generation_plan([_prompt()], arms=labels)
+
+
+def test_parse_arm_spec() -> None:
+    from evaluation.generate_pairs import parse_arm
+
+    assert parse_arm("r1=output/run/run.safetensors") == (
+        "r1",
+        Path("output/run/run.safetensors"),
+        1.0,
+    )
+    assert parse_arm("s0.25=output/run/run.safetensors@0.25") == (
+        "s0.25",
+        Path("output/run/run.safetensors"),
+        0.25,
+    )
+
+
+def test_blinded_scorecard_selects_one_arm_and_writes_pairwise_sheet(tmp_path: Path) -> None:
+    from evaluation.create_blinded_scorecard import load_generation_manifest
+
+    images = tmp_path / "generated"
+    images.mkdir()
+    records = []
+    for prompt_id in ("a", "b", "c"):
+        for seed in (1001, 1002):
+            for condition in ("base", "r1", "r2"):
+                path = images / f"{prompt_id}_{seed}_{condition}.png"
+                path.write_bytes(f"{prompt_id}{seed}{condition}".encode())
+                records.append(
+                    {
+                        "prompt_id": prompt_id,
+                        "prompt_group": "g",
+                        "prompt": f"p-{prompt_id}",
+                        "seed": seed,
+                        "condition": condition,
+                        "guidance_scale": 3.5,
+                        "num_inference_steps": 20,
+                        "width": 1024,
+                        "height": 1024,
+                        "output_path": path.name,
+                    }
+                )
+    manifest = images / "generation_manifest.jsonl"
+    manifest.write_text("".join(json.dumps(r) + "\n" for r in records), encoding="utf-8")
+
+    selected = load_generation_manifest(manifest, arm="r2", seeds=[1001])
+    assert {(r["condition"], r["seed"]) for r in selected} == {("base", 1001), ("r2", 1001)}
+    with pytest.raises(ValueError, match="available"):
+        load_generation_manifest(manifest, arm="r9")
+
+    _, key = create_scorecard(
+        selected, generation_manifest=manifest, output_dir=tmp_path / "blind", arm="r2"
+    )
+    with (tmp_path / "blind" / "pairwise.csv").open(newline="") as handle:
+        pairwise = list(csv.DictReader(handle))
+    assert len(pairwise) == 3 and pairwise[0]["same_object_choice"] == ""
+    keys = [json.loads(line) for line in key.read_text().splitlines()]
+    assert {k["condition"] for k in keys} == {"base", "r2"}
+    assert all((tmp_path / "blind" / row["image_A"]).is_file() for row in pairwise)

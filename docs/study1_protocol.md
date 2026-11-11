@@ -1,0 +1,230 @@
+# Study 1 protocol: does the four-view LoRA improve identity without duplicating views?
+
+This file fixes the analysis *before* any metric was computed on a LoRA image.
+Everything it depends on (controls, base-model noise, the azimuth sign) comes
+from real holdout photos and base-model grids only. The git history shows the
+order: this protocol is committed before `results/metrics/*` contains a single
+LoRA row. Anything decided later is listed under [Deviations](#deviations).
+
+## The question
+
+A 2x2 grid prompt asks for four views of one object. A model can fail in two
+opposite ways. It can draw four different-looking objects (identity failure), or
+it can draw the same view four times (diversity failure). The second failure
+makes naive identity metrics look *better*. So the LoRA has to beat the base
+model on identity **and** must not buy that gain by repeating views.
+
+## What is compared
+
+| Arm | What it is |
+| --- | --- |
+| `base` | FLUX.1-dev, no adapter |
+| `r1` | `output/study1_pilot/study1_pilot.safetensors` (step 500, unrecorded seed) |
+| `r2` | `output/study1_pilot_v2/study1_pilot_v2.safetensors` (same config, unrecorded seed) |
+| `r3` | `output/study1_pilot_r3/study1_pilot_r3.safetensors` (same config, `training_seed: 43`) |
+
+All three replicates use the config in `configs/study1_pilot.yaml`: rank 16,
+alpha 16, 500 steps, lr 1e-4, batch 1 x grad-accum 4, 381 training composites.
+
+Generation: the 42 concise holdout prompts in `evaluation/prompts_holdout.jsonl`,
+seeds 1001-1004, 1024x1024, 20 steps, guidance 3.5, FLUX transformer and T5 in
+8-bit (bitsandbytes), adapters unfused at scale 1.0, a fresh CPU generator per
+image. Base is rendered once and shared by all arms. That gives 42 x 4 x 4 = 672 grids.
+
+The holdout prompts all use one canonical layout: top-left front, top-right right
+side, bottom-left back, bottom-right left side. The real photos they were written
+from do not follow that layout, so the real composites are scored against their
+own Gemini captions, never against these prompts.
+
+### Why 8-bit and not the July bf16 run
+
+The July holdout run (bf16, CPU offload, seeds 1001/1002) re-renders bit-exactly
+today. But it averaged about 5 minutes per image on this machine, against about
+25 seconds in 8-bit, which fits entirely on the 24 GB GPU. The bf16 grids are
+kept as a quantization check (see secondary analyses), not mixed into the
+primary comparison.
+
+## Provenance checks done before this protocol
+
+* **Step-500 checkpoint.** `study1_pilot.safetensors` was re-saved by AI Toolkit
+  on Jul 19 and Jul 27, so its file hash changed (`4f473e...` to `bc410b...`). The
+  training samples rendered after each save are byte-identical. Re-rendering the
+  July 8-bit comparison with today's file reproduces the step 100, 300 and 500
+  images bit-exactly. Same tensors, new header.
+* **The July 8-bit "base" image was stale.** It was produced by a first run that
+  crashed before loading any adapter, then marked "reused" by every later run
+  while the 8-bit loading code was being fixed. Today it does not reproduce (97%
+  of pixels differ), while every LoRA image does. The July side-by-side therefore
+  compared the LoRA against a base made by different code. New manifests record
+  the git commit with every image, and the analysis flags runs that span commits.
+
+## Metrics
+
+All scores are computed per grid on the four 512x512 quadrants. Each tile is
+segmented with rembg (`isnet-general-use`), and identity and pose use the object
+crop on a flat grey background.
+
+| Metric | Definition | Why |
+| --- | --- | --- |
+| `identity_dino` | mean of the 6 pairwise cosines of DINOv2-B/14 CLS embeddings of the masked crops | instance-level features, the usual identity backbone |
+| `identity_dreamsim` | 1 - mean pairwise DreamSim distance of the masked crops | tuned on human similarity judgements of diffusion images |
+| `identity_dino_unmasked` | as `identity_dino` on whole tiles | sensitivity check only: shows how much a shared background inflates identity |
+| `distinct_views` | connected components after merging tile pairs whose camera azimuth differs by < 30 deg (Orient Anything V2, relative pose) | 4 = four different viewpoints, 1 = one view repeated |
+| `any_same_view` | at least one tile pair < 30 deg apart | the duplicate rate used in the decision rule |
+| `pose_accuracy` | share of the 6 tile pairs whose measured azimuth change is within 45 deg of the change implied by the caption | does the grid follow the requested layout |
+| `valid_grid` | every tile has at least 1% foreground | a grid with an empty tile counts as a failure, not a missing value |
+
+Orient Anything V2 runs once on all 12 ordered tile pairs of a grid. Each pair's
+relative azimuth is the circular mean of the i-to-j reading and the reversed
+j-to-i reading. Their disagreement (`rel_inconsistency`) is kept as a
+reliability signal.
+
+Thresholds are frozen in `evaluation/metrics/run_metrics.py::Thresholds` and
+copied into every `run_info.json`.
+
+### Azimuth sign
+
+Orient Anything reports relative azimuth in its own rotation convention. The
+caption convention is "front to right side = +90". The sign mapping one onto the
+other is chosen once, on the 42 real holdout composites against their own
+captions, and then frozen. With sign -1, 41.7% of the 252 caption-implied angle
+changes are matched within 45 deg, against 29.4% with +1. So the default is
+`azimuth_sign = -1`. The calibration itself is weak, which is part of why pose
+accuracy is not used for conclusions (next section).
+
+### Metric validation (controls)
+
+`evaluation/controls.py` builds five versions of each real holdout composite:
+`real`, `dup4` (top-left tile x4), `dup4_jitter` (x4 with small crop and
+brightness jitter), `shuffled` (tiles reversed), and `mixed` (four objects from four
+categories). A metric is only used for conclusions if it passes the checks listed
+in `controls.CHECKS`, which were written before the controls were scored.
+
+Results on the 42 holdout composites (`results/metrics/controls/control_checks.json`):
+
+| Metric | Check | Pass | dup4 | dup4_jitter | mixed | real | shuffled |
+| --- | --- | :-: | --: | --: | --: | --: | --: |
+| identity_dino | dup4 > real > mixed | yes | 1.000 | 0.943 | 0.085 | 0.766 | 0.766 |
+| identity_dino | shuffled = real | yes | | | | 0.766 | 0.766 |
+| identity_dreamsim | dup4 > real > mixed, jitter > real | yes | 1.000 | 0.958 | 0.273 | 0.774 | 0.774 |
+| identity_dino_unmasked | dup4 > real > mixed | yes | 1.000 | 0.941 | 0.101 | 0.801 | 0.801 |
+| distinct_views | real >= dup4 + 1 | **no** | 1.000 | 1.024 | 3.071 | 1.881 | 1.881 |
+| distinct_views | dup4_jitter <= 1.5 | yes | | 1.024 | | | |
+| any_same_view | dup4, dup4_jitter >= 0.9 | yes | 1.000 | 1.000 | 0.690 | 0.929 | 0.929 |
+| pose_accuracy | real >= shuffled + 0.15, real >= dup4 + 0.15 | **no** | 0.460 | 0.405 | 0.238 | 0.417 | 0.310 |
+
+What the failures mean, after looking at the photos:
+
+* **The real captures span narrow arcs.** Orient Anything puts consecutive real
+  frames 14-29 deg apart (medians), about 65 deg first to last. For several objects
+  (the backpack, the table-tennis bat) that is visibly right: the four photos are
+  close to one view. The Gemini captions claim much wider spreads (about 135 deg
+  first to last), and they correlate only weakly with the measured angles (r =
+  0.39). So the failed `distinct_views` check was a wrong assumption about the
+  ceiling, not proof that the metric is broken. Both duplicate controls are
+  detected cleanly. The bigger consequence is about the LoRA: **its training data
+  shows nearby views while its captions name distant ones.**
+* **Orient Anything is unreliable on top-down shots.** For a hammer filmed from
+  above while the camera circles it, the model reports at most 65 deg where the
+  photos show about 180 deg. Only 18 of 168 real tiles get a unique-front
+  symmetry class.
+* **Pose accuracy is invalid on this data.** Caption labels come in 45-deg steps and
+  the tolerance is 45 deg, so a duplicated tile (relative angle 0) already
+  "matches" every caption that names neighbouring views. That is why dup4 beats
+  real.
+
+Real tiles are also letterboxed: portrait and landscape frames are padded with
+black bars. The worst tile in a real composite is on average 44% bars, while base
+FLUX grids have none. `max_letterbox_fraction` is reported for every arm because
+a LoRA trained on these composites may learn to draw bars.
+
+## Analysis
+
+Unit of analysis: the prompt. For each prompt, an arm's value is the mean over
+its 4 seeds. LoRA-minus-base differences are paired by prompt and seed.
+
+* **Point estimate and 95% CI:** cluster bootstrap over prompts (10,000
+  resamples, seed indices resampled within prompt with the same draw for both
+  arms), `evaluation/metrics/stats.py::paired_cluster_bootstrap`.
+* **Test:** two-sided Wilcoxon signed-rank on the 42 per-prompt differences, with
+  Holm correction across the two automated primary endpoints.
+* **Pooled LoRA arm:** the mean of r1, r2 and r3 in each prompt-seed cell. Each
+  replicate is also reported separately.
+
+### Primary endpoints and decision rule
+
+| ID | Endpoint | Required for "improves identity without duplicating" |
+| --- | --- | --- |
+| A1 | delta `identity_dino` (pooled LoRA - base) | 95% CI lower bound > 0, and the same sign in all 3 replicates |
+| A2 | delta `distinct_views` | 95% CI lower bound > -0.25 (non-inferiority: at most a quarter of a view lost) |
+| H1 | human 2AFC: share of pairs where raters pick the LoRA grid as "more clearly the same object" | 95% CI lower bound > 0.5 |
+| V | delta `valid_grid` rate | point estimate > -0.05 |
+
+Holm correction covers A1 and A2. `identity_dreamsim` is reported next to A1 as
+a robustness check and should agree in sign. `any_same_view`, `pose_accuracy`
+and `max_letterbox_fraction` are secondary. If the automated duplicate measure
+(`any_same_view`) agrees with the human "any duplicate tile pair" label at
+Cohen's kappa < 0.4, A2 is replaced by the human distinct-view count from the
+scorecard, since then the pose model cannot be trusted on generated grids either.
+
+These gates follow the original research plan, sized to what a 42-prompt pilot
+can resolve. If A1 and H1 disagree, the result is reported as a disagreement between
+the metric and people, not as a win for either. If any gate fails, the
+conclusion is: "no evidence that this LoRA improves identity without a
+diversity cost at this scale." A raw increase in `identity_dino` alone is never
+enough.
+
+### What the study can detect
+
+Generation noise alone, measured as base seed 1001 minus base seed 1002 on the
+bf16 holdout grids, implies the following minimum detectable effects for 42
+prompts x 4 seeds (alpha 0.05 two-sided, 80% power). They are optimistic,
+because they ignore prompt-by-LoRA interaction:
+
+| Metric | Base mean (bf16, 84 grids) | SD of single-seed differences | MDE at 42 prompts x 4 seeds |
+| --- | --: | --: | --: |
+| identity_dino | 0.660 | 0.200 | 0.043 |
+| identity_dreamsim | 0.706 | 0.163 | 0.035 |
+| any_same_view | 0.821 | 0.468 | 0.101 |
+| distinct_views | 2.18 | 1.135 | 0.245 |
+
+For reference, the real holdout composites score 0.766 on `identity_dino`, so the
+base model leaves about 0.1 of headroom, a little over twice the MDE.
+
+## Secondary and exploratory analyses (not used for the verdict)
+
+* LoRA scale sweep {0, 0.25, 0.5, 0.75, 1.0, 1.5} on r1, 12 prompts
+  (`evaluation/prompts_holdout_sweep.jsonl`, 3 per category group drawn with
+  seed 17), seeds 1001-1002. The scale-0 arm must be bit-identical to base. If it
+  is not, the adapter plumbing is broken and nothing else is reported.
+* Checkpoint sweep: r1 at steps 100, 200, 300, 400, 500 on the same 12 prompts.
+* Quantization: the LoRA-minus-base delta on seeds 1001-1002 in bf16 (July run)
+  against 8-bit (this run), same prompts.
+* Background effect: `identity_dino_unmasked` minus `identity_dino`, by arm.
+* Agreement of every automated metric with the human majority, and a DreamSim /
+  pHash near-duplicate threshold fitted on 20% of the human duplicate labels and
+  tested on the rest.
+
+## Decisions made after seeing controls and base data (before any LoRA data)
+
+Recorded here because they were made after looking at real and base-model
+numbers. None of them used a LoRA image.
+
+1. **Duplicate gate.** The research plan's gate was "duplicate-rate increase,
+   upper 95% bound below 5 points". At this sample size the MDE for that rate is
+   10 points, so the gate would fail whatever the LoRA did. Replaced by the
+   `distinct_views` non-inferiority gate (A2), whose margin of -0.25 views matches
+   its MDE.
+2. **Pose accuracy demoted** to exploratory, because it fails its controls (see
+   above).
+3. **`max_letterbox_fraction` added** after noticing black bars in the real
+   training composites.
+4. **Azimuth sign frozen at -1** from the real-composite calibration.
+5. A tile below the 1% foreground floor is treated as "no object" by the pose
+   model too (it previously crashed the authors' crop helper). No cached control
+   tile was below the floor, so no earlier result changed.
+
+## Deviations
+
+None yet. Any change after this file was committed is listed here with its date
+and reason.

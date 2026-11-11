@@ -8,8 +8,8 @@ Working title options:
 Target: 1,800-2,500 words, 4-5 figures, links into the explorer for every claim
 about images. The prose is yours. Below is the skeleton: per section, the one
 point it makes, the evidence that carries it, and prompts for the parts only you
-can write. Numbers marked TBD come from `results/study1/summary.json` once the
-runs finish.
+can write. Numbers come from `results/study1/summary.json` and
+`results/adapter_effect/summary.json`; only the human ratings are still TBD.
 
 ---
 
@@ -31,6 +31,11 @@ link the explorer for counterexamples). The 2x2 layout diagram.
 **Point:** My first read of base vs LoRA was "they look about the same". Eyeballing
 a handful of grids can't separate a real effect from seed noise. That needs
 paired comparisons, enough prompts, and a rule written down before looking.
+
+**Twist for the end of the section (or for section 6):** the first read was
+right. The LoRA moves each image about an eighth as far as a new seed does. But
+there was no way to know that, or to know it was a consistent push and not
+noise, without measuring.
 
 **Evidence:**
 * Pre-registration commit `e73ec48` predates every LoRA metric (git log screenshot).
@@ -94,20 +99,35 @@ init and B carries the learning.
 
 ## 6. The verdict (≈400 words)
 
-**Point:** The pre-registered rule, applied as written. TBD.
+**Point:** The pre-registered rule, applied as written: **no evidence that the
+LoRA improves identity without a diversity cost.** The effect is real but small,
+and the reason is the training recipe, not the method.
 
 **Evidence:**
-* Gate table (A1 identity, A2 diversity, H1 humans, V validity) with CIs.
-* Per-prompt paired deltas: `results/study1/figures/paired_identity_deltas.png`.
-* Replicate spread: does each of r1/r2/r3 agree in sign?
-* Human 2AFC result and rater agreement (kappa), plus how often each metric
-  agreed with the human majority.
-* Scale sweep: identity and views from scale 0 to 1.5 (`scale_sweep.png`). Is
-  there a dose-response?
-* Letterboxing: does the LoRA learn to draw the black bars its training photos had?
+* Gate table (`results/study1/report.md`): A1 identity fails (pooled +0.006,
+  95% CI -0.009 to +0.020, MDE 0.043), A2 diversity passes (+0.05 views), V valid
+  grids passes, H1 humans pending but cannot change the outcome.
+* All three runs agree in sign (+0.004, +0.007, +0.007) and their CIs all
+  include zero. Real photos sit at 0.766, so the headroom was there.
+* Figure: `results/study1/figures/identity_vs_views.png`, with the zoom panel
+  where the four CIs overlap almost completely.
+* Per-prompt deltas (`paired_identity_deltas.png`): a symmetric spread from
+  -0.11 to +0.10. Bagged snacks (in the explorer) is a good example: identity
+  0.69 to 0.80 because the LoRA drew one view four times. That's the duplication
+  trap from section 3.
+* Dose-response (`scale_sweep.png`): identity +0.000, +0.007, +0.011, +0.019,
+  +0.028 at scales 0.25 to 1.5. The same direction, just not enough of it.
+* Why so small (post hoc, `results/adapter_effect/`): with prompt and seed fixed,
+  the LoRA moves each tile DreamSim 0.03-0.05; a new seed moves it 0.30. The
+  three runs move each tile in the same direction (cosine 0.49-0.73 vs 0.01 for
+  unrelated tiles), although their weights are orthogonal (section 5).
+* The killer detail: every training composite has black side bars over 44% of
+  each tile. Not one of 936 generated grids has any. The LoRA did not learn the
+  most obvious thing in its data.
+* Human 2AFC result and rater agreement (kappa): TBD once ratings are in.
 
-**Your angle:** state it plainly. If the result is null, say what effect size the
-study could have detected and didn't.
+**Your angle:** state it plainly. What would you have bet before seeing it? Is a
+null result with a clear reason more or less useful to you than a small win?
 
 ## 7. What I'd do differently (≈250 words)
 
@@ -117,6 +137,8 @@ study could have detected and didn't.
 * Define left/right in the captioning prompt.
 * Pick a pose model only after checking it against ground truth.
 * Freeze A (or try rank 4): the anatomy says it wouldn't hurt.
+* Start with a positive control: train until the LoRA reproduces something
+  trivial in the data (the black bars), then ask the real question.
 * More prompts rather than more seeds: the unit of analysis is the prompt.
 
 **Close:** link the explorer, the repo, the protocol and the HF model card.
@@ -127,12 +149,12 @@ study could have detected and didn't.
 
 | # | Figure | Source | Status |
 | --- | --- | --- | --- |
-| 1 | Example grid, base vs LoRA | explorer thumbnail | after runs |
-| 2 | Identity x views plane | `analysis/study1_report.py` | after metrics |
+| 1 | Example grid, base vs LoRA | explorer (bagged snacks, seed 1001) | done |
+| 2 | Identity x views plane | `results/study1/figures/identity_vs_views.png` | done |
 | 3 | Measured vs true relative angle (Orient Anything, Gemini) | `results/real_arcs/angles.png` | done |
 | 4 | Subspace overlap | `results/lora_anatomy/subspace_overlap.png` | done |
-| 5 | Per-prompt paired deltas | `analysis/study1_report.py` | after metrics |
-| 6 | Scale sweep | `analysis/study1_report.py` | after sweep |
+| 5 | Per-prompt paired deltas | `results/study1/figures/paired_identity_deltas.png` | done |
+| 6 | Scale sweep | `results/study1/figures/scale_sweep.png` | done |
 
 ## Things to avoid (so it reads like you)
 

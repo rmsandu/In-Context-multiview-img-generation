@@ -20,11 +20,30 @@ trusted, camera-pose ground truth for the real data, and blinded human ratings.
 
 ## Results
 
-*The main generation run is in progress. The verdict, computed by the rule fixed in
-[the protocol](docs/study1_protocol.md) before any LoRA image was scored, will be
-in [`results/study1/report.md`](results/study1/report.md).*
+**No evidence that the LoRA improves identity.** That is the rule fixed in
+[the protocol](docs/study1_protocol.md) before any LoRA image was scored, applied as
+written ([full report](results/study1/report.md)):
 
-What is already measured:
+| 42 prompts x 4 seeds | Base | LoRA (3 runs pooled) | LoRA - base, 95% CI |
+| --- | --: | --: | --: |
+| identity (masked DINOv2) | 0.651 | 0.656 | +0.006 [-0.009, +0.020] |
+| distinct views (of 4) | 2.21 | 2.26 | +0.05 [-0.08, +0.17] |
+| grids with an object in every tile | 84% | 85% | +1 pt [-2, +5] |
+
+All three runs point the same way (+0.004 to +0.007), but the study could only
+detect a change of about 0.043. Real photos score 0.766, so there was room to
+improve. Human ratings are still being collected. They can't change the verdict,
+because the identity gate already failed.
+
+![Identity vs view diversity, base and three LoRA runs](results/study1/figures/identity_vs_views.png)
+
+**Why the effect is so small: the adapter barely moves the picture.** With prompt
+and seed fixed, the LoRA moves each tile a DreamSim distance of 0.03-0.05 from the
+base image, while a new seed moves it 0.30. The effect is real: it grows steadily
+with LoRA scale and training step, and the three runs push each image in the same
+direction. But every training composite has black side bars, and not one generated
+grid draws them. 500 steps at lr 1e-4 wasn't enough to learn even that
+([analysis](analysis/adapter_effect.py), protocol note 2).
 
 **The pose model and the captions disagree with the cameras, in opposite
 directions.** MVImgNet ships COLMAP camera poses for part of the data, which gives
@@ -37,8 +56,10 @@ are a median 88 deg apart.
 **Three runs of the same recipe learn almost orthogonal weight updates (cosine
 0.02), and that is LoRA's parametrisation, not disagreement.** The input
 projection A stays at its random initialisation; the runs agree on the output side
-B at 10-14x chance. Fusing the adapter into 8-bit weights would erase most of it,
-so the 8-bit evaluation keeps it unfused.
+B at 10-14x chance. Their images agree even more: the change each run makes to a
+given tile has cosine 0.49-0.73 with the others' (0.01 for unrelated tiles).
+Fusing the adapter into 8-bit weights would erase most of it, so the 8-bit
+evaluation keeps it unfused.
 
 ![Subspace overlap of the LoRA matrices](results/lora_anatomy/subspace_overlap.png)
 
@@ -90,6 +111,9 @@ so the 8-bit evaluation keeps it unfused.
   (protocol, deviation 1).
 * **Undefined left and right.** The captioning prompt never said whose left "left"
   is.
+* **The training recipe.** 500 steps at lr 1e-4 produced an adapter too weak to
+  learn the black bars in every training image. A run that learns those bars is
+  the positive control this study should have started with.
 
 ## Limitations
 

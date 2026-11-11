@@ -83,12 +83,25 @@ The practical lesson for evaluation: **comparing LoRA weights across seeds
 tells you little. Compare their outputs.** That is why Study 1 trains three
 replicates and treats run-to-run spread as part of the result.
 
+Comparing outputs bears this out (`analysis/adapter_effect.py`). For each
+prompt and seed, take the DreamSim embedding of every tile, subtract the base
+model's, and compare the resulting displacements between runs. Their median
+cosine is 0.49-0.73 between runs, and 0.003-0.010 when one displacement comes
+from a different prompt. The weights are nearly orthogonal, but the images move
+the same way.
+
 ## Training hadn't finished
 
 `||dW||` summed over all modules grows 0.91, 1.41, 2.00, 2.73, 2.96 at steps
 100-500. Cosine to the final update climbs 0.46, 0.59, 0.82, 0.95. The update is
-still growing at step 500, though the last 100 steps add less. The checkpoint
-sweep in Study 1 shows whether the *images* had settled.
+still growing at step 500, though the last 100 steps add less.
+
+The images say the same. Per-tile DreamSim distance from the base image is
+0.005, 0.008, 0.015, 0.034 and 0.034 at steps 100-500, while two seeds of the
+base model are 0.24-0.30 apart. Every training composite has black side bars
+filling about 44% of each tile, and no generated grid has any. So after 500
+steps the adapter has not learned the most obvious thing in its data. A run
+that learns the bars is the positive control to do first next time.
 
 ## The scale sweep is a walk along dW
 
@@ -97,6 +110,12 @@ At inference the adapter's output is multiplied by a scale `s`:
 8-bit), 1 is the trained adapter, and 1.5 extrapolates past it. Since `dW` is
 a fixed direction, the sweep is a straight line through weight space, which
 makes it the cleanest dose-response test available.
+
+In Study 1 the identity change grows almost linearly along that line: +0.000,
++0.007, +0.011, +0.019 and +0.028 at scales 0.25-1.5 (12 prompts x 2 seeds,
+only the last CI excludes zero). The DreamSim distance from base grows the same
+way, 0.009 to 0.055. Distinct views drop by 0.17-0.25 between 0.5 and 1.0 and
+recover at 1.5, which on 24 grids per point is within noise.
 
 ## Why the adapter stays unfused (and must, in 8-bit)
 

@@ -119,3 +119,6 @@ third_party/
 
 # Per-image metric cache (rebuildable)
 .metric_cache/
+
+# Real MVImgNet frames for the Gemini audit (dataset terms: keep local)
+results/gemini_audit/images/

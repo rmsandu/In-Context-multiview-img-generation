@@ -193,12 +193,97 @@ def analyse(loras: dict[str, Path], with_base: bool):
     return frame, summary
 
 
+def figure(summary: dict, out: Path) -> None:
+    """Subspace overlap and update cosine: same run at earlier steps vs other seeds."""
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    ink, ink_2, muted, grid, surface = "#0b0b0b", "#52514e", "#898781", "#e1e0d9", "#fcfcfb"
+    colour_a, colour_b = "#eb6834", "#2a78d6"
+    overlap, cosine = summary["median_subspace_overlap"], summary["global_cosine"]
+    rows = [
+        (f"r1: step {step} vs final", f"r1_c{step}")
+        for step in (400, 300, 200, 100)
+        if f"r1_c{step}" in overlap
+    ] + [
+        (f"{x} vs {y} (other seed)", f"{x}_{y}")
+        for x, y in (("r1", "r2"), ("r1", "r3"), ("r2", "r3"))
+        if f"{x}_{y}" in overlap
+    ]
+    labels, keys = zip(*rows)
+    y = np.arange(len(rows))[::-1]
+    chance = summary["median_chance_overlap"]["A"]
+
+    fig, (left, right) = plt.subplots(
+        1, 2, figsize=(9.6, 3.9), sharey=True, gridspec_kw={"width_ratios": [1.5, 1]}
+    )
+    fig.patch.set_facecolor(surface)
+    for ax in (left, right):
+        ax.set_facecolor(surface)
+        ax.grid(True, axis="x", color=grid, linewidth=0.6)
+        ax.set_axisbelow(True)
+        ax.tick_params(colors=ink_2, labelsize=9, length=0)
+        for side in ("top", "right", "left"):
+            ax.spines[side].set_visible(False)
+        ax.spines["bottom"].set_color(grid)
+    a_vals = [overlap[k]["A"] for k in keys]
+    b_vals = [overlap[k]["B"] for k in keys]
+    for yy, a, b in zip(y, a_vals, b_vals, strict=True):
+        left.plot([a, b], [yy, yy], color=grid, linewidth=2, zorder=1)
+    left.scatter(a_vals, y, s=64, color=colour_a, edgecolor=surface, linewidth=2, zorder=3)
+    left.scatter(b_vals, y, s=64, color=colour_b, edgecolor=surface, linewidth=2, zorder=3)
+    left.axvline(chance, color=muted, linestyle="--", linewidth=1)
+    left.text(chance * 1.12, y[-1] - 0.75, f"chance = r/d = {chance:.4f}", color=muted, fontsize=8)
+    first_seed = len([k for k in keys if "_c" in k])  # label the first cross-seed row
+    left.text(
+        a_vals[first_seed] * 1.15, y[first_seed] + 0.35, "A (input side)", color=ink, fontsize=8.5
+    )
+    left.text(
+        b_vals[first_seed],
+        y[first_seed] + 0.35,
+        "B (output side)",
+        color=ink,
+        fontsize=8.5,
+        ha="center",
+    )
+    left.set_xscale("log")
+    left.set_xlim(0.003, 1.6)
+    left.set_ylim(y[-1] - 1.1, y[0] + 0.9)
+    left.set_yticks(y, labels)
+    left.set_title(
+        "Subspace overlap, median over 494 modules", loc="left", fontsize=10.5, color=ink
+    )
+    left.set_xlabel("mean squared cosine of principal angles (log)", color=ink_2, fontsize=9)
+
+    c_vals = [cosine[k] for k in keys]
+    right.barh(y, c_vals, height=0.5, color=ink_2, edgecolor=surface, linewidth=2)
+    for yy, c in zip(y, c_vals, strict=True):
+        right.text(c + 0.02, yy, f"{c:.2f}", va="center", color=ink, fontsize=8.5)
+    right.set_xlim(0, 1.12)
+    right.set_title("Cosine of the whole update", loc="left", fontsize=10.5, color=ink)
+    right.set_xlabel("cos(dW_x, dW_y), all modules stacked", color=ink_2, fontsize=9)
+    fig.tight_layout()
+    fig.savefig(out, dpi=200, facecolor=surface)
+    plt.close(fig)
+
+
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("--lora", action="append", required=True, metavar="LABEL=PATH")
+    parser.add_argument("--lora", action="append", metavar="LABEL=PATH")
     parser.add_argument("--no-base", action="store_true", help="skip relative norms")
     parser.add_argument("--output-dir", type=Path, default=Path("results/lora_anatomy"))
+    parser.add_argument(
+        "--plot-only", action="store_true", help="redraw the figure from summary.json"
+    )
     args = parser.parse_args(argv)
+    if args.plot_only:
+        summary = json.loads((args.output_dir / "summary.json").read_text())
+        figure(summary, args.output_dir / "subspace_overlap.png")
+        return
+    if not args.lora:
+        parser.error("--lora is required unless --plot-only is given")
     loras = {}
     for spec in args.lora:
         label, _, path = spec.partition("=")
@@ -213,6 +298,7 @@ def main(argv: list[str] | None = None) -> None:
         [f"rel_norm_{first}"] if not args.no_base else []
     )
     print(table.groupby(["stream", "role"])[cols].median().round(4).to_string())
+    figure(summary, args.output_dir / "subspace_overlap.png")
 
 
 if __name__ == "__main__":

@@ -70,6 +70,8 @@ models/
 *.jpg
 *.webm
 !docs/assets/*.png
+!results/lora_anatomy/*.png
+!results/study1/figures/*.png
 training/
 evaluation/results/
 

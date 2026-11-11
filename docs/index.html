@@ -165,6 +165,9 @@ footer { margin-top: 32px; font-size: 0.85rem; color: var(--muted); }
       drawing the same view four times? Every generated grid from the study is here, with its scores.</p>
     <p>Verdict under the pre-registered rule: <span class="verdict" id="verdict">pending</span>
       &middot; <a href="https://github.com/rmsandu/2D-multiview-generation/blob/main/docs/study1_protocol.md">protocol</a></p>
+    <p class="lede">Why: with prompt and seed fixed, the LoRA moves each tile about an eighth as far as
+      a new seed does, and it never learned the black side bars every training photo had. The three
+      training runs do push each picture the same way. The effect is real, just small.</p>
   </div>
   <button class="theme" id="theme" type="button" aria-label="Toggle dark mode">Theme</button>
 </header>

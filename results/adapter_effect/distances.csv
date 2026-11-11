@@ -1,0 +1,2521 @@
+run,prompt_id,seed,comparison,value
+main,Bagged-snacks_129_0001271c,1001,base vs r1,0.028204426169395447
+main,Bagged-snacks_129_0001271c,1001,base vs r2,0.01658967137336731
+main,Bagged-snacks_129_0001271c,1001,base vs r3,0.02327774465084076
+main,Bagged-snacks_129_0001271c,1002,base vs r1,0.027864977717399597
+main,Bagged-snacks_129_0001271c,1002,base vs r2,0.022228777408599854
+main,Bagged-snacks_129_0001271c,1002,base vs r3,0.029485538601875305
+main,Bagged-snacks_129_0001271c,1003,base vs r1,0.025372520089149475
+main,Bagged-snacks_129_0001271c,1003,base vs r2,0.02056485414505005
+main,Bagged-snacks_129_0001271c,1003,base vs r3,0.03997582197189331
+main,Bagged-snacks_129_0001271c,1004,base vs r1,0.0633869469165802
+main,Bagged-snacks_129_0001271c,1004,base vs r2,0.010778695344924927
+main,Bagged-snacks_129_0001271c,1004,base vs r3,0.048533156514167786
+main,Bagged-snacks_129_0001271c,1001,base seed vs seed,0.3514561653137207
+main,Bagged-snacks_129_0001271c,1001,base seed vs seed,0.34627532958984375
+main,Bagged-snacks_129_0001271c,1001,base seed vs seed,0.3254042863845825
+main,Bagged-snacks_129_0001271c,1002,base seed vs seed,0.36224788427352905
+main,Bagged-snacks_129_0001271c,1002,base seed vs seed,0.36053982377052307
+main,Bagged-snacks_129_0001271c,1003,base seed vs seed,0.31311389803886414
+main,Bagged-snacks_129_0001271c,1001,r1 vs r2,0.03191287815570831
+main,Bagged-snacks_129_0001271c,1001,displacement cosine r1 r2,0.21764236688613892
+main,Bagged-snacks_129_0001271c,1001,displacement cosine r1 r2 (other prompt),0.013005872257053852
+main,Bagged-snacks_129_0001271c,1001,r1 vs r3,0.015666693449020386
+main,Bagged-snacks_129_0001271c,1001,displacement cosine r1 r3,0.7082443833351135
+main,Bagged-snacks_129_0001271c,1001,displacement cosine r1 r3 (other prompt),-0.009654002264142036
+main,Bagged-snacks_129_0001271c,1001,r2 vs r3,0.02348940074443817
+main,Bagged-snacks_129_0001271c,1001,displacement cosine r2 r3,0.3930897116661072
+main,Bagged-snacks_129_0001271c,1001,displacement cosine r2 r3 (other prompt),-0.028096716850996017
+main,Bagged-snacks_129_0001271c,1002,r1 vs r2,0.04626165330410004
+main,Bagged-snacks_129_0001271c,1002,displacement cosine r1 r2,0.07233060896396637
+main,Bagged-snacks_129_0001271c,1002,displacement cosine r1 r2 (other prompt),-0.03881268575787544
+main,Bagged-snacks_129_0001271c,1002,r1 vs r3,0.02778010070323944
+main,Bagged-snacks_129_0001271c,1002,displacement cosine r1 r3,0.5250090956687927
+main,Bagged-snacks_129_0001271c,1002,displacement cosine r1 r3 (other prompt),-0.011936377733945847
+main,Bagged-snacks_129_0001271c,1002,r2 vs r3,0.027107208967208862
+main,Bagged-snacks_129_0001271c,1002,displacement cosine r2 r3,0.4767957925796509
+main,Bagged-snacks_129_0001271c,1002,displacement cosine r2 r3 (other prompt),0.03872597590088844
+main,Bagged-snacks_129_0001271c,1003,r1 vs r2,0.023162811994552612
+main,Bagged-snacks_129_0001271c,1003,displacement cosine r1 r2,0.5177184343338013
+main,Bagged-snacks_129_0001271c,1003,displacement cosine r1 r2 (other prompt),0.04230274260044098
+main,Bagged-snacks_129_0001271c,1003,r1 vs r3,0.0331714004278183
+main,Bagged-snacks_129_0001271c,1003,displacement cosine r1 r3,0.5340198874473572
+main,Bagged-snacks_129_0001271c,1003,displacement cosine r1 r3 (other prompt),0.025599200278520584
+main,Bagged-snacks_129_0001271c,1003,r2 vs r3,0.033705711364746094
+main,Bagged-snacks_129_0001271c,1003,displacement cosine r2 r3,0.4504016637802124
+main,Bagged-snacks_129_0001271c,1003,displacement cosine r2 r3 (other prompt),-0.03608960658311844
+main,Bagged-snacks_129_0001271c,1004,r1 vs r2,0.07342599332332611
+main,Bagged-snacks_129_0001271c,1004,displacement cosine r1 r2,0.003742951899766922
+main,Bagged-snacks_129_0001271c,1004,displacement cosine r1 r2 (other prompt),-0.027204686775803566
+main,Bagged-snacks_129_0001271c,1004,r1 vs r3,0.026477187871932983
+main,Bagged-snacks_129_0001271c,1004,displacement cosine r1 r3,0.7781684398651123
+main,Bagged-snacks_129_0001271c,1004,displacement cosine r1 r3 (other prompt),-0.0016632708720862865
+main,Bagged-snacks_129_0001271c,1004,r2 vs r3,0.0560411661863327
+main,Bagged-snacks_129_0001271c,1004,displacement cosine r2 r3,0.08357565850019455
+main,Bagged-snacks_129_0001271c,1004,displacement cosine r2 r3 (other prompt),0.035417091101408005
+main,Clothing_159_34000e99,1001,base vs r1,0.020779013633728027
+main,Clothing_159_34000e99,1001,base vs r2,0.006115570664405823
+main,Clothing_159_34000e99,1001,base vs r3,0.012494564056396484
+main,Clothing_159_34000e99,1002,base vs r1,0.012401223182678223
+main,Clothing_159_34000e99,1002,base vs r2,0.015204936265945435
+main,Clothing_159_34000e99,1002,base vs r3,0.010529860854148865
+main,Clothing_159_34000e99,1003,base vs r1,0.010363146662712097
+main,Clothing_159_34000e99,1003,base vs r2,0.001419156789779663
+main,Clothing_159_34000e99,1003,base vs r3,0.004591241478919983
+main,Clothing_159_34000e99,1004,base vs r1,0.0060929059982299805
+main,Clothing_159_34000e99,1004,base vs r2,0.0019625723361968994
+main,Clothing_159_34000e99,1004,base vs r3,0.0067565590143203735
+main,Clothing_159_34000e99,1001,base seed vs seed,0.2144400179386139
+main,Clothing_159_34000e99,1001,base seed vs seed,0.13762488961219788
+main,Clothing_159_34000e99,1001,base seed vs seed,0.1939460188150406
+main,Clothing_159_34000e99,1002,base seed vs seed,0.13051120936870575
+main,Clothing_159_34000e99,1002,base seed vs seed,0.1280485987663269
+main,Clothing_159_34000e99,1003,base seed vs seed,0.10369493067264557
+main,Clothing_159_34000e99,1001,r1 vs r2,0.021194249391555786
+main,Clothing_159_34000e99,1001,displacement cosine r1 r2,0.3085379898548126
+main,Clothing_159_34000e99,1001,displacement cosine r1 r2 (other prompt),0.05134039372205734
+main,Clothing_159_34000e99,1001,r1 vs r3,0.004731476306915283
+main,Clothing_159_34000e99,1001,displacement cosine r1 r3,0.8844149112701416
+main,Clothing_159_34000e99,1001,displacement cosine r1 r3 (other prompt),0.09000329673290253
+main,Clothing_159_34000e99,1001,r2 vs r3,0.01187664270401001
+main,Clothing_159_34000e99,1001,displacement cosine r2 r3,0.4501912295818329
+main,Clothing_159_34000e99,1001,displacement cosine r2 r3 (other prompt),0.07155776023864746
+main,Clothing_159_34000e99,1002,r1 vs r2,0.012339860200881958
+main,Clothing_159_34000e99,1002,displacement cosine r1 r2,0.40915215015411377
+main,Clothing_159_34000e99,1002,displacement cosine r1 r2 (other prompt),-0.03357498347759247
+main,Clothing_159_34000e99,1002,r1 vs r3,0.010304391384124756
+main,Clothing_159_34000e99,1002,displacement cosine r1 r3,0.6044716238975525
+main,Clothing_159_34000e99,1002,displacement cosine r1 r3 (other prompt),-0.024870838969945908
+main,Clothing_159_34000e99,1002,r2 vs r3,0.014356642961502075
+main,Clothing_159_34000e99,1002,displacement cosine r2 r3,0.36878329515457153
+main,Clothing_159_34000e99,1002,displacement cosine r2 r3 (other prompt),-0.037331417202949524
+main,Clothing_159_34000e99,1003,r1 vs r2,0.01106087863445282
+main,Clothing_159_34000e99,1003,displacement cosine r1 r2,0.11064247786998749
+main,Clothing_159_34000e99,1003,displacement cosine r1 r2 (other prompt),0.11464095115661621
+main,Clothing_159_34000e99,1003,r1 vs r3,0.004913508892059326
+main,Clothing_159_34000e99,1003,displacement cosine r1 r3,0.7421507835388184
+main,Clothing_159_34000e99,1003,displacement cosine r1 r3 (other prompt),0.14401762187480927
+main,Clothing_159_34000e99,1003,r2 vs r3,0.00483393669128418
+main,Clothing_159_34000e99,1003,displacement cosine r2 r3,0.2302086055278778
+main,Clothing_159_34000e99,1003,displacement cosine r2 r3 (other prompt),0.010841039009392262
+main,Clothing_159_34000e99,1004,r1 vs r2,0.003374069929122925
+main,Clothing_159_34000e99,1004,displacement cosine r1 r2,0.6626679301261902
+main,Clothing_159_34000e99,1004,displacement cosine r1 r2 (other prompt),0.012914563529193401
+main,Clothing_159_34000e99,1004,r1 vs r3,0.0029147863388061523
+main,Clothing_159_34000e99,1004,displacement cosine r1 r3,0.7930331826210022
+main,Clothing_159_34000e99,1004,displacement cosine r1 r3 (other prompt),0.02037605457007885
+main,Clothing_159_34000e99,1004,r2 vs r3,0.00433601438999176
+main,Clothing_159_34000e99,1004,displacement cosine r2 r3,0.604892373085022
+main,Clothing_159_34000e99,1004,displacement cosine r2 r3 (other prompt),0.01855788379907608
+main,Clothing_159_3500e9dc,1001,base vs r1,0.018516942858695984
+main,Clothing_159_3500e9dc,1001,base vs r2,0.0050395578145980835
+main,Clothing_159_3500e9dc,1001,base vs r3,0.013355284929275513
+main,Clothing_159_3500e9dc,1002,base vs r1,0.008029192686080933
+main,Clothing_159_3500e9dc,1002,base vs r2,0.004660382866859436
+main,Clothing_159_3500e9dc,1002,base vs r3,0.009661972522735596
+main,Clothing_159_3500e9dc,1003,base vs r1,0.013459831476211548
+main,Clothing_159_3500e9dc,1003,base vs r2,0.006992459297180176
+main,Clothing_159_3500e9dc,1003,base vs r3,0.01257583498954773
+main,Clothing_159_3500e9dc,1004,base vs r1,0.05230483412742615
+main,Clothing_159_3500e9dc,1004,base vs r2,0.013379871845245361
+main,Clothing_159_3500e9dc,1004,base vs r3,0.040449246764183044
+main,Clothing_159_3500e9dc,1001,base seed vs seed,0.19963015615940094
+main,Clothing_159_3500e9dc,1001,base seed vs seed,0.197207972407341
+main,Clothing_159_3500e9dc,1001,base seed vs seed,0.10131338238716125
+main,Clothing_159_3500e9dc,1002,base seed vs seed,0.12101085484027863
+main,Clothing_159_3500e9dc,1002,base seed vs seed,0.21116825938224792
+main,Clothing_159_3500e9dc,1003,base seed vs seed,0.20162250101566315
+main,Clothing_159_3500e9dc,1001,r1 vs r2,0.015179350972175598
+main,Clothing_159_3500e9dc,1001,displacement cosine r1 r2,0.44816818833351135
+main,Clothing_159_3500e9dc,1001,displacement cosine r1 r2 (other prompt),-0.007955200038850307
+main,Clothing_159_3500e9dc,1001,r1 vs r3,0.002398386597633362
+main,Clothing_159_3500e9dc,1001,displacement cosine r1 r3,0.9270661473274231
+main,Clothing_159_3500e9dc,1001,displacement cosine r1 r3 (other prompt),-0.02163637802004814
+main,Clothing_159_3500e9dc,1001,r2 vs r3,0.010837629437446594
+main,Clothing_159_3500e9dc,1001,displacement cosine r2 r3,0.515889048576355
+main,Clothing_159_3500e9dc,1001,displacement cosine r2 r3 (other prompt),0.01086692325770855
+main,Clothing_159_3500e9dc,1002,r1 vs r2,0.00749477744102478
+main,Clothing_159_3500e9dc,1002,displacement cosine r1 r2,0.4602912366390228
+main,Clothing_159_3500e9dc,1002,displacement cosine r1 r2 (other prompt),0.0002752728760242462
+main,Clothing_159_3500e9dc,1002,r1 vs r3,0.0032386183738708496
+main,Clothing_159_3500e9dc,1002,displacement cosine r1 r3,0.7193753719329834
+main,Clothing_159_3500e9dc,1002,displacement cosine r1 r3 (other prompt),-0.0024823579005897045
+main,Clothing_159_3500e9dc,1002,r2 vs r3,0.008085429668426514
+main,Clothing_159_3500e9dc,1002,displacement cosine r2 r3,0.6040558218955994
+main,Clothing_159_3500e9dc,1002,displacement cosine r2 r3 (other prompt),-0.0316745825111866
+main,Clothing_159_3500e9dc,1003,r1 vs r2,0.010290533304214478
+main,Clothing_159_3500e9dc,1003,displacement cosine r1 r2,0.591609001159668
+main,Clothing_159_3500e9dc,1003,displacement cosine r1 r2 (other prompt),0.029120102524757385
+main,Clothing_159_3500e9dc,1003,r1 vs r3,0.003207102417945862
+main,Clothing_159_3500e9dc,1003,displacement cosine r1 r3,0.8770167231559753
+main,Clothing_159_3500e9dc,1003,displacement cosine r1 r3 (other prompt),0.05418601632118225
+main,Clothing_159_3500e9dc,1003,r2 vs r3,0.008926719427108765
+main,Clothing_159_3500e9dc,1003,displacement cosine r2 r3,0.6093370914459229
+main,Clothing_159_3500e9dc,1003,displacement cosine r2 r3 (other prompt),0.03316895291209221
+main,Clothing_159_3500e9dc,1004,r1 vs r2,0.03536486625671387
+main,Clothing_159_3500e9dc,1004,displacement cosine r1 r2,0.5313264727592468
+main,Clothing_159_3500e9dc,1004,displacement cosine r1 r2 (other prompt),-0.005283449310809374
+main,Clothing_159_3500e9dc,1004,r1 vs r3,0.027962252497673035
+main,Clothing_159_3500e9dc,1004,displacement cosine r1 r3,0.7918233871459961
+main,Clothing_159_3500e9dc,1004,displacement cosine r1 r3 (other prompt),0.04327049478888512
+main,Clothing_159_3500e9dc,1004,r2 vs r3,0.025973692536354065
+main,Clothing_159_3500e9dc,1004,displacement cosine r2 r3,0.513839602470398
+main,Clothing_159_3500e9dc,1004,displacement cosine r2 r3 (other prompt),0.037463005632162094
+main,Flower_141_0a00b063,1001,base vs r1,0.010013982653617859
+main,Flower_141_0a00b063,1001,base vs r2,0.007805153727531433
+main,Flower_141_0a00b063,1001,base vs r3,0.01032249629497528
+main,Flower_141_0a00b063,1002,base vs r1,0.01959514617919922
+main,Flower_141_0a00b063,1002,base vs r2,0.004338383674621582
+main,Flower_141_0a00b063,1002,base vs r3,0.024145901203155518
+main,Flower_141_0a00b063,1003,base vs r1,0.021482840180397034
+main,Flower_141_0a00b063,1003,base vs r2,0.00613713264465332
+main,Flower_141_0a00b063,1003,base vs r3,0.02490292489528656
+main,Flower_141_0a00b063,1004,base vs r1,0.09211130440235138
+main,Flower_141_0a00b063,1004,base vs r2,0.007018253207206726
+main,Flower_141_0a00b063,1004,base vs r3,0.014659762382507324
+main,Flower_141_0a00b063,1001,base seed vs seed,0.1380864828824997
+main,Flower_141_0a00b063,1001,base seed vs seed,0.2116263508796692
+main,Flower_141_0a00b063,1001,base seed vs seed,0.3246217370033264
+main,Flower_141_0a00b063,1002,base seed vs seed,0.14226144552230835
+main,Flower_141_0a00b063,1002,base seed vs seed,0.2611803412437439
+main,Flower_141_0a00b063,1003,base seed vs seed,0.24484825134277344
+main,Flower_141_0a00b063,1001,r1 vs r2,0.005724966526031494
+main,Flower_141_0a00b063,1001,displacement cosine r1 r2,0.6682637929916382
+main,Flower_141_0a00b063,1001,displacement cosine r1 r2 (other prompt),0.05552622675895691
+main,Flower_141_0a00b063,1001,r1 vs r3,0.005187466740608215
+main,Flower_141_0a00b063,1001,displacement cosine r1 r3,0.7654396891593933
+main,Flower_141_0a00b063,1001,displacement cosine r1 r3 (other prompt),0.018202535808086395
+main,Flower_141_0a00b063,1001,r2 vs r3,0.011472880840301514
+main,Flower_141_0a00b063,1001,displacement cosine r2 r3,0.3651375472545624
+main,Flower_141_0a00b063,1001,displacement cosine r2 r3 (other prompt),0.018903959542512894
+main,Flower_141_0a00b063,1002,r1 vs r2,0.012598082423210144
+main,Flower_141_0a00b063,1002,displacement cosine r1 r2,0.6083042621612549
+main,Flower_141_0a00b063,1002,displacement cosine r1 r2 (other prompt),-0.03022027760744095
+main,Flower_141_0a00b063,1002,r1 vs r3,0.0031325072050094604
+main,Flower_141_0a00b063,1002,displacement cosine r1 r3,0.9329028129577637
+main,Flower_141_0a00b063,1002,displacement cosine r1 r3 (other prompt),-0.008256911300122738
+main,Flower_141_0a00b063,1002,r2 vs r3,0.018532440066337585
+main,Flower_141_0a00b063,1002,displacement cosine r2 r3,0.4755212068557739
+main,Flower_141_0a00b063,1002,displacement cosine r2 r3 (other prompt),-0.03875359147787094
+main,Flower_141_0a00b063,1003,r1 vs r2,0.014735028147697449
+main,Flower_141_0a00b063,1003,displacement cosine r1 r2,0.5276511907577515
+main,Flower_141_0a00b063,1003,displacement cosine r1 r2 (other prompt),0.003741818480193615
+main,Flower_141_0a00b063,1003,r1 vs r3,0.006458312273025513
+main,Flower_141_0a00b063,1003,displacement cosine r1 r3,0.865204930305481
+main,Flower_141_0a00b063,1003,displacement cosine r1 r3 (other prompt),0.03683358058333397
+main,Flower_141_0a00b063,1003,r2 vs r3,0.01848691701889038
+main,Flower_141_0a00b063,1003,displacement cosine r2 r3,0.487587034702301
+main,Flower_141_0a00b063,1003,displacement cosine r2 r3 (other prompt),0.003270575776696205
+main,Flower_141_0a00b063,1004,r1 vs r2,0.09407922625541687
+main,Flower_141_0a00b063,1004,displacement cosine r1 r2,0.1614796668291092
+main,Flower_141_0a00b063,1004,displacement cosine r1 r2 (other prompt),-0.030362911522388458
+main,Flower_141_0a00b063,1004,r1 vs r3,0.07410608232021332
+main,Flower_141_0a00b063,1004,displacement cosine r1 r3,0.5431387424468994
+main,Flower_141_0a00b063,1004,displacement cosine r1 r3 (other prompt),-0.013951209373772144
+main,Flower_141_0a00b063,1004,r2 vs r3,0.018671825528144836
+main,Flower_141_0a00b063,1004,displacement cosine r2 r3,0.28593069314956665
+main,Flower_141_0a00b063,1004,displacement cosine r2 r3 (other prompt),-0.0020723259076476097
+main,Hair-dryer_132_2200453e,1001,base vs r1,0.01963992416858673
+main,Hair-dryer_132_2200453e,1001,base vs r2,0.03150969743728638
+main,Hair-dryer_132_2200453e,1001,base vs r3,0.02893511950969696
+main,Hair-dryer_132_2200453e,1002,base vs r1,0.023384854197502136
+main,Hair-dryer_132_2200453e,1002,base vs r2,0.013229280710220337
+main,Hair-dryer_132_2200453e,1002,base vs r3,0.011998862028121948
+main,Hair-dryer_132_2200453e,1003,base vs r1,0.03307870030403137
+main,Hair-dryer_132_2200453e,1003,base vs r2,0.06862376630306244
+main,Hair-dryer_132_2200453e,1003,base vs r3,0.030326589941978455
+main,Hair-dryer_132_2200453e,1004,base vs r1,0.0446837842464447
+main,Hair-dryer_132_2200453e,1004,base vs r2,0.06796441972255707
+main,Hair-dryer_132_2200453e,1004,base vs r3,0.06895935535430908
+main,Hair-dryer_132_2200453e,1001,base seed vs seed,0.3367721438407898
+main,Hair-dryer_132_2200453e,1001,base seed vs seed,0.27885299921035767
+main,Hair-dryer_132_2200453e,1001,base seed vs seed,0.265992134809494
+main,Hair-dryer_132_2200453e,1002,base seed vs seed,0.3480134606361389
+main,Hair-dryer_132_2200453e,1002,base seed vs seed,0.35861489176750183
+main,Hair-dryer_132_2200453e,1003,base seed vs seed,0.2209506779909134
+main,Hair-dryer_132_2200453e,1001,r1 vs r2,0.030178576707839966
+main,Hair-dryer_132_2200453e,1001,displacement cosine r1 r2,0.47786179184913635
+main,Hair-dryer_132_2200453e,1001,displacement cosine r1 r2 (other prompt),-0.0034188220743089914
+main,Hair-dryer_132_2200453e,1001,r1 vs r3,0.01857633888721466
+main,Hair-dryer_132_2200453e,1001,displacement cosine r1 r3,0.6660935878753662
+main,Hair-dryer_132_2200453e,1001,displacement cosine r1 r3 (other prompt),-0.0003471611998975277
+main,Hair-dryer_132_2200453e,1001,r2 vs r3,0.032962143421173096
+main,Hair-dryer_132_2200453e,1001,displacement cosine r2 r3,0.5426496863365173
+main,Hair-dryer_132_2200453e,1001,displacement cosine r2 r3 (other prompt),-0.012533372268080711
+main,Hair-dryer_132_2200453e,1002,r1 vs r2,0.02498367428779602
+main,Hair-dryer_132_2200453e,1002,displacement cosine r1 r2,0.3983039855957031
+main,Hair-dryer_132_2200453e,1002,displacement cosine r1 r2 (other prompt),0.012971702963113785
+main,Hair-dryer_132_2200453e,1002,r1 vs r3,0.021748453378677368
+main,Hair-dryer_132_2200453e,1002,displacement cosine r1 r3,0.4652104377746582
+main,Hair-dryer_132_2200453e,1002,displacement cosine r1 r3 (other prompt),-0.05132201313972473
+main,Hair-dryer_132_2200453e,1002,r2 vs r3,0.0033794045448303223
+main,Hair-dryer_132_2200453e,1002,displacement cosine r2 r3,0.7594733238220215
+main,Hair-dryer_132_2200453e,1002,displacement cosine r2 r3 (other prompt),-0.03898182138800621
+main,Hair-dryer_132_2200453e,1003,r1 vs r2,0.07546213269233704
+main,Hair-dryer_132_2200453e,1003,displacement cosine r1 r2,0.28470516204833984
+main,Hair-dryer_132_2200453e,1003,displacement cosine r1 r2 (other prompt),0.010745218954980373
+main,Hair-dryer_132_2200453e,1003,r1 vs r3,0.031816691160202026
+main,Hair-dryer_132_2200453e,1003,displacement cosine r1 r3,0.513407289981842
+main,Hair-dryer_132_2200453e,1003,displacement cosine r1 r3 (other prompt),0.0004936377517879009
+main,Hair-dryer_132_2200453e,1003,r2 vs r3,0.06498531997203827
+main,Hair-dryer_132_2200453e,1003,displacement cosine r2 r3,0.378493070602417
+main,Hair-dryer_132_2200453e,1003,displacement cosine r2 r3 (other prompt),-0.01911790482699871
+main,Hair-dryer_132_2200453e,1004,r1 vs r2,0.04280842840671539
+main,Hair-dryer_132_2200453e,1004,displacement cosine r1 r2,0.6798893213272095
+main,Hair-dryer_132_2200453e,1004,displacement cosine r1 r2 (other prompt),-0.024692580103874207
+main,Hair-dryer_132_2200453e,1004,r1 vs r3,0.06297372281551361
+main,Hair-dryer_132_2200453e,1004,displacement cosine r1 r3,0.5008025765419006
+main,Hair-dryer_132_2200453e,1004,displacement cosine r1 r3 (other prompt),0.037292130291461945
+main,Hair-dryer_132_2200453e,1004,r2 vs r3,0.0670701414346695
+main,Hair-dryer_132_2200453e,1004,displacement cosine r2 r3,0.5851521492004395
+main,Hair-dryer_132_2200453e,1004,displacement cosine r2 r3 (other prompt),0.022693313658237457
+main,Lantern_209_300165df,1001,base vs r1,0.09840412437915802
+main,Lantern_209_300165df,1001,base vs r2,0.09149263799190521
+main,Lantern_209_300165df,1001,base vs r3,0.09455740451812744
+main,Lantern_209_300165df,1002,base vs r1,0.007647797465324402
+main,Lantern_209_300165df,1002,base vs r2,0.003462284803390503
+main,Lantern_209_300165df,1002,base vs r3,0.00999191403388977
+main,Lantern_209_300165df,1003,base vs r1,0.011190637946128845
+main,Lantern_209_300165df,1003,base vs r2,0.005462542176246643
+main,Lantern_209_300165df,1003,base vs r3,0.022011980414390564
+main,Lantern_209_300165df,1004,base vs r1,0.0393557995557785
+main,Lantern_209_300165df,1004,base vs r2,0.006682261824607849
+main,Lantern_209_300165df,1004,base vs r3,0.1026117205619812
+main,Lantern_209_300165df,1001,base seed vs seed,0.19685828685760498
+main,Lantern_209_300165df,1001,base seed vs seed,0.16237764060497284
+main,Lantern_209_300165df,1001,base seed vs seed,0.32302236557006836
+main,Lantern_209_300165df,1002,base seed vs seed,0.15407030284404755
+main,Lantern_209_300165df,1002,base seed vs seed,0.3864758014678955
+main,Lantern_209_300165df,1003,base seed vs seed,0.2712153494358063
+main,Lantern_209_300165df,1001,r1 vs r2,0.00567251443862915
+main,Lantern_209_300165df,1001,displacement cosine r1 r2,0.9710620641708374
+main,Lantern_209_300165df,1001,displacement cosine r1 r2 (other prompt),0.013194886967539787
+main,Lantern_209_300165df,1001,r1 vs r3,0.0028670579195022583
+main,Lantern_209_300165df,1001,displacement cosine r1 r3,0.9854989051818848
+main,Lantern_209_300165df,1001,displacement cosine r1 r3 (other prompt),0.030012480914592743
+main,Lantern_209_300165df,1001,r2 vs r3,0.005653798580169678
+main,Lantern_209_300165df,1001,displacement cosine r2 r3,0.9701423645019531
+main,Lantern_209_300165df,1001,displacement cosine r2 r3 (other prompt),0.03048762120306492
+main,Lantern_209_300165df,1002,r1 vs r2,0.012366428971290588
+main,Lantern_209_300165df,1002,displacement cosine r1 r2,-0.09834399074316025
+main,Lantern_209_300165df,1002,displacement cosine r1 r2 (other prompt),-0.04233001917600632
+main,Lantern_209_300165df,1002,r1 vs r3,0.0051529258489608765
+main,Lantern_209_300165df,1002,displacement cosine r1 r3,0.6850923895835876
+main,Lantern_209_300165df,1002,displacement cosine r1 r3 (other prompt),-0.03246913477778435
+main,Lantern_209_300165df,1002,r2 vs r3,0.013357222080230713
+main,Lantern_209_300165df,1002,displacement cosine r2 r3,0.01689191535115242
+main,Lantern_209_300165df,1002,displacement cosine r2 r3 (other prompt),0.0520494244992733
+main,Lantern_209_300165df,1003,r1 vs r2,0.004919096827507019
+main,Lantern_209_300165df,1003,displacement cosine r1 r2,0.7185876369476318
+main,Lantern_209_300165df,1003,displacement cosine r1 r2 (other prompt),-0.02347499318420887
+main,Lantern_209_300165df,1003,r1 vs r3,0.008266404271125793
+main,Lantern_209_300165df,1003,displacement cosine r1 r3,0.7569176554679871
+main,Lantern_209_300165df,1003,displacement cosine r1 r3 (other prompt),0.00010553887113928795
+main,Lantern_209_300165df,1003,r2 vs r3,0.015048325061798096
+main,Lantern_209_300165df,1003,displacement cosine r2 r3,0.5301504135131836
+main,Lantern_209_300165df,1003,displacement cosine r2 r3 (other prompt),-0.006394967436790466
+main,Lantern_209_300165df,1004,r1 vs r2,0.038249000906944275
+main,Lantern_209_300165df,1004,displacement cosine r1 r2,0.27046436071395874
+main,Lantern_209_300165df,1004,displacement cosine r1 r2 (other prompt),-0.002525586634874344
+main,Lantern_209_300165df,1004,r1 vs r3,0.07000875473022461
+main,Lantern_209_300165df,1004,displacement cosine r1 r3,0.735435962677002
+main,Lantern_209_300165df,1004,displacement cosine r1 r3 (other prompt),0.025623083114624023
+main,Lantern_209_300165df,1004,r2 vs r3,0.10532583296298981
+main,Lantern_209_300165df,1004,displacement cosine r2 r3,0.20779913663864136
+main,Lantern_209_300165df,1004,displacement cosine r2 r3 (other prompt),0.018090441823005676
+main,Racket_202_300059e9,1001,base vs r1,0.018299520015716553
+main,Racket_202_300059e9,1001,base vs r2,0.0074484944343566895
+main,Racket_202_300059e9,1001,base vs r3,0.012951135635375977
+main,Racket_202_300059e9,1002,base vs r1,0.048326268792152405
+main,Racket_202_300059e9,1002,base vs r2,0.04945047199726105
+main,Racket_202_300059e9,1002,base vs r3,0.048930153250694275
+main,Racket_202_300059e9,1003,base vs r1,0.11572384834289551
+main,Racket_202_300059e9,1003,base vs r2,0.0542130172252655
+main,Racket_202_300059e9,1003,base vs r3,0.12180358171463013
+main,Racket_202_300059e9,1004,base vs r1,0.05604027211666107
+main,Racket_202_300059e9,1004,base vs r2,0.022026047110557556
+main,Racket_202_300059e9,1004,base vs r3,0.06418541073799133
+main,Racket_202_300059e9,1001,base seed vs seed,0.4010467827320099
+main,Racket_202_300059e9,1001,base seed vs seed,0.45387059450149536
+main,Racket_202_300059e9,1001,base seed vs seed,0.24497133493423462
+main,Racket_202_300059e9,1002,base seed vs seed,0.2729724645614624
+main,Racket_202_300059e9,1002,base seed vs seed,0.3546995520591736
+main,Racket_202_300059e9,1003,base seed vs seed,0.46450141072273254
+main,Racket_202_300059e9,1001,r1 vs r2,0.01110541820526123
+main,Racket_202_300059e9,1001,displacement cosine r1 r2,0.5500360727310181
+main,Racket_202_300059e9,1001,displacement cosine r1 r2 (other prompt),0.03233618289232254
+main,Racket_202_300059e9,1001,r1 vs r3,0.006955534219741821
+main,Racket_202_300059e9,1001,displacement cosine r1 r3,0.7434371709823608
+main,Racket_202_300059e9,1001,displacement cosine r1 r3 (other prompt),0.009945515543222427
+main,Racket_202_300059e9,1001,r2 vs r3,0.008765652775764465
+main,Racket_202_300059e9,1001,displacement cosine r2 r3,0.517485499382019
+main,Racket_202_300059e9,1001,displacement cosine r2 r3 (other prompt),0.009572826325893402
+main,Racket_202_300059e9,1002,r1 vs r2,0.031372010707855225
+main,Racket_202_300059e9,1002,displacement cosine r1 r2,0.6772994995117188
+main,Racket_202_300059e9,1002,displacement cosine r1 r2 (other prompt),0.025330089032649994
+main,Racket_202_300059e9,1002,r1 vs r3,0.023716121912002563
+main,Racket_202_300059e9,1002,displacement cosine r1 r3,0.7501708269119263
+main,Racket_202_300059e9,1002,displacement cosine r1 r3 (other prompt),0.02205175720155239
+main,Racket_202_300059e9,1002,r2 vs r3,0.019197523593902588
+main,Racket_202_300059e9,1002,displacement cosine r2 r3,0.7974372506141663
+main,Racket_202_300059e9,1002,displacement cosine r2 r3 (other prompt),-0.023412959650158882
+main,Racket_202_300059e9,1003,r1 vs r2,0.09979020059108734
+main,Racket_202_300059e9,1003,displacement cosine r1 r2,0.4157238304615021
+main,Racket_202_300059e9,1003,displacement cosine r1 r2 (other prompt),-0.0062489258125424385
+main,Racket_202_300059e9,1003,r1 vs r3,0.015737086534500122
+main,Racket_202_300059e9,1003,displacement cosine r1 r3,0.9349980354309082
+main,Racket_202_300059e9,1003,displacement cosine r1 r3 (other prompt),0.017103958874940872
+main,Racket_202_300059e9,1003,r2 vs r3,0.1044415533542633
+main,Racket_202_300059e9,1003,displacement cosine r2 r3,0.41490069031715393
+main,Racket_202_300059e9,1003,displacement cosine r2 r3 (other prompt),-0.019045084714889526
+main,Racket_202_300059e9,1004,r1 vs r2,0.05504670739173889
+main,Racket_202_300059e9,1004,displacement cosine r1 r2,0.3309001922607422
+main,Racket_202_300059e9,1004,displacement cosine r1 r2 (other prompt),0.03553056716918945
+main,Racket_202_300059e9,1004,r1 vs r3,0.013678833842277527
+main,Racket_202_300059e9,1004,displacement cosine r1 r3,0.8928687572479248
+main,Racket_202_300059e9,1004,displacement cosine r1 r3 (other prompt),0.02235247753560543
+main,Racket_202_300059e9,1004,r2 vs r3,0.056756213307380676
+main,Racket_202_300059e9,1004,displacement cosine r2 r3,0.37566548585891724
+main,Racket_202_300059e9,1004,displacement cosine r2 r3 (other prompt),0.025680817663669586
+main,Racket_202_3d000372,1001,base vs r1,0.016782104969024658
+main,Racket_202_3d000372,1001,base vs r2,0.005407899618148804
+main,Racket_202_3d000372,1001,base vs r3,0.015418320894241333
+main,Racket_202_3d000372,1002,base vs r1,0.0037346482276916504
+main,Racket_202_3d000372,1002,base vs r2,0.0008669942617416382
+main,Racket_202_3d000372,1002,base vs r3,0.00395984947681427
+main,Racket_202_3d000372,1003,base vs r1,0.0068503618240356445
+main,Racket_202_3d000372,1003,base vs r2,0.0037904977798461914
+main,Racket_202_3d000372,1003,base vs r3,0.006984084844589233
+main,Racket_202_3d000372,1004,base vs r1,0.02425844967365265
+main,Racket_202_3d000372,1004,base vs r2,0.0026363730430603027
+main,Racket_202_3d000372,1004,base vs r3,0.01275208592414856
+main,Racket_202_3d000372,1001,base seed vs seed,0.23967863619327545
+main,Racket_202_3d000372,1001,base seed vs seed,0.2183714658021927
+main,Racket_202_3d000372,1001,base seed vs seed,0.15684399008750916
+main,Racket_202_3d000372,1002,base seed vs seed,0.07402132451534271
+main,Racket_202_3d000372,1002,base seed vs seed,0.24306097626686096
+main,Racket_202_3d000372,1003,base seed vs seed,0.24136896431446075
+main,Racket_202_3d000372,1001,r1 vs r2,0.017746955156326294
+main,Racket_202_3d000372,1001,displacement cosine r1 r2,0.2724793255329132
+main,Racket_202_3d000372,1001,displacement cosine r1 r2 (other prompt),-0.0168727096170187
+main,Racket_202_3d000372,1001,r1 vs r3,0.004497841000556946
+main,Racket_202_3d000372,1001,displacement cosine r1 r3,0.8587677478790283
+main,Racket_202_3d000372,1001,displacement cosine r1 r3 (other prompt),-0.0333259180188179
+main,Racket_202_3d000372,1001,r2 vs r3,0.014334797859191895
+main,Racket_202_3d000372,1001,displacement cosine r2 r3,0.4164751172065735
+main,Racket_202_3d000372,1001,displacement cosine r2 r3 (other prompt),-0.05072572082281113
+main,Racket_202_3d000372,1002,r1 vs r2,0.0028667449951171875
+main,Racket_202_3d000372,1002,displacement cosine r1 r2,0.48851263523101807
+main,Racket_202_3d000372,1002,displacement cosine r1 r2 (other prompt),-0.016665169969201088
+main,Racket_202_3d000372,1002,r1 vs r3,0.0007849186658859253
+main,Racket_202_3d000372,1002,displacement cosine r1 r3,0.9045943021774292
+main,Racket_202_3d000372,1002,displacement cosine r1 r3 (other prompt),0.015300413593649864
+main,Racket_202_3d000372,1002,r2 vs r3,0.003157705068588257
+main,Racket_202_3d000372,1002,displacement cosine r2 r3,0.46142488718032837
+main,Racket_202_3d000372,1002,displacement cosine r2 r3 (other prompt),-0.0025310846976935863
+main,Racket_202_3d000372,1003,r1 vs r2,0.0033288300037384033
+main,Racket_202_3d000372,1003,displacement cosine r1 r2,0.7074638605117798
+main,Racket_202_3d000372,1003,displacement cosine r1 r2 (other prompt),0.05434195324778557
+main,Racket_202_3d000372,1003,r1 vs r3,0.0007047355175018311
+main,Racket_202_3d000372,1003,displacement cosine r1 r3,0.9484017491340637
+main,Racket_202_3d000372,1003,displacement cosine r1 r3 (other prompt),0.031609199941158295
+main,Racket_202_3d000372,1003,r2 vs r3,0.0033756792545318604
+main,Racket_202_3d000372,1003,displacement cosine r2 r3,0.7019326090812683
+main,Racket_202_3d000372,1003,displacement cosine r2 r3 (other prompt),0.008460158482193947
+main,Racket_202_3d000372,1004,r1 vs r2,0.02415718138217926
+main,Racket_202_3d000372,1004,displacement cosine r1 r2,0.18024347722530365
+main,Racket_202_3d000372,1004,displacement cosine r1 r2 (other prompt),0.01783907599747181
+main,Racket_202_3d000372,1004,r1 vs r3,0.012526527047157288
+main,Racket_202_3d000372,1004,displacement cosine r1 r3,0.7322210669517517
+main,Racket_202_3d000372,1004,displacement cosine r1 r3 (other prompt),0.04192059114575386
+main,Racket_202_3d000372,1004,r2 vs r3,0.010952070355415344
+main,Racket_202_3d000372,1004,displacement cosine r2 r3,0.3608133792877197
+main,Racket_202_3d000372,1004,displacement cosine r2 r3 (other prompt),-0.033768825232982635
+main,Rockery_137_21018252,1001,base vs r1,0.047417834401130676
+main,Rockery_137_21018252,1001,base vs r2,0.03036215901374817
+main,Rockery_137_21018252,1001,base vs r3,0.029065251350402832
+main,Rockery_137_21018252,1002,base vs r1,0.04130755364894867
+main,Rockery_137_21018252,1002,base vs r2,0.012712061405181885
+main,Rockery_137_21018252,1002,base vs r3,0.03660079836845398
+main,Rockery_137_21018252,1003,base vs r1,0.08074203133583069
+main,Rockery_137_21018252,1003,base vs r2,0.021612882614135742
+main,Rockery_137_21018252,1003,base vs r3,0.0801289975643158
+main,Rockery_137_21018252,1004,base vs r1,0.025354549288749695
+main,Rockery_137_21018252,1004,base vs r2,0.01349097490310669
+main,Rockery_137_21018252,1004,base vs r3,0.02285410463809967
+main,Rockery_137_21018252,1001,base seed vs seed,0.20481324195861816
+main,Rockery_137_21018252,1001,base seed vs seed,0.2924061417579651
+main,Rockery_137_21018252,1001,base seed vs seed,0.23065805435180664
+main,Rockery_137_21018252,1002,base seed vs seed,0.3276665210723877
+main,Rockery_137_21018252,1002,base seed vs seed,0.2273111790418625
+main,Rockery_137_21018252,1003,base seed vs seed,0.279244601726532
+main,Rockery_137_21018252,1001,r1 vs r2,0.022340670228004456
+main,Rockery_137_21018252,1001,displacement cosine r1 r2,0.6009582281112671
+main,Rockery_137_21018252,1001,displacement cosine r1 r2 (other prompt),0.03584599122405052
+main,Rockery_137_21018252,1001,r1 vs r3,0.021167173981666565
+main,Rockery_137_21018252,1001,displacement cosine r1 r3,0.7559235095977783
+main,Rockery_137_21018252,1001,displacement cosine r1 r3 (other prompt),0.026599742472171783
+main,Rockery_137_21018252,1001,r2 vs r3,0.022507593035697937
+main,Rockery_137_21018252,1001,displacement cosine r2 r3,0.5463770627975464
+main,Rockery_137_21018252,1001,displacement cosine r2 r3 (other prompt),0.01029604859650135
+main,Rockery_137_21018252,1002,r1 vs r2,0.02704089879989624
+main,Rockery_137_21018252,1002,displacement cosine r1 r2,0.5809745788574219
+main,Rockery_137_21018252,1002,displacement cosine r1 r2 (other prompt),0.003191952593624592
+main,Rockery_137_21018252,1002,r1 vs r3,0.012354627251625061
+main,Rockery_137_21018252,1002,displacement cosine r1 r3,0.8327292203903198
+main,Rockery_137_21018252,1002,displacement cosine r1 r3 (other prompt),0.04713035002350807
+main,Rockery_137_21018252,1002,r2 vs r3,0.02361677587032318
+main,Rockery_137_21018252,1002,displacement cosine r2 r3,0.5802252292633057
+main,Rockery_137_21018252,1002,displacement cosine r2 r3 (other prompt),0.026489628478884697
+main,Rockery_137_21018252,1003,r1 vs r2,0.0907120406627655
+main,Rockery_137_21018252,1003,displacement cosine r1 r2,0.1249222606420517
+main,Rockery_137_21018252,1003,displacement cosine r1 r2 (other prompt),-0.0009971065446734428
+main,Rockery_137_21018252,1003,r1 vs r3,0.03760109841823578
+main,Rockery_137_21018252,1003,displacement cosine r1 r3,0.6918374300003052
+main,Rockery_137_21018252,1003,displacement cosine r1 r3 (other prompt),0.03372187167406082
+main,Rockery_137_21018252,1003,r2 vs r3,0.06724952161312103
+main,Rockery_137_21018252,1003,displacement cosine r2 r3,0.4130357801914215
+main,Rockery_137_21018252,1003,displacement cosine r2 r3 (other prompt),0.009842146188020706
+main,Rockery_137_21018252,1004,r1 vs r2,0.018701568245887756
+main,Rockery_137_21018252,1004,displacement cosine r1 r2,0.5221993923187256
+main,Rockery_137_21018252,1004,displacement cosine r1 r2 (other prompt),0.018301265314221382
+main,Rockery_137_21018252,1004,r1 vs r3,0.008012622594833374
+main,Rockery_137_21018252,1004,displacement cosine r1 r3,0.8391204476356506
+main,Rockery_137_21018252,1004,displacement cosine r1 r3 (other prompt),0.026699716225266457
+main,Rockery_137_21018252,1004,r2 vs r3,0.024644017219543457
+main,Rockery_137_21018252,1004,displacement cosine r2 r3,0.3300733268260956
+main,Rockery_137_21018252,1004,displacement cosine r2 r3 (other prompt),-2.0621344447135925e-05
+main,Sanitary-napkin_135_1a00ebac,1001,base vs r1,0.20617711544036865
+main,Sanitary-napkin_135_1a00ebac,1001,base vs r2,0.14349015057086945
+main,Sanitary-napkin_135_1a00ebac,1001,base vs r3,0.19755949079990387
+main,Sanitary-napkin_135_1a00ebac,1002,base vs r1,0.08828712999820709
+main,Sanitary-napkin_135_1a00ebac,1002,base vs r2,0.08941754698753357
+main,Sanitary-napkin_135_1a00ebac,1002,base vs r3,0.25358185172080994
+main,Sanitary-napkin_135_1a00ebac,1003,base vs r1,0.11560037732124329
+main,Sanitary-napkin_135_1a00ebac,1003,base vs r2,0.07934257388114929
+main,Sanitary-napkin_135_1a00ebac,1003,base vs r3,0.11127021908760071
+main,Sanitary-napkin_135_1a00ebac,1004,base vs r1,0.08317382633686066
+main,Sanitary-napkin_135_1a00ebac,1004,base vs r2,0.12084956467151642
+main,Sanitary-napkin_135_1a00ebac,1004,base vs r3,0.1410679668188095
+main,Sanitary-napkin_135_1a00ebac,1001,base seed vs seed,0.42398494482040405
+main,Sanitary-napkin_135_1a00ebac,1001,base seed vs seed,0.40040338039398193
+main,Sanitary-napkin_135_1a00ebac,1001,base seed vs seed,0.4170355796813965
+main,Sanitary-napkin_135_1a00ebac,1002,base seed vs seed,0.45604783296585083
+main,Sanitary-napkin_135_1a00ebac,1002,base seed vs seed,0.40629807114601135
+main,Sanitary-napkin_135_1a00ebac,1003,base seed vs seed,0.43086564540863037
+main,Sanitary-napkin_135_1a00ebac,1001,r1 vs r2,0.15002501010894775
+main,Sanitary-napkin_135_1a00ebac,1001,displacement cosine r1 r2,0.6527210474014282
+main,Sanitary-napkin_135_1a00ebac,1001,displacement cosine r1 r2 (other prompt),-0.05191340297460556
+main,Sanitary-napkin_135_1a00ebac,1001,r1 vs r3,0.047263383865356445
+main,Sanitary-napkin_135_1a00ebac,1001,displacement cosine r1 r3,0.8676977157592773
+main,Sanitary-napkin_135_1a00ebac,1001,displacement cosine r1 r3 (other prompt),0.02813730202615261
+main,Sanitary-napkin_135_1a00ebac,1001,r2 vs r3,0.1627521812915802
+main,Sanitary-napkin_135_1a00ebac,1001,displacement cosine r2 r3,0.6006523370742798
+main,Sanitary-napkin_135_1a00ebac,1001,displacement cosine r2 r3 (other prompt),0.017906565219163895
+main,Sanitary-napkin_135_1a00ebac,1002,r1 vs r2,0.06167440116405487
+main,Sanitary-napkin_135_1a00ebac,1002,displacement cosine r1 r2,0.6187403202056885
+main,Sanitary-napkin_135_1a00ebac,1002,displacement cosine r1 r2 (other prompt),0.00019107735715806484
+main,Sanitary-napkin_135_1a00ebac,1002,r1 vs r3,0.27290263772010803
+main,Sanitary-napkin_135_1a00ebac,1002,displacement cosine r1 r3,0.23653531074523926
+main,Sanitary-napkin_135_1a00ebac,1002,displacement cosine r1 r3 (other prompt),-0.0016902030911296606
+main,Sanitary-napkin_135_1a00ebac,1002,r2 vs r3,0.28661346435546875
+main,Sanitary-napkin_135_1a00ebac,1002,displacement cosine r2 r3,0.1870889812707901
+main,Sanitary-napkin_135_1a00ebac,1002,displacement cosine r2 r3 (other prompt),-0.01919422671198845
+main,Sanitary-napkin_135_1a00ebac,1003,r1 vs r2,0.04839840531349182
+main,Sanitary-napkin_135_1a00ebac,1003,displacement cosine r1 r2,0.7695128917694092
+main,Sanitary-napkin_135_1a00ebac,1003,displacement cosine r1 r2 (other prompt),-0.02400113269686699
+main,Sanitary-napkin_135_1a00ebac,1003,r1 vs r3,0.02703353762626648
+main,Sanitary-napkin_135_1a00ebac,1003,displacement cosine r1 r3,0.8791880011558533
+main,Sanitary-napkin_135_1a00ebac,1003,displacement cosine r1 r3 (other prompt),0.007558656390756369
+main,Sanitary-napkin_135_1a00ebac,1003,r2 vs r3,0.05157226324081421
+main,Sanitary-napkin_135_1a00ebac,1003,displacement cosine r2 r3,0.7354137301445007
+main,Sanitary-napkin_135_1a00ebac,1003,displacement cosine r2 r3 (other prompt),0.010869093239307404
+main,Sanitary-napkin_135_1a00ebac,1004,r1 vs r2,0.1065121740102768
+main,Sanitary-napkin_135_1a00ebac,1004,displacement cosine r1 r2,0.5475174784660339
+main,Sanitary-napkin_135_1a00ebac,1004,displacement cosine r1 r2 (other prompt),-0.023816974833607674
+main,Sanitary-napkin_135_1a00ebac,1004,r1 vs r3,0.10184869170188904
+main,Sanitary-napkin_135_1a00ebac,1004,displacement cosine r1 r3,0.6190917491912842
+main,Sanitary-napkin_135_1a00ebac,1004,displacement cosine r1 r3 (other prompt),-0.017139842733740807
+main,Sanitary-napkin_135_1a00ebac,1004,r2 vs r3,0.0680619329214096
+main,Sanitary-napkin_135_1a00ebac,1004,displacement cosine r2 r3,0.7229070067405701
+main,Sanitary-napkin_135_1a00ebac,1004,displacement cosine r2 r3 (other prompt),-0.029030757024884224
+main,Scarf_155_0500f9b8,1001,base vs r1,0.08620795607566833
+main,Scarf_155_0500f9b8,1001,base vs r2,0.050163596868515015
+main,Scarf_155_0500f9b8,1001,base vs r3,0.09058265388011932
+main,Scarf_155_0500f9b8,1002,base vs r1,0.0670899897813797
+main,Scarf_155_0500f9b8,1002,base vs r2,0.014953523874282837
+main,Scarf_155_0500f9b8,1002,base vs r3,0.03266097605228424
+main,Scarf_155_0500f9b8,1003,base vs r1,0.02665497362613678
+main,Scarf_155_0500f9b8,1003,base vs r2,0.012329503893852234
+main,Scarf_155_0500f9b8,1003,base vs r3,0.01547306776046753
+main,Scarf_155_0500f9b8,1004,base vs r1,0.02505439519882202
+main,Scarf_155_0500f9b8,1004,base vs r2,0.01691471040248871
+main,Scarf_155_0500f9b8,1004,base vs r3,0.020100325345993042
+main,Scarf_155_0500f9b8,1001,base seed vs seed,0.23779842257499695
+main,Scarf_155_0500f9b8,1001,base seed vs seed,0.20703062415122986
+main,Scarf_155_0500f9b8,1001,base seed vs seed,0.2429102659225464
+main,Scarf_155_0500f9b8,1002,base seed vs seed,0.17163732647895813
+main,Scarf_155_0500f9b8,1002,base seed vs seed,0.20945513248443604
+main,Scarf_155_0500f9b8,1003,base seed vs seed,0.20179957151412964
+main,Scarf_155_0500f9b8,1001,r1 vs r2,0.12332622706890106
+main,Scarf_155_0500f9b8,1001,displacement cosine r1 r2,0.22804510593414307
+main,Scarf_155_0500f9b8,1001,displacement cosine r1 r2 (other prompt),-0.004383804276585579
+main,Scarf_155_0500f9b8,1001,r1 vs r3,0.08258463442325592
+main,Scarf_155_0500f9b8,1001,displacement cosine r1 r3,0.6523227095603943
+main,Scarf_155_0500f9b8,1001,displacement cosine r1 r3 (other prompt),0.00939037837088108
+main,Scarf_155_0500f9b8,1001,r2 vs r3,0.06339231133460999
+main,Scarf_155_0500f9b8,1001,displacement cosine r2 r3,0.4450116455554962
+main,Scarf_155_0500f9b8,1001,displacement cosine r2 r3 (other prompt),0.015452628955245018
+main,Scarf_155_0500f9b8,1002,r1 vs r2,0.06108692288398743
+main,Scarf_155_0500f9b8,1002,displacement cosine r1 r2,0.40402498841285706
+main,Scarf_155_0500f9b8,1002,displacement cosine r1 r2 (other prompt),-0.02276703156530857
+main,Scarf_155_0500f9b8,1002,r1 vs r3,0.04891577363014221
+main,Scarf_155_0500f9b8,1002,displacement cosine r1 r3,0.6180821657180786
+main,Scarf_155_0500f9b8,1002,displacement cosine r1 r3 (other prompt),-0.0011094938963651657
+main,Scarf_155_0500f9b8,1002,r2 vs r3,0.020004674792289734
+main,Scarf_155_0500f9b8,1002,displacement cosine r2 r3,0.6281331181526184
+main,Scarf_155_0500f9b8,1002,displacement cosine r2 r3 (other prompt),0.004944479558616877
+main,Scarf_155_0500f9b8,1003,r1 vs r2,0.02274884283542633
+main,Scarf_155_0500f9b8,1003,displacement cosine r1 r2,0.47768235206604004
+main,Scarf_155_0500f9b8,1003,displacement cosine r1 r2 (other prompt),0.04250994324684143
+main,Scarf_155_0500f9b8,1003,r1 vs r3,0.01720079779624939
+main,Scarf_155_0500f9b8,1003,displacement cosine r1 r3,0.5983517169952393
+main,Scarf_155_0500f9b8,1003,displacement cosine r1 r3 (other prompt),0.031163986772298813
+main,Scarf_155_0500f9b8,1003,r2 vs r3,0.013776317238807678
+main,Scarf_155_0500f9b8,1003,displacement cosine r2 r3,0.48230549693107605
+main,Scarf_155_0500f9b8,1003,displacement cosine r2 r3 (other prompt),0.015892133116722107
+main,Scarf_155_0500f9b8,1004,r1 vs r2,0.021847829222679138
+main,Scarf_155_0500f9b8,1004,displacement cosine r1 r2,0.4839458167552948
+main,Scarf_155_0500f9b8,1004,displacement cosine r1 r2 (other prompt),0.0002105538733303547
+main,Scarf_155_0500f9b8,1004,r1 vs r3,0.02161341905593872
+main,Scarf_155_0500f9b8,1004,displacement cosine r1 r3,0.5079691410064697
+main,Scarf_155_0500f9b8,1004,displacement cosine r1 r3 (other prompt),0.008713798597455025
+main,Scarf_155_0500f9b8,1004,r2 vs r3,0.012573033571243286
+main,Scarf_155_0500f9b8,1004,displacement cosine r2 r3,0.6448018550872803
+main,Scarf_155_0500f9b8,1004,displacement cosine r2 r3 (other prompt),-0.013483901508152485
+main,Telescope_223_3100cff8,1001,base vs r1,0.04524467885494232
+main,Telescope_223_3100cff8,1001,base vs r2,0.009813442826271057
+main,Telescope_223_3100cff8,1001,base vs r3,0.034725576639175415
+main,Telescope_223_3100cff8,1002,base vs r1,0.027553409337997437
+main,Telescope_223_3100cff8,1002,base vs r2,0.008695721626281738
+main,Telescope_223_3100cff8,1002,base vs r3,0.03539930284023285
+main,Telescope_223_3100cff8,1003,base vs r1,0.014879390597343445
+main,Telescope_223_3100cff8,1003,base vs r2,0.020221561193466187
+main,Telescope_223_3100cff8,1003,base vs r3,0.07672324776649475
+main,Telescope_223_3100cff8,1004,base vs r1,0.027523085474967957
+main,Telescope_223_3100cff8,1004,base vs r2,0.005064859986305237
+main,Telescope_223_3100cff8,1004,base vs r3,0.015111207962036133
+main,Telescope_223_3100cff8,1001,base seed vs seed,0.5372275710105896
+main,Telescope_223_3100cff8,1001,base seed vs seed,0.30518096685409546
+main,Telescope_223_3100cff8,1001,base seed vs seed,0.25670135021209717
+main,Telescope_223_3100cff8,1002,base seed vs seed,0.4248821437358856
+main,Telescope_223_3100cff8,1002,base seed vs seed,0.41671988368034363
+main,Telescope_223_3100cff8,1003,base seed vs seed,0.2896755337715149
+main,Telescope_223_3100cff8,1001,r1 vs r2,0.029859989881515503
+main,Telescope_223_3100cff8,1001,displacement cosine r1 r2,0.5993456840515137
+main,Telescope_223_3100cff8,1001,displacement cosine r1 r2 (other prompt),-0.002067551016807556
+main,Telescope_223_3100cff8,1001,r1 vs r3,0.01169896125793457
+main,Telescope_223_3100cff8,1001,displacement cosine r1 r3,0.8645129203796387
+main,Telescope_223_3100cff8,1001,displacement cosine r1 r3 (other prompt),-0.01418552827090025
+main,Telescope_223_3100cff8,1001,r2 vs r3,0.022749558091163635
+main,Telescope_223_3100cff8,1001,displacement cosine r2 r3,0.620149552822113
+main,Telescope_223_3100cff8,1001,displacement cosine r2 r3 (other prompt),-0.00772704416885972
+main,Telescope_223_3100cff8,1002,r1 vs r2,0.031130671501159668
+main,Telescope_223_3100cff8,1002,displacement cosine r1 r2,0.14781346917152405
+main,Telescope_223_3100cff8,1002,displacement cosine r1 r2 (other prompt),-0.0031796563416719437
+main,Telescope_223_3100cff8,1002,r1 vs r3,0.036125555634498596
+main,Telescope_223_3100cff8,1002,displacement cosine r1 r3,0.41994786262512207
+main,Telescope_223_3100cff8,1002,displacement cosine r1 r3 (other prompt),-0.014589842408895493
+main,Telescope_223_3100cff8,1002,r2 vs r3,0.02751404047012329
+main,Telescope_223_3100cff8,1002,displacement cosine r2 r3,0.49024540185928345
+main,Telescope_223_3100cff8,1002,displacement cosine r2 r3 (other prompt),0.016743050888180733
+main,Telescope_223_3100cff8,1003,r1 vs r2,0.017738476395606995
+main,Telescope_223_3100cff8,1003,displacement cosine r1 r2,0.5475866198539734
+main,Telescope_223_3100cff8,1003,displacement cosine r1 r2 (other prompt),0.04351602494716644
+main,Telescope_223_3100cff8,1003,r1 vs r3,0.06432592868804932
+main,Telescope_223_3100cff8,1003,displacement cosine r1 r3,0.4056762754917145
+main,Telescope_223_3100cff8,1003,displacement cosine r1 r3 (other prompt),0.024560503661632538
+main,Telescope_223_3100cff8,1003,r2 vs r3,0.0595841109752655
+main,Telescope_223_3100cff8,1003,displacement cosine r2 r3,0.4231961965560913
+main,Telescope_223_3100cff8,1003,displacement cosine r2 r3 (other prompt),0.02712351828813553
+main,Telescope_223_3100cff8,1004,r1 vs r2,0.02864004671573639
+main,Telescope_223_3100cff8,1004,displacement cosine r1 r2,0.22054345905780792
+main,Telescope_223_3100cff8,1004,displacement cosine r1 r2 (other prompt),-0.004055485129356384
+main,Telescope_223_3100cff8,1004,r1 vs r3,0.020356953144073486
+main,Telescope_223_3100cff8,1004,displacement cosine r1 r3,0.5860456228256226
+main,Telescope_223_3100cff8,1004,displacement cosine r1 r3 (other prompt),-0.005403723102062941
+main,Telescope_223_3100cff8,1004,r2 vs r3,0.016554266214370728
+main,Telescope_223_3100cff8,1004,displacement cosine r2 r3,0.22526216506958008
+main,Telescope_223_3100cff8,1004,displacement cosine r2 r3 (other prompt),0.043695781379938126
+main,Toy-butterfly_203_3200b6e3,1001,base vs r1,0.018578141927719116
+main,Toy-butterfly_203_3200b6e3,1001,base vs r2,0.007916420698165894
+main,Toy-butterfly_203_3200b6e3,1001,base vs r3,0.019796833395957947
+main,Toy-butterfly_203_3200b6e3,1002,base vs r1,0.014368727803230286
+main,Toy-butterfly_203_3200b6e3,1002,base vs r2,0.008388444781303406
+main,Toy-butterfly_203_3200b6e3,1002,base vs r3,0.02141357958316803
+main,Toy-butterfly_203_3200b6e3,1003,base vs r1,0.08384779095649719
+main,Toy-butterfly_203_3200b6e3,1003,base vs r2,0.036680907011032104
+main,Toy-butterfly_203_3200b6e3,1003,base vs r3,0.12693196535110474
+main,Toy-butterfly_203_3200b6e3,1004,base vs r1,0.0618164986371994
+main,Toy-butterfly_203_3200b6e3,1004,base vs r2,0.042002126574516296
+main,Toy-butterfly_203_3200b6e3,1004,base vs r3,0.05058884620666504
+main,Toy-butterfly_203_3200b6e3,1001,base seed vs seed,0.19680096209049225
+main,Toy-butterfly_203_3200b6e3,1001,base seed vs seed,0.28154513239860535
+main,Toy-butterfly_203_3200b6e3,1001,base seed vs seed,0.38167160749435425
+main,Toy-butterfly_203_3200b6e3,1002,base seed vs seed,0.24189893901348114
+main,Toy-butterfly_203_3200b6e3,1002,base seed vs seed,0.31940314173698425
+main,Toy-butterfly_203_3200b6e3,1003,base seed vs seed,0.3362675607204437
+main,Toy-butterfly_203_3200b6e3,1001,r1 vs r2,0.012173354625701904
+main,Toy-butterfly_203_3200b6e3,1001,displacement cosine r1 r2,0.679109513759613
+main,Toy-butterfly_203_3200b6e3,1001,displacement cosine r1 r2 (other prompt),-0.217632457613945
+main,Toy-butterfly_203_3200b6e3,1001,r1 vs r3,0.004160031676292419
+main,Toy-butterfly_203_3200b6e3,1001,displacement cosine r1 r3,0.8800828456878662
+main,Toy-butterfly_203_3200b6e3,1001,displacement cosine r1 r3 (other prompt),0.0800008475780487
+main,Toy-butterfly_203_3200b6e3,1001,r2 vs r3,0.013733863830566406
+main,Toy-butterfly_203_3200b6e3,1001,displacement cosine r2 r3,0.6336021423339844
+main,Toy-butterfly_203_3200b6e3,1001,displacement cosine r2 r3 (other prompt),0.06832835078239441
+main,Toy-butterfly_203_3200b6e3,1002,r1 vs r2,0.01067139208316803
+main,Toy-butterfly_203_3200b6e3,1002,displacement cosine r1 r2,0.5497598052024841
+main,Toy-butterfly_203_3200b6e3,1002,displacement cosine r1 r2 (other prompt),-0.1508827805519104
+main,Toy-butterfly_203_3200b6e3,1002,r1 vs r3,0.011892139911651611
+main,Toy-butterfly_203_3200b6e3,1002,displacement cosine r1 r3,0.6799068450927734
+main,Toy-butterfly_203_3200b6e3,1002,displacement cosine r1 r3 (other prompt),0.005935201421380043
+main,Toy-butterfly_203_3200b6e3,1002,r2 vs r3,0.014151006937026978
+main,Toy-butterfly_203_3200b6e3,1002,displacement cosine r2 r3,0.6206158995628357
+main,Toy-butterfly_203_3200b6e3,1002,displacement cosine r2 r3 (other prompt),0.0023184269666671753
+main,Toy-butterfly_203_3200b6e3,1003,r1 vs r2,0.07605001330375671
+main,Toy-butterfly_203_3200b6e3,1003,displacement cosine r1 r2,0.3942147195339203
+main,Toy-butterfly_203_3200b6e3,1003,displacement cosine r1 r2 (other prompt),0.017289012670516968
+main,Toy-butterfly_203_3200b6e3,1003,r1 vs r3,0.08105945587158203
+main,Toy-butterfly_203_3200b6e3,1003,displacement cosine r1 r3,0.6304341554641724
+main,Toy-butterfly_203_3200b6e3,1003,displacement cosine r1 r3 (other prompt),-0.0247003436088562
+main,Toy-butterfly_203_3200b6e3,1003,r2 vs r3,0.12243151664733887
+main,Toy-butterfly_203_3200b6e3,1003,displacement cosine r2 r3,0.30977973341941833
+main,Toy-butterfly_203_3200b6e3,1003,displacement cosine r2 r3 (other prompt),0.020444046705961227
+main,Toy-butterfly_203_3200b6e3,1004,r1 vs r2,0.04484042525291443
+main,Toy-butterfly_203_3200b6e3,1004,displacement cosine r1 r2,0.5704070925712585
+main,Toy-butterfly_203_3200b6e3,1004,displacement cosine r1 r2 (other prompt),-0.018725136294960976
+main,Toy-butterfly_203_3200b6e3,1004,r1 vs r3,0.031640127301216125
+main,Toy-butterfly_203_3200b6e3,1004,displacement cosine r1 r3,0.733579695224762
+main,Toy-butterfly_203_3200b6e3,1004,displacement cosine r1 r3 (other prompt),-0.022042714059352875
+main,Toy-butterfly_203_3200b6e3,1004,r2 vs r3,0.01906229555606842
+main,Toy-butterfly_203_3200b6e3,1004,displacement cosine r2 r3,0.7808068990707397
+main,Toy-butterfly_203_3200b6e3,1004,displacement cosine r2 r3 (other prompt),-0.03807716816663742
+main,Toy-butterfly_203_3d00295d,1001,base vs r1,0.021270230412483215
+main,Toy-butterfly_203_3d00295d,1001,base vs r2,0.012330934405326843
+main,Toy-butterfly_203_3d00295d,1001,base vs r3,0.017130255699157715
+main,Toy-butterfly_203_3d00295d,1002,base vs r1,0.01611161231994629
+main,Toy-butterfly_203_3d00295d,1002,base vs r2,0.0154704749584198
+main,Toy-butterfly_203_3d00295d,1002,base vs r3,0.015179246664047241
+main,Toy-butterfly_203_3d00295d,1003,base vs r1,0.10866899788379669
+main,Toy-butterfly_203_3d00295d,1003,base vs r2,0.059823378920555115
+main,Toy-butterfly_203_3d00295d,1003,base vs r3,0.10284578800201416
+main,Toy-butterfly_203_3d00295d,1004,base vs r1,0.030652731657028198
+main,Toy-butterfly_203_3d00295d,1004,base vs r2,0.053651362657547
+main,Toy-butterfly_203_3d00295d,1004,base vs r3,0.02453310787677765
+main,Toy-butterfly_203_3d00295d,1001,base seed vs seed,0.2119816094636917
+main,Toy-butterfly_203_3d00295d,1001,base seed vs seed,0.24432440102100372
+main,Toy-butterfly_203_3d00295d,1001,base seed vs seed,0.3165188729763031
+main,Toy-butterfly_203_3d00295d,1002,base seed vs seed,0.3439069092273712
+main,Toy-butterfly_203_3d00295d,1002,base seed vs seed,0.3603178560733795
+main,Toy-butterfly_203_3d00295d,1003,base seed vs seed,0.34889551997184753
+main,Toy-butterfly_203_3d00295d,1001,r1 vs r2,0.03430554270744324
+main,Toy-butterfly_203_3d00295d,1001,displacement cosine r1 r2,-0.02437097206711769
+main,Toy-butterfly_203_3d00295d,1001,displacement cosine r1 r2 (other prompt),-0.018763765692710876
+main,Toy-butterfly_203_3d00295d,1001,r1 vs r3,0.019776582717895508
+main,Toy-butterfly_203_3d00295d,1001,displacement cosine r1 r3,0.496670663356781
+main,Toy-butterfly_203_3d00295d,1001,displacement cosine r1 r3 (other prompt),0.05486816167831421
+main,Toy-butterfly_203_3d00295d,1001,r2 vs r3,0.025648251175880432
+main,Toy-butterfly_203_3d00295d,1001,displacement cosine r2 r3,0.12866643071174622
+main,Toy-butterfly_203_3d00295d,1001,displacement cosine r2 r3 (other prompt),-0.015487439930438995
+main,Toy-butterfly_203_3d00295d,1002,r1 vs r2,0.015128523111343384
+main,Toy-butterfly_203_3d00295d,1002,displacement cosine r1 r2,0.4844817519187927
+main,Toy-butterfly_203_3d00295d,1002,displacement cosine r1 r2 (other prompt),0.04166196659207344
+main,Toy-butterfly_203_3d00295d,1002,r1 vs r3,0.014433562755584717
+main,Toy-butterfly_203_3d00295d,1002,displacement cosine r1 r3,0.5463026762008667
+main,Toy-butterfly_203_3d00295d,1002,displacement cosine r1 r3 (other prompt),0.04311583936214447
+main,Toy-butterfly_203_3d00295d,1002,r2 vs r3,0.018058553338050842
+main,Toy-butterfly_203_3d00295d,1002,displacement cosine r2 r3,0.43581128120422363
+main,Toy-butterfly_203_3d00295d,1002,displacement cosine r2 r3 (other prompt),0.021123217418789864
+main,Toy-butterfly_203_3d00295d,1003,r1 vs r2,0.055752381682395935
+main,Toy-butterfly_203_3d00295d,1003,displacement cosine r1 r2,0.7019234895706177
+main,Toy-butterfly_203_3d00295d,1003,displacement cosine r1 r2 (other prompt),0.007179955951869488
+main,Toy-butterfly_203_3d00295d,1003,r1 vs r3,0.023659631609916687
+main,Toy-butterfly_203_3d00295d,1003,displacement cosine r1 r3,0.8964672088623047
+main,Toy-butterfly_203_3d00295d,1003,displacement cosine r1 r3 (other prompt),0.02612874284386635
+main,Toy-butterfly_203_3d00295d,1003,r2 vs r3,0.05997401475906372
+main,Toy-butterfly_203_3d00295d,1003,displacement cosine r2 r3,0.6510651707649231
+main,Toy-butterfly_203_3d00295d,1003,displacement cosine r2 r3 (other prompt),0.005331181921064854
+main,Toy-butterfly_203_3d00295d,1004,r1 vs r2,0.0497002899646759
+main,Toy-butterfly_203_3d00295d,1004,displacement cosine r1 r2,0.3776172399520874
+main,Toy-butterfly_203_3d00295d,1004,displacement cosine r1 r2 (other prompt),-0.0005744732916355133
+main,Toy-butterfly_203_3d00295d,1004,r1 vs r3,0.01829439401626587
+main,Toy-butterfly_203_3d00295d,1004,displacement cosine r1 r3,0.6747887134552002
+main,Toy-butterfly_203_3d00295d,1004,displacement cosine r1 r3 (other prompt),-0.01746855303645134
+main,Toy-butterfly_203_3d00295d,1004,r2 vs r3,0.0459170937538147
+main,Toy-butterfly_203_3d00295d,1004,displacement cosine r2 r3,0.41427165269851685
+main,Toy-butterfly_203_3d00295d,1004,displacement cosine r2 r3 (other prompt),0.04640282690525055
+main,airplane_50_3a0006f7,1001,base vs r1,0.06076003611087799
+main,airplane_50_3a0006f7,1001,base vs r2,0.03805623948574066
+main,airplane_50_3a0006f7,1001,base vs r3,0.06507794559001923
+main,airplane_50_3a0006f7,1002,base vs r1,0.07100735604763031
+main,airplane_50_3a0006f7,1002,base vs r2,0.041875943541526794
+main,airplane_50_3a0006f7,1002,base vs r3,0.03775720298290253
+main,airplane_50_3a0006f7,1003,base vs r1,0.01826384663581848
+main,airplane_50_3a0006f7,1003,base vs r2,0.015663444995880127
+main,airplane_50_3a0006f7,1003,base vs r3,0.02271236479282379
+main,airplane_50_3a0006f7,1004,base vs r1,0.03771403431892395
+main,airplane_50_3a0006f7,1004,base vs r2,0.014729604125022888
+main,airplane_50_3a0006f7,1004,base vs r3,0.02175009250640869
+main,airplane_50_3a0006f7,1001,base seed vs seed,0.20579008758068085
+main,airplane_50_3a0006f7,1001,base seed vs seed,0.34299933910369873
+main,airplane_50_3a0006f7,1001,base seed vs seed,0.2038796991109848
+main,airplane_50_3a0006f7,1002,base seed vs seed,0.3570052683353424
+main,airplane_50_3a0006f7,1002,base seed vs seed,0.17222392559051514
+main,airplane_50_3a0006f7,1003,base seed vs seed,0.3492627739906311
+main,airplane_50_3a0006f7,1001,r1 vs r2,0.04429994523525238
+main,airplane_50_3a0006f7,1001,displacement cosine r1 r2,0.5703638195991516
+main,airplane_50_3a0006f7,1001,displacement cosine r1 r2 (other prompt),-0.01734182983636856
+main,airplane_50_3a0006f7,1001,r1 vs r3,0.02307659387588501
+main,airplane_50_3a0006f7,1001,displacement cosine r1 r3,0.8209286332130432
+main,airplane_50_3a0006f7,1001,displacement cosine r1 r3 (other prompt),0.04341474547982216
+main,airplane_50_3a0006f7,1001,r2 vs r3,0.046982184052467346
+main,airplane_50_3a0006f7,1001,displacement cosine r2 r3,0.5687112212181091
+main,airplane_50_3a0006f7,1001,displacement cosine r2 r3 (other prompt),-0.014655236154794693
+main,airplane_50_3a0006f7,1002,r1 vs r2,0.04279564321041107
+main,airplane_50_3a0006f7,1002,displacement cosine r1 r2,0.6327319741249084
+main,airplane_50_3a0006f7,1002,displacement cosine r1 r2 (other prompt),-0.004015343729406595
+main,airplane_50_3a0006f7,1002,r1 vs r3,0.08543677628040314
+main,airplane_50_3a0006f7,1002,displacement cosine r1 r3,0.20947127044200897
+main,airplane_50_3a0006f7,1002,displacement cosine r1 r3 (other prompt),-0.042000364512205124
+main,airplane_50_3a0006f7,1002,r2 vs r3,0.052528634667396545
+main,airplane_50_3a0006f7,1002,displacement cosine r2 r3,0.31541526317596436
+main,airplane_50_3a0006f7,1002,displacement cosine r2 r3 (other prompt),0.022850224748253822
+main,airplane_50_3a0006f7,1003,r1 vs r2,0.004159152507781982
+main,airplane_50_3a0006f7,1003,displacement cosine r1 r2,0.7304468154907227
+main,airplane_50_3a0006f7,1003,displacement cosine r1 r2 (other prompt),-0.025535620748996735
+main,airplane_50_3a0006f7,1003,r1 vs r3,0.013150826096534729
+main,airplane_50_3a0006f7,1003,displacement cosine r1 r3,0.8173956871032715
+main,airplane_50_3a0006f7,1003,displacement cosine r1 r3 (other prompt),0.010163677856326103
+main,airplane_50_3a0006f7,1003,r2 vs r3,0.01874864101409912
+main,airplane_50_3a0006f7,1003,displacement cosine r2 r3,0.6012673377990723
+main,airplane_50_3a0006f7,1003,displacement cosine r2 r3 (other prompt),-0.009027134627103806
+main,airplane_50_3a0006f7,1004,r1 vs r2,0.0326153039932251
+main,airplane_50_3a0006f7,1004,displacement cosine r1 r2,0.458992600440979
+main,airplane_50_3a0006f7,1004,displacement cosine r1 r2 (other prompt),0.008454766124486923
+main,airplane_50_3a0006f7,1004,r1 vs r3,0.02327314019203186
+main,airplane_50_3a0006f7,1004,displacement cosine r1 r3,0.6173794865608215
+main,airplane_50_3a0006f7,1004,displacement cosine r1 r3 (other prompt),0.014065573923289776
+main,airplane_50_3a0006f7,1004,r2 vs r3,0.02143596112728119
+main,airplane_50_3a0006f7,1004,displacement cosine r2 r3,0.4390861988067627
+main,airplane_50_3a0006f7,1004,displacement cosine r2 r3 (other prompt),0.040001630783081055
+main,bag_0_0500d51d,1001,base vs r1,0.022012829780578613
+main,bag_0_0500d51d,1001,base vs r2,0.003571450710296631
+main,bag_0_0500d51d,1001,base vs r3,0.027024954557418823
+main,bag_0_0500d51d,1002,base vs r1,0.02299503982067108
+main,bag_0_0500d51d,1002,base vs r2,0.030799612402915955
+main,bag_0_0500d51d,1002,base vs r3,0.037560105323791504
+main,bag_0_0500d51d,1003,base vs r1,0.1794390231370926
+main,bag_0_0500d51d,1003,base vs r2,0.04869377613067627
+main,bag_0_0500d51d,1003,base vs r3,0.22062382102012634
+main,bag_0_0500d51d,1004,base vs r1,0.01957954466342926
+main,bag_0_0500d51d,1004,base vs r2,0.008402347564697266
+main,bag_0_0500d51d,1004,base vs r3,0.020870164036750793
+main,bag_0_0500d51d,1001,base seed vs seed,0.1805761158466339
+main,bag_0_0500d51d,1001,base seed vs seed,0.1936127096414566
+main,bag_0_0500d51d,1001,base seed vs seed,0.14535272121429443
+main,bag_0_0500d51d,1002,base seed vs seed,0.1514883190393448
+main,bag_0_0500d51d,1002,base seed vs seed,0.17844931781291962
+main,bag_0_0500d51d,1003,base seed vs seed,0.19777877628803253
+main,bag_0_0500d51d,1001,r1 vs r2,0.016110897064208984
+main,bag_0_0500d51d,1001,displacement cosine r1 r2,0.5308458805084229
+main,bag_0_0500d51d,1001,displacement cosine r1 r2 (other prompt),-0.16710776090621948
+main,bag_0_0500d51d,1001,r1 vs r3,0.0019495189189910889
+main,bag_0_0500d51d,1001,displacement cosine r1 r3,0.9655323028564453
+main,bag_0_0500d51d,1001,displacement cosine r1 r3 (other prompt),0.00012946291826665401
+main,bag_0_0500d51d,1001,r2 vs r3,0.02105294167995453
+main,bag_0_0500d51d,1001,displacement cosine r2 r3,0.4825440049171448
+main,bag_0_0500d51d,1001,displacement cosine r2 r3 (other prompt),-0.0194016695022583
+main,bag_0_0500d51d,1002,r1 vs r2,0.028552278876304626
+main,bag_0_0500d51d,1002,displacement cosine r1 r2,0.33835914731025696
+main,bag_0_0500d51d,1002,displacement cosine r1 r2 (other prompt),0.04853098839521408
+main,bag_0_0500d51d,1002,r1 vs r3,0.02056562900543213
+main,bag_0_0500d51d,1002,displacement cosine r1 r3,0.6542002558708191
+main,bag_0_0500d51d,1002,displacement cosine r1 r3 (other prompt),0.06842976808547974
+main,bag_0_0500d51d,1002,r2 vs r3,0.03871035575866699
+main,bag_0_0500d51d,1002,displacement cosine r2 r3,0.35909101366996765
+main,bag_0_0500d51d,1002,displacement cosine r2 r3 (other prompt),0.06710299104452133
+main,bag_0_0500d51d,1003,r1 vs r2,0.1780802309513092
+main,bag_0_0500d51d,1003,displacement cosine r1 r2,0.27490711212158203
+main,bag_0_0500d51d,1003,displacement cosine r1 r2 (other prompt),-0.04457779973745346
+main,bag_0_0500d51d,1003,r1 vs r3,0.035443320870399475
+main,bag_0_0500d51d,1003,displacement cosine r1 r3,0.9175813794136047
+main,bag_0_0500d51d,1003,displacement cosine r1 r3 (other prompt),-0.04847663640975952
+main,bag_0_0500d51d,1003,r2 vs r3,0.2010403871536255
+main,bag_0_0500d51d,1003,displacement cosine r2 r3,0.3123627007007599
+main,bag_0_0500d51d,1003,displacement cosine r2 r3 (other prompt),0.01978137344121933
+main,bag_0_0500d51d,1004,r1 vs r2,0.015377283096313477
+main,bag_0_0500d51d,1004,displacement cosine r1 r2,0.4204023480415344
+main,bag_0_0500d51d,1004,displacement cosine r1 r2 (other prompt),0.0440986342728138
+main,bag_0_0500d51d,1004,r1 vs r3,0.007794097065925598
+main,bag_0_0500d51d,1004,displacement cosine r1 r3,0.8234366774559021
+main,bag_0_0500d51d,1004,displacement cosine r1 r3 (other prompt),0.0770222470164299
+main,bag_0_0500d51d,1004,r2 vs r3,0.015997618436813354
+main,bag_0_0500d51d,1004,displacement cosine r2 r3,0.4496493339538574
+main,bag_0_0500d51d,1004,displacement cosine r2 r3 (other prompt),-0.050384972244501114
+main,bag_0_310001a4,1001,base vs r1,0.05203159153461456
+main,bag_0_310001a4,1001,base vs r2,0.006300061941146851
+main,bag_0_310001a4,1001,base vs r3,0.04934650659561157
+main,bag_0_310001a4,1002,base vs r1,0.007096841931343079
+main,bag_0_310001a4,1002,base vs r2,0.0021752119064331055
+main,bag_0_310001a4,1002,base vs r3,0.008383244276046753
+main,bag_0_310001a4,1003,base vs r1,0.08310267329216003
+main,bag_0_310001a4,1003,base vs r2,0.0688624233007431
+main,bag_0_310001a4,1003,base vs r3,0.08831226825714111
+main,bag_0_310001a4,1004,base vs r1,0.06237712502479553
+main,bag_0_310001a4,1004,base vs r2,0.04825375974178314
+main,bag_0_310001a4,1004,base vs r3,0.06306466460227966
+main,bag_0_310001a4,1001,base seed vs seed,0.29126542806625366
+main,bag_0_310001a4,1001,base seed vs seed,0.33324313163757324
+main,bag_0_310001a4,1001,base seed vs seed,0.2270672768354416
+main,bag_0_310001a4,1002,base seed vs seed,0.31233829259872437
+main,bag_0_310001a4,1002,base seed vs seed,0.31488630175590515
+main,bag_0_310001a4,1003,base seed vs seed,0.38217484951019287
+main,bag_0_310001a4,1001,r1 vs r2,0.05549928545951843
+main,bag_0_310001a4,1001,displacement cosine r1 r2,0.2718101441860199
+main,bag_0_310001a4,1001,displacement cosine r1 r2 (other prompt),0.03384227305650711
+main,bag_0_310001a4,1001,r1 vs r3,0.0035014599561691284
+main,bag_0_310001a4,1001,displacement cosine r1 r3,0.8972412943840027
+main,bag_0_310001a4,1001,displacement cosine r1 r3 (other prompt),0.02786865457892418
+main,bag_0_310001a4,1001,r2 vs r3,0.051965802907943726
+main,bag_0_310001a4,1001,displacement cosine r2 r3,0.2991907298564911
+main,bag_0_310001a4,1001,displacement cosine r2 r3 (other prompt),0.005537735763937235
+main,bag_0_310001a4,1002,r1 vs r2,0.006656453013420105
+main,bag_0_310001a4,1002,displacement cosine r1 r2,0.3501717150211334
+main,bag_0_310001a4,1002,displacement cosine r1 r2 (other prompt),-0.036815088242292404
+main,bag_0_310001a4,1002,r1 vs r3,0.0037632137537002563
+main,bag_0_310001a4,1002,displacement cosine r1 r3,0.7737834453582764
+main,bag_0_310001a4,1002,displacement cosine r1 r3 (other prompt),-0.0011454187333583832
+main,bag_0_310001a4,1002,r2 vs r3,0.008126720786094666
+main,bag_0_310001a4,1002,displacement cosine r2 r3,0.29707643389701843
+main,bag_0_310001a4,1002,displacement cosine r2 r3 (other prompt),0.06104477867484093
+main,bag_0_310001a4,1003,r1 vs r2,0.023147329688072205
+main,bag_0_310001a4,1003,displacement cosine r1 r2,0.8663431406021118
+main,bag_0_310001a4,1003,displacement cosine r1 r2 (other prompt),-0.007155228406190872
+main,bag_0_310001a4,1003,r1 vs r3,0.01695813238620758
+main,bag_0_310001a4,1003,displacement cosine r1 r3,0.9187924861907959
+main,bag_0_310001a4,1003,displacement cosine r1 r3 (other prompt),0.022496461868286133
+main,bag_0_310001a4,1003,r2 vs r3,0.010299712419509888
+main,bag_0_310001a4,1003,displacement cosine r2 r3,0.9274056553840637
+main,bag_0_310001a4,1003,displacement cosine r2 r3 (other prompt),0.013947396539151669
+main,bag_0_310001a4,1004,r1 vs r2,0.03445877134799957
+main,bag_0_310001a4,1004,displacement cosine r1 r2,0.727459728717804
+main,bag_0_310001a4,1004,displacement cosine r1 r2 (other prompt),0.07292309403419495
+main,bag_0_310001a4,1004,r1 vs r3,0.003897562623023987
+main,bag_0_310001a4,1004,displacement cosine r1 r3,0.9719630479812622
+main,bag_0_310001a4,1004,displacement cosine r1 r3 (other prompt),-0.000204280368052423
+main,bag_0_310001a4,1004,r2 vs r3,0.03652997314929962
+main,bag_0_310001a4,1004,displacement cosine r2 r3,0.7096961140632629
+main,bag_0_310001a4,1004,displacement cosine r2 r3 (other prompt),0.016717877238988876
+main,bag_0_3200a71a,1001,base vs r1,0.004695892333984375
+main,bag_0_3200a71a,1001,base vs r2,0.003062710165977478
+main,bag_0_3200a71a,1001,base vs r3,0.004790782928466797
+main,bag_0_3200a71a,1002,base vs r1,0.005049660801887512
+main,bag_0_3200a71a,1002,base vs r2,0.0029604583978652954
+main,bag_0_3200a71a,1002,base vs r3,0.004016503691673279
+main,bag_0_3200a71a,1003,base vs r1,0.005709245800971985
+main,bag_0_3200a71a,1003,base vs r2,0.005779087543487549
+main,bag_0_3200a71a,1003,base vs r3,0.00669214129447937
+main,bag_0_3200a71a,1004,base vs r1,0.011965349316596985
+main,bag_0_3200a71a,1004,base vs r2,0.005600273609161377
+main,bag_0_3200a71a,1004,base vs r3,0.0071892887353897095
+main,bag_0_3200a71a,1001,base seed vs seed,0.16800938546657562
+main,bag_0_3200a71a,1001,base seed vs seed,0.15296056866645813
+main,bag_0_3200a71a,1001,base seed vs seed,0.11979307234287262
+main,bag_0_3200a71a,1002,base seed vs seed,0.18047289550304413
+main,bag_0_3200a71a,1002,base seed vs seed,0.19905415177345276
+main,bag_0_3200a71a,1003,base seed vs seed,0.12843750417232513
+main,bag_0_3200a71a,1001,r1 vs r2,0.003990679979324341
+main,bag_0_3200a71a,1001,displacement cosine r1 r2,0.5063415765762329
+main,bag_0_3200a71a,1001,displacement cosine r1 r2 (other prompt),-0.05023939907550812
+main,bag_0_3200a71a,1001,r1 vs r3,0.0016680657863616943
+main,bag_0_3200a71a,1001,displacement cosine r1 r3,0.8323777318000793
+main,bag_0_3200a71a,1001,displacement cosine r1 r3 (other prompt),-0.001354031264781952
+main,bag_0_3200a71a,1001,r2 vs r3,0.004547372460365295
+main,bag_0_3200a71a,1001,displacement cosine r2 r3,0.4240225553512573
+main,bag_0_3200a71a,1001,displacement cosine r2 r3 (other prompt),-0.007149994373321533
+main,bag_0_3200a71a,1002,r1 vs r2,0.003090202808380127
+main,bag_0_3200a71a,1002,displacement cosine r1 r2,0.6360424757003784
+main,bag_0_3200a71a,1002,displacement cosine r1 r2 (other prompt),-0.005643769633024931
+main,bag_0_3200a71a,1002,r1 vs r3,0.0031129568815231323
+main,bag_0_3200a71a,1002,displacement cosine r1 r3,0.6652615666389465
+main,bag_0_3200a71a,1002,displacement cosine r1 r3 (other prompt),-0.008443711325526237
+main,bag_0_3200a71a,1002,r2 vs r3,0.004879772663116455
+main,bag_0_3200a71a,1002,displacement cosine r2 r3,0.34938323497772217
+main,bag_0_3200a71a,1002,displacement cosine r2 r3 (other prompt),-0.02182779833674431
+main,bag_0_3200a71a,1003,r1 vs r2,0.0032335668802261353
+main,bag_0_3200a71a,1003,displacement cosine r1 r2,0.6907066106796265
+main,bag_0_3200a71a,1003,displacement cosine r1 r2 (other prompt),-0.010756080970168114
+main,bag_0_3200a71a,1003,r1 vs r3,0.0016073882579803467
+main,bag_0_3200a71a,1003,displacement cosine r1 r3,0.8649715185165405
+main,bag_0_3200a71a,1003,displacement cosine r1 r3 (other prompt),-0.02146635204553604
+main,bag_0_3200a71a,1003,r2 vs r3,0.0024826377630233765
+main,bag_0_3200a71a,1003,displacement cosine r2 r3,0.7591263651847839
+main,bag_0_3200a71a,1003,displacement cosine r2 r3 (other prompt),-0.013817627914249897
+main,bag_0_3200a71a,1004,r1 vs r2,0.01497676968574524
+main,bag_0_3200a71a,1004,displacement cosine r1 r2,0.12079257518053055
+main,bag_0_3200a71a,1004,displacement cosine r1 r2 (other prompt),-0.017665719613432884
+main,bag_0_3200a71a,1004,r1 vs r3,0.008097708225250244
+main,bag_0_3200a71a,1004,displacement cosine r1 r3,0.6469236612319946
+main,bag_0_3200a71a,1004,displacement cosine r1 r3 (other prompt),0.009976820088922977
+main,bag_0_3200a71a,1004,r2 vs r3,0.008839800953865051
+main,bag_0_3200a71a,1004,displacement cosine r2 r3,0.284402072429657
+main,bag_0_3200a71a,1004,displacement cosine r2 r3 (other prompt),0.010179630480706692
+main,bag_0_3400fef9,1001,base vs r1,0.08984458446502686
+main,bag_0_3400fef9,1001,base vs r2,0.05030032992362976
+main,bag_0_3400fef9,1001,base vs r3,0.11470912396907806
+main,bag_0_3400fef9,1002,base vs r1,0.07149125635623932
+main,bag_0_3400fef9,1002,base vs r2,0.07191187143325806
+main,bag_0_3400fef9,1002,base vs r3,0.10078257322311401
+main,bag_0_3400fef9,1003,base vs r1,0.03432287275791168
+main,bag_0_3400fef9,1003,base vs r2,0.020502671599388123
+main,bag_0_3400fef9,1003,base vs r3,0.037620291113853455
+main,bag_0_3400fef9,1004,base vs r1,0.015784263610839844
+main,bag_0_3400fef9,1004,base vs r2,0.012549161911010742
+main,bag_0_3400fef9,1004,base vs r3,0.018999606370925903
+main,bag_0_3400fef9,1001,base seed vs seed,0.5873161554336548
+main,bag_0_3400fef9,1001,base seed vs seed,0.2035188227891922
+main,bag_0_3400fef9,1001,base seed vs seed,0.16002792119979858
+main,bag_0_3400fef9,1002,base seed vs seed,0.5814679861068726
+main,bag_0_3400fef9,1002,base seed vs seed,0.6460296511650085
+main,bag_0_3400fef9,1003,base seed vs seed,0.21736691892147064
+main,bag_0_3400fef9,1001,r1 vs r2,0.06680282950401306
+main,bag_0_3400fef9,1001,displacement cosine r1 r2,0.5481998324394226
+main,bag_0_3400fef9,1001,displacement cosine r1 r2 (other prompt),-0.020390085875988007
+main,bag_0_3400fef9,1001,r1 vs r3,0.08396832644939423
+main,bag_0_3400fef9,1001,displacement cosine r1 r3,0.6368539929389954
+main,bag_0_3400fef9,1001,displacement cosine r1 r3 (other prompt),0.025747157633304596
+main,bag_0_3400fef9,1001,r2 vs r3,0.104352205991745
+main,bag_0_3400fef9,1001,displacement cosine r2 r3,0.41207587718963623
+main,bag_0_3400fef9,1001,displacement cosine r2 r3 (other prompt),0.031578194350004196
+main,bag_0_3400fef9,1002,r1 vs r2,0.05847333371639252
+main,bag_0_3400fef9,1002,displacement cosine r1 r2,0.5480902194976807
+main,bag_0_3400fef9,1002,displacement cosine r1 r2 (other prompt),0.008589735254645348
+main,bag_0_3400fef9,1002,r1 vs r3,0.054971396923065186
+main,bag_0_3400fef9,1002,displacement cosine r1 r3,0.7235857844352722
+main,bag_0_3400fef9,1002,displacement cosine r1 r3 (other prompt),0.013196507468819618
+main,bag_0_3400fef9,1002,r2 vs r3,0.09220004081726074
+main,bag_0_3400fef9,1002,displacement cosine r2 r3,0.48801594972610474
+main,bag_0_3400fef9,1002,displacement cosine r2 r3 (other prompt),-0.010966367088258266
+main,bag_0_3400fef9,1003,r1 vs r2,0.015399977564811707
+main,bag_0_3400fef9,1003,displacement cosine r1 r2,0.8109422922134399
+main,bag_0_3400fef9,1003,displacement cosine r1 r2 (other prompt),0.015405585058033466
+main,bag_0_3400fef9,1003,r1 vs r3,0.005668357014656067
+main,bag_0_3400fef9,1003,displacement cosine r1 r3,0.9219528436660767
+main,bag_0_3400fef9,1003,displacement cosine r1 r3 (other prompt),0.019771751016378403
+main,bag_0_3400fef9,1003,r2 vs r3,0.018700316548347473
+main,bag_0_3400fef9,1003,displacement cosine r2 r3,0.7647606730461121
+main,bag_0_3400fef9,1003,displacement cosine r2 r3 (other prompt),0.025420458987355232
+main,bag_0_3400fef9,1004,r1 vs r2,0.007003366947174072
+main,bag_0_3400fef9,1004,displacement cosine r1 r2,0.7337726354598999
+main,bag_0_3400fef9,1004,displacement cosine r1 r2 (other prompt),-0.0218869186937809
+main,bag_0_3400fef9,1004,r1 vs r3,0.0044841468334198
+main,bag_0_3400fef9,1004,displacement cosine r1 r3,0.8710363507270813
+main,bag_0_3400fef9,1004,displacement cosine r1 r3 (other prompt),-0.01654227264225483
+main,bag_0_3400fef9,1004,r2 vs r3,0.008518502116203308
+main,bag_0_3400fef9,1004,displacement cosine r2 r3,0.7194086313247681
+main,bag_0_3400fef9,1004,displacement cosine r2 r3 (other prompt),0.014905472286045551
+main,bag_0_38016701,1001,base vs r1,0.28670454025268555
+main,bag_0_38016701,1001,base vs r2,0.009549394249916077
+main,bag_0_38016701,1001,base vs r3,0.283500999212265
+main,bag_0_38016701,1002,base vs r1,0.05205622315406799
+main,bag_0_38016701,1002,base vs r2,0.008120164275169373
+main,bag_0_38016701,1002,base vs r3,0.035138726234436035
+main,bag_0_38016701,1003,base vs r1,0.04671552777290344
+main,bag_0_38016701,1003,base vs r2,0.07912005484104156
+main,bag_0_38016701,1003,base vs r3,0.07102781534194946
+main,bag_0_38016701,1004,base vs r1,0.00961524248123169
+main,bag_0_38016701,1004,base vs r2,0.01218770444393158
+main,bag_0_38016701,1004,base vs r3,0.006565704941749573
+main,bag_0_38016701,1001,base seed vs seed,0.28820449113845825
+main,bag_0_38016701,1001,base seed vs seed,0.3758905529975891
+main,bag_0_38016701,1001,base seed vs seed,0.37780362367630005
+main,bag_0_38016701,1002,base seed vs seed,0.46694284677505493
+main,bag_0_38016701,1002,base seed vs seed,0.4841310977935791
+main,bag_0_38016701,1003,base seed vs seed,0.30770862102508545
+main,bag_0_38016701,1001,r1 vs r2,0.3182934522628784
+main,bag_0_38016701,1001,displacement cosine r1 r2,-0.2311697006225586
+main,bag_0_38016701,1001,displacement cosine r1 r2 (other prompt),-0.029333049431443214
+main,bag_0_38016701,1001,r1 vs r3,0.07059787213802338
+main,bag_0_38016701,1001,displacement cosine r1 r3,0.8923303484916687
+main,bag_0_38016701,1001,displacement cosine r1 r3 (other prompt),-0.038652122020721436
+main,bag_0_38016701,1001,r2 vs r3,0.3105916678905487
+main,bag_0_38016701,1001,displacement cosine r2 r3,-0.20024630427360535
+main,bag_0_38016701,1001,displacement cosine r2 r3 (other prompt),0.011565815657377243
+main,bag_0_38016701,1002,r1 vs r2,0.04204826056957245
+main,bag_0_38016701,1002,displacement cosine r1 r2,0.3602701425552368
+main,bag_0_38016701,1002,displacement cosine r1 r2 (other prompt),0.02285771258175373
+main,bag_0_38016701,1002,r1 vs r3,0.013170048594474792
+main,bag_0_38016701,1002,displacement cosine r1 r3,0.8884761929512024
+main,bag_0_38016701,1002,displacement cosine r1 r3 (other prompt),0.06478223204612732
+main,bag_0_38016701,1002,r2 vs r3,0.031039148569107056
+main,bag_0_38016701,1002,displacement cosine r2 r3,0.3148077130317688
+main,bag_0_38016701,1002,displacement cosine r2 r3 (other prompt),0.007453944534063339
+main,bag_0_38016701,1003,r1 vs r2,0.07102265954017639
+main,bag_0_38016701,1003,displacement cosine r1 r2,0.4556218981742859
+main,bag_0_38016701,1003,displacement cosine r1 r2 (other prompt),0.024738624691963196
+main,bag_0_38016701,1003,r1 vs r3,0.05283847451210022
+main,bag_0_38016701,1003,displacement cosine r1 r3,0.5495853424072266
+main,bag_0_38016701,1003,displacement cosine r1 r3 (other prompt),0.010324547998607159
+main,bag_0_38016701,1003,r2 vs r3,0.03957866132259369
+main,bag_0_38016701,1003,displacement cosine r2 r3,0.7382590770721436
+main,bag_0_38016701,1003,displacement cosine r2 r3 (other prompt),0.027915408834815025
+main,bag_0_38016701,1004,r1 vs r2,0.023228660225868225
+main,bag_0_38016701,1004,displacement cosine r1 r2,-0.0717596486210823
+main,bag_0_38016701,1004,displacement cosine r1 r2 (other prompt),-0.013035286217927933
+main,bag_0_38016701,1004,r1 vs r3,0.0110703706741333
+main,bag_0_38016701,1004,displacement cosine r1 r3,0.3997112214565277
+main,bag_0_38016701,1004,displacement cosine r1 r3 (other prompt),0.0011126943863928318
+main,bag_0_38016701,1004,r2 vs r3,0.013989746570587158
+main,bag_0_38016701,1004,displacement cosine r2 r3,0.15041160583496094
+main,bag_0_38016701,1004,displacement cosine r2 r3 (other prompt),0.010420693084597588
+main,bottle_1_0000a254,1001,base vs r1,0.0645277351140976
+main,bottle_1_0000a254,1001,base vs r2,0.03206843137741089
+main,bottle_1_0000a254,1001,base vs r3,0.06136372685432434
+main,bottle_1_0000a254,1002,base vs r1,0.1174401044845581
+main,bottle_1_0000a254,1002,base vs r2,0.05772508680820465
+main,bottle_1_0000a254,1002,base vs r3,0.1059209555387497
+main,bottle_1_0000a254,1003,base vs r1,0.051510199904441833
+main,bottle_1_0000a254,1003,base vs r2,0.02781367301940918
+main,bottle_1_0000a254,1003,base vs r3,0.02976199984550476
+main,bottle_1_0000a254,1004,base vs r1,0.06862315535545349
+main,bottle_1_0000a254,1004,base vs r2,0.06723053753376007
+main,bottle_1_0000a254,1004,base vs r3,0.06445348262786865
+main,bottle_1_0000a254,1001,base seed vs seed,0.3653966784477234
+main,bottle_1_0000a254,1001,base seed vs seed,0.2643190026283264
+main,bottle_1_0000a254,1001,base seed vs seed,0.28409063816070557
+main,bottle_1_0000a254,1002,base seed vs seed,0.3893875181674957
+main,bottle_1_0000a254,1002,base seed vs seed,0.393848180770874
+main,bottle_1_0000a254,1003,base seed vs seed,0.21858879923820496
+main,bottle_1_0000a254,1001,r1 vs r2,0.04261988401412964
+main,bottle_1_0000a254,1001,displacement cosine r1 r2,0.6393396854400635
+main,bottle_1_0000a254,1001,displacement cosine r1 r2 (other prompt),0.02484319731593132
+main,bottle_1_0000a254,1001,r1 vs r3,0.022810131311416626
+main,bottle_1_0000a254,1001,displacement cosine r1 r3,0.822003960609436
+main,bottle_1_0000a254,1001,displacement cosine r1 r3 (other prompt),0.006146353669464588
+main,bottle_1_0000a254,1001,r2 vs r3,0.03237451612949371
+main,bottle_1_0000a254,1001,displacement cosine r2 r3,0.7360401749610901
+main,bottle_1_0000a254,1001,displacement cosine r2 r3 (other prompt),-0.01215476542711258
+main,bottle_1_0000a254,1002,r1 vs r2,0.09028376638889313
+main,bottle_1_0000a254,1002,displacement cosine r1 r2,0.5495941638946533
+main,bottle_1_0000a254,1002,displacement cosine r1 r2 (other prompt),0.0007757837884128094
+main,bottle_1_0000a254,1002,r1 vs r3,0.013373851776123047
+main,bottle_1_0000a254,1002,displacement cosine r1 r3,0.9402029514312744
+main,bottle_1_0000a254,1002,displacement cosine r1 r3 (other prompt),-0.018860716372728348
+main,bottle_1_0000a254,1002,r2 vs r3,0.08277951180934906
+main,bottle_1_0000a254,1002,displacement cosine r2 r3,0.5527436137199402
+main,bottle_1_0000a254,1002,displacement cosine r2 r3 (other prompt),-0.04321175813674927
+main,bottle_1_0000a254,1003,r1 vs r2,0.047834888100624084
+main,bottle_1_0000a254,1003,displacement cosine r1 r2,0.4649959206581116
+main,bottle_1_0000a254,1003,displacement cosine r1 r2 (other prompt),-0.015155099332332611
+main,bottle_1_0000a254,1003,r1 vs r3,0.0352148711681366
+main,bottle_1_0000a254,1003,displacement cosine r1 r3,0.7157649397850037
+main,bottle_1_0000a254,1003,displacement cosine r1 r3 (other prompt),-0.013599672354757786
+main,bottle_1_0000a254,1003,r2 vs r3,0.023968100547790527
+main,bottle_1_0000a254,1003,displacement cosine r2 r3,0.5913471579551697
+main,bottle_1_0000a254,1003,displacement cosine r2 r3 (other prompt),0.0036762747913599014
+main,bottle_1_0000a254,1004,r1 vs r2,0.02828991413116455
+main,bottle_1_0000a254,1004,displacement cosine r1 r2,0.7923614978790283
+main,bottle_1_0000a254,1004,displacement cosine r1 r2 (other prompt),0.006070935167372227
+main,bottle_1_0000a254,1004,r1 vs r3,0.005911499261856079
+main,bottle_1_0000a254,1004,displacement cosine r1 r3,0.958275556564331
+main,bottle_1_0000a254,1004,displacement cosine r1 r3 (other prompt),0.0011969264596700668
+main,bottle_1_0000a254,1004,r2 vs r3,0.02570103108882904
+main,bottle_1_0000a254,1004,displacement cosine r2 r3,0.8040505051612854
+main,bottle_1_0000a254,1004,displacement cosine r2 r3 (other prompt),0.003969702869653702
+main,bottle_1_00016e7a,1001,base vs r1,0.030308514833450317
+main,bottle_1_00016e7a,1001,base vs r2,0.012532219290733337
+main,bottle_1_00016e7a,1001,base vs r3,0.023707345128059387
+main,bottle_1_00016e7a,1002,base vs r1,0.020911961793899536
+main,bottle_1_00016e7a,1002,base vs r2,0.009031936526298523
+main,bottle_1_00016e7a,1002,base vs r3,0.022637173533439636
+main,bottle_1_00016e7a,1003,base vs r1,0.0481509268283844
+main,bottle_1_00016e7a,1003,base vs r2,0.03674538433551788
+main,bottle_1_00016e7a,1003,base vs r3,0.049596115946769714
+main,bottle_1_00016e7a,1004,base vs r1,0.022254586219787598
+main,bottle_1_00016e7a,1004,base vs r2,0.029300525784492493
+main,bottle_1_00016e7a,1004,base vs r3,0.052994757890701294
+main,bottle_1_00016e7a,1001,base seed vs seed,0.48976045846939087
+main,bottle_1_00016e7a,1001,base seed vs seed,0.2645197808742523
+main,bottle_1_00016e7a,1001,base seed vs seed,0.2596519887447357
+main,bottle_1_00016e7a,1002,base seed vs seed,0.4206508994102478
+main,bottle_1_00016e7a,1002,base seed vs seed,0.5111644864082336
+main,bottle_1_00016e7a,1003,base seed vs seed,0.2619144022464752
+main,bottle_1_00016e7a,1001,r1 vs r2,0.01646411418914795
+main,bottle_1_00016e7a,1001,displacement cosine r1 r2,0.6118924617767334
+main,bottle_1_00016e7a,1001,displacement cosine r1 r2 (other prompt),-0.0012148991227149963
+main,bottle_1_00016e7a,1001,r1 vs r3,0.02056063711643219
+main,bottle_1_00016e7a,1001,displacement cosine r1 r3,0.594798743724823
+main,bottle_1_00016e7a,1001,displacement cosine r1 r3 (other prompt),-0.023699432611465454
+main,bottle_1_00016e7a,1001,r2 vs r3,0.015823140740394592
+main,bottle_1_00016e7a,1001,displacement cosine r2 r3,0.45509591698646545
+main,bottle_1_00016e7a,1001,displacement cosine r2 r3 (other prompt),-0.04482628032565117
+main,bottle_1_00016e7a,1002,r1 vs r2,0.012022525072097778
+main,bottle_1_00016e7a,1002,displacement cosine r1 r2,0.6318053007125854
+main,bottle_1_00016e7a,1002,displacement cosine r1 r2 (other prompt),0.027905017137527466
+main,bottle_1_00016e7a,1002,r1 vs r3,0.0070893168449401855
+main,bottle_1_00016e7a,1002,displacement cosine r1 r3,0.8395255208015442
+main,bottle_1_00016e7a,1002,displacement cosine r1 r3 (other prompt),-0.014289364218711853
+main,bottle_1_00016e7a,1002,r2 vs r3,0.019474685192108154
+main,bottle_1_00016e7a,1002,displacement cosine r2 r3,0.3877936601638794
+main,bottle_1_00016e7a,1002,displacement cosine r2 r3 (other prompt),-0.02651517279446125
+main,bottle_1_00016e7a,1003,r1 vs r2,0.010512232780456543
+main,bottle_1_00016e7a,1003,displacement cosine r1 r2,0.8638228178024292
+main,bottle_1_00016e7a,1003,displacement cosine r1 r2 (other prompt),-0.042372167110443115
+main,bottle_1_00016e7a,1003,r1 vs r3,0.003125205636024475
+main,bottle_1_00016e7a,1003,displacement cosine r1 r3,0.9664548635482788
+main,bottle_1_00016e7a,1003,displacement cosine r1 r3 (other prompt),-0.00908260140568018
+main,bottle_1_00016e7a,1003,r2 vs r3,0.010432511568069458
+main,bottle_1_00016e7a,1003,displacement cosine r2 r3,0.8771824240684509
+main,bottle_1_00016e7a,1003,displacement cosine r2 r3 (other prompt),-0.019082237035036087
+main,bottle_1_00016e7a,1004,r1 vs r2,0.013889968395233154
+main,bottle_1_00016e7a,1004,displacement cosine r1 r2,0.7659994959831238
+main,bottle_1_00016e7a,1004,displacement cosine r1 r2 (other prompt),0.02275729924440384
+main,bottle_1_00016e7a,1004,r1 vs r3,0.04880772531032562
+main,bottle_1_00016e7a,1004,displacement cosine r1 r3,0.41357991099357605
+main,bottle_1_00016e7a,1004,displacement cosine r1 r3 (other prompt),0.019268600270152092
+main,bottle_1_00016e7a,1004,r2 vs r3,0.04703396558761597
+main,bottle_1_00016e7a,1004,displacement cosine r2 r3,0.44725877046585083
+main,bottle_1_00016e7a,1004,displacement cosine r2 r3 (other prompt),0.017979644238948822
+main,flashlight_102_2a001e3d,1001,base vs r1,0.03477884829044342
+main,flashlight_102_2a001e3d,1001,base vs r2,0.019012421369552612
+main,flashlight_102_2a001e3d,1001,base vs r3,0.07577575743198395
+main,flashlight_102_2a001e3d,1002,base vs r1,0.025632813572883606
+main,flashlight_102_2a001e3d,1002,base vs r2,0.0024873316287994385
+main,flashlight_102_2a001e3d,1002,base vs r3,0.02572140097618103
+main,flashlight_102_2a001e3d,1003,base vs r1,0.04447890818119049
+main,flashlight_102_2a001e3d,1003,base vs r2,0.022318169474601746
+main,flashlight_102_2a001e3d,1003,base vs r3,0.08021669089794159
+main,flashlight_102_2a001e3d,1004,base vs r1,0.04097744822502136
+main,flashlight_102_2a001e3d,1004,base vs r2,0.04039241373538971
+main,flashlight_102_2a001e3d,1004,base vs r3,0.055507078766822815
+main,flashlight_102_2a001e3d,1001,base seed vs seed,0.5416932702064514
+main,flashlight_102_2a001e3d,1001,base seed vs seed,0.41374945640563965
+main,flashlight_102_2a001e3d,1001,base seed vs seed,0.4194793701171875
+main,flashlight_102_2a001e3d,1002,base seed vs seed,0.47443002462387085
+main,flashlight_102_2a001e3d,1002,base seed vs seed,0.5176557302474976
+main,flashlight_102_2a001e3d,1003,base seed vs seed,0.43478018045425415
+main,flashlight_102_2a001e3d,1001,r1 vs r2,0.0307292640209198
+main,flashlight_102_2a001e3d,1001,displacement cosine r1 r2,0.4398552477359772
+main,flashlight_102_2a001e3d,1001,displacement cosine r1 r2 (other prompt),-0.00947728380560875
+main,flashlight_102_2a001e3d,1001,r1 vs r3,0.07215419411659241
+main,flashlight_102_2a001e3d,1001,displacement cosine r1 r3,0.39705467224121094
+main,flashlight_102_2a001e3d,1001,displacement cosine r1 r3 (other prompt),0.012153941206634045
+main,flashlight_102_2a001e3d,1001,r2 vs r3,0.06824447214603424
+main,flashlight_102_2a001e3d,1001,displacement cosine r2 r3,0.35937464237213135
+main,flashlight_102_2a001e3d,1001,displacement cosine r2 r3 (other prompt),-0.009255431592464447
+main,flashlight_102_2a001e3d,1002,r1 vs r2,0.023783788084983826
+main,flashlight_102_2a001e3d,1002,displacement cosine r1 r2,0.282166063785553
+main,flashlight_102_2a001e3d,1002,displacement cosine r1 r2 (other prompt),-0.029936408624053
+main,flashlight_102_2a001e3d,1002,r1 vs r3,0.013772949576377869
+main,flashlight_102_2a001e3d,1002,displacement cosine r1 r3,0.7337774038314819
+main,flashlight_102_2a001e3d,1002,displacement cosine r1 r3 (other prompt),-0.022595329210162163
+main,flashlight_102_2a001e3d,1002,r2 vs r3,0.021171629428863525
+main,flashlight_102_2a001e3d,1002,displacement cosine r2 r3,0.4401700794696808
+main,flashlight_102_2a001e3d,1002,displacement cosine r2 r3 (other prompt),0.027857301756739616
+main,flashlight_102_2a001e3d,1003,r1 vs r2,0.028037771582603455
+main,flashlight_102_2a001e3d,1003,displacement cosine r1 r2,0.6224467754364014
+main,flashlight_102_2a001e3d,1003,displacement cosine r1 r2 (other prompt),-0.01919211447238922
+main,flashlight_102_2a001e3d,1003,r1 vs r3,0.04825510084629059
+main,flashlight_102_2a001e3d,1003,displacement cosine r1 r3,0.5706889629364014
+main,flashlight_102_2a001e3d,1003,displacement cosine r1 r3 (other prompt),-0.00716031389310956
+main,flashlight_102_2a001e3d,1003,r2 vs r3,0.064925417304039
+main,flashlight_102_2a001e3d,1003,displacement cosine r2 r3,0.41889330744743347
+main,flashlight_102_2a001e3d,1003,displacement cosine r2 r3 (other prompt),-0.014290090650320053
+main,flashlight_102_2a001e3d,1004,r1 vs r2,0.06363476812839508
+main,flashlight_102_2a001e3d,1004,displacement cosine r1 r2,0.21418790519237518
+main,flashlight_102_2a001e3d,1004,displacement cosine r1 r2 (other prompt),-0.019674398005008698
+main,flashlight_102_2a001e3d,1004,r1 vs r3,0.053117215633392334
+main,flashlight_102_2a001e3d,1004,displacement cosine r1 r3,0.44974231719970703
+main,flashlight_102_2a001e3d,1004,displacement cosine r1 r3 (other prompt),0.008310254663228989
+main,flashlight_102_2a001e3d,1004,r2 vs r3,0.05151119828224182
+main,flashlight_102_2a001e3d,1004,displacement cosine r2 r3,0.5450331568717957
+main,flashlight_102_2a001e3d,1004,displacement cosine r2 r3 (other prompt),-0.01005497481673956
+main,hammer_103_2400158e,1001,base vs r1,0.008862718939781189
+main,hammer_103_2400158e,1001,base vs r2,0.007366299629211426
+main,hammer_103_2400158e,1001,base vs r3,0.005729198455810547
+main,hammer_103_2400158e,1002,base vs r1,0.005407363176345825
+main,hammer_103_2400158e,1002,base vs r2,0.004049062728881836
+main,hammer_103_2400158e,1002,base vs r3,0.007345229387283325
+main,hammer_103_2400158e,1003,base vs r1,0.02075357735157013
+main,hammer_103_2400158e,1003,base vs r2,0.006712332367897034
+main,hammer_103_2400158e,1003,base vs r3,0.017939984798431396
+main,hammer_103_2400158e,1004,base vs r1,0.013740599155426025
+main,hammer_103_2400158e,1004,base vs r2,0.0034645795822143555
+main,hammer_103_2400158e,1004,base vs r3,0.009855270385742188
+main,hammer_103_2400158e,1001,base seed vs seed,0.23012839257717133
+main,hammer_103_2400158e,1001,base seed vs seed,0.36078137159347534
+main,hammer_103_2400158e,1001,base seed vs seed,0.3480473458766937
+main,hammer_103_2400158e,1002,base seed vs seed,0.2180463820695877
+main,hammer_103_2400158e,1002,base seed vs seed,0.2681218385696411
+main,hammer_103_2400158e,1003,base seed vs seed,0.18508923053741455
+main,hammer_103_2400158e,1001,r1 vs r2,0.006347820162773132
+main,hammer_103_2400158e,1001,displacement cosine r1 r2,0.5481385588645935
+main,hammer_103_2400158e,1001,displacement cosine r1 r2 (other prompt),0.005875607021152973
+main,hammer_103_2400158e,1001,r1 vs r3,0.004954472184181213
+main,hammer_103_2400158e,1001,displacement cosine r1 r3,0.6959554553031921
+main,hammer_103_2400158e,1001,displacement cosine r1 r3 (other prompt),-0.007250320632010698
+main,hammer_103_2400158e,1001,r2 vs r3,0.006573528051376343
+main,hammer_103_2400158e,1001,displacement cosine r2 r3,0.5364263653755188
+main,hammer_103_2400158e,1001,displacement cosine r2 r3 (other prompt),0.019035670906305313
+main,hammer_103_2400158e,1002,r1 vs r2,0.0027315765619277954
+main,hammer_103_2400158e,1002,displacement cosine r1 r2,0.7190306186676025
+main,hammer_103_2400158e,1002,displacement cosine r1 r2 (other prompt),-0.026768822222948074
+main,hammer_103_2400158e,1002,r1 vs r3,0.0036289840936660767
+main,hammer_103_2400158e,1002,displacement cosine r1 r3,0.7418694496154785
+main,hammer_103_2400158e,1002,displacement cosine r1 r3 (other prompt),0.005580373574048281
+main,hammer_103_2400158e,1002,r2 vs r3,0.004670917987823486
+main,hammer_103_2400158e,1002,displacement cosine r2 r3,0.632124125957489
+main,hammer_103_2400158e,1002,displacement cosine r2 r3 (other prompt),-0.014072536490857601
+main,hammer_103_2400158e,1003,r1 vs r2,0.026715770363807678
+main,hammer_103_2400158e,1003,displacement cosine r1 r2,0.07829337567090988
+main,hammer_103_2400158e,1003,displacement cosine r1 r2 (other prompt),-0.01856185682117939
+main,hammer_103_2400158e,1003,r1 vs r3,0.01945604383945465
+main,hammer_103_2400158e,1003,displacement cosine r1 r3,0.5913938283920288
+main,hammer_103_2400158e,1003,displacement cosine r1 r3 (other prompt),-0.03314899653196335
+main,hammer_103_2400158e,1003,r2 vs r3,0.019897356629371643
+main,hammer_103_2400158e,1003,displacement cosine r2 r3,0.23524463176727295
+main,hammer_103_2400158e,1003,displacement cosine r2 r3 (other prompt),-0.015352984890341759
+main,hammer_103_2400158e,1004,r1 vs r2,0.015020087361335754
+main,hammer_103_2400158e,1004,displacement cosine r1 r2,0.1588495969772339
+main,hammer_103_2400158e,1004,displacement cosine r1 r2 (other prompt),0.010961795225739479
+main,hammer_103_2400158e,1004,r1 vs r3,0.004327550530433655
+main,hammer_103_2400158e,1004,displacement cosine r1 r3,0.8072878122329712
+main,hammer_103_2400158e,1004,displacement cosine r1 r3 (other prompt),-0.0041892314329743385
+main,hammer_103_2400158e,1004,r2 vs r3,0.011378109455108643
+main,hammer_103_2400158e,1004,displacement cosine r2 r3,0.19620591402053833
+main,hammer_103_2400158e,1004,displacement cosine r2 r3 (other prompt),-0.012007860466837883
+main,hammer_103_3900fe43,1001,base vs r1,0.03970944881439209
+main,hammer_103_3900fe43,1001,base vs r2,0.03277850151062012
+main,hammer_103_3900fe43,1001,base vs r3,0.02947947382926941
+main,hammer_103_3900fe43,1002,base vs r1,0.019875526428222656
+main,hammer_103_3900fe43,1002,base vs r2,0.004687830805778503
+main,hammer_103_3900fe43,1002,base vs r3,0.01158471405506134
+main,hammer_103_3900fe43,1003,base vs r1,0.07331830263137817
+main,hammer_103_3900fe43,1003,base vs r2,0.06918922066688538
+main,hammer_103_3900fe43,1003,base vs r3,0.11628848314285278
+main,hammer_103_3900fe43,1004,base vs r1,0.0445161908864975
+main,hammer_103_3900fe43,1004,base vs r2,0.02339509129524231
+main,hammer_103_3900fe43,1004,base vs r3,0.09191854298114777
+main,hammer_103_3900fe43,1001,base seed vs seed,0.6239862442016602
+main,hammer_103_3900fe43,1001,base seed vs seed,0.535311222076416
+main,hammer_103_3900fe43,1001,base seed vs seed,0.419189453125
+main,hammer_103_3900fe43,1002,base seed vs seed,0.17737358808517456
+main,hammer_103_3900fe43,1002,base seed vs seed,0.5074684619903564
+main,hammer_103_3900fe43,1003,base seed vs seed,0.5054322481155396
+main,hammer_103_3900fe43,1001,r1 vs r2,0.05635429918766022
+main,hammer_103_3900fe43,1001,displacement cosine r1 r2,0.23350675404071808
+main,hammer_103_3900fe43,1001,displacement cosine r1 r2 (other prompt),0.008261683396995068
+main,hammer_103_3900fe43,1001,r1 vs r3,0.05022476613521576
+main,hammer_103_3900fe43,1001,displacement cosine r1 r3,0.26879411935806274
+main,hammer_103_3900fe43,1001,displacement cosine r1 r3 (other prompt),0.029621388763189316
+main,hammer_103_3900fe43,1001,r2 vs r3,0.02923673391342163
+main,hammer_103_3900fe43,1001,displacement cosine r2 r3,0.5640989542007446
+main,hammer_103_3900fe43,1001,displacement cosine r2 r3 (other prompt),-0.007986854761838913
+main,hammer_103_3900fe43,1002,r1 vs r2,0.018861472606658936
+main,hammer_103_3900fe43,1002,displacement cosine r1 r2,0.251047283411026
+main,hammer_103_3900fe43,1002,displacement cosine r1 r2 (other prompt),-0.0016293139196932316
+main,hammer_103_3900fe43,1002,r1 vs r3,0.011134907603263855
+main,hammer_103_3900fe43,1002,displacement cosine r1 r3,0.7494944930076599
+main,hammer_103_3900fe43,1002,displacement cosine r1 r3 (other prompt),0.0032813772559165955
+main,hammer_103_3900fe43,1002,r2 vs r3,0.009486883878707886
+main,hammer_103_3900fe43,1002,displacement cosine r2 r3,0.33553504943847656
+main,hammer_103_3900fe43,1002,displacement cosine r2 r3 (other prompt),-0.007351405452936888
+main,hammer_103_3900fe43,1003,r1 vs r2,0.008562222123146057
+main,hammer_103_3900fe43,1003,displacement cosine r1 r2,0.92515629529953
+main,hammer_103_3900fe43,1003,displacement cosine r1 r2 (other prompt),-0.035079676657915115
+main,hammer_103_3900fe43,1003,r1 vs r3,0.04180695116519928
+main,hammer_103_3900fe43,1003,displacement cosine r1 r3,0.8459380269050598
+main,hammer_103_3900fe43,1003,displacement cosine r1 r3 (other prompt),-0.0151218231767416
+main,hammer_103_3900fe43,1003,r2 vs r3,0.041015177965164185
+main,hammer_103_3900fe43,1003,displacement cosine r2 r3,0.8585568070411682
+main,hammer_103_3900fe43,1003,displacement cosine r2 r3 (other prompt),-0.016889337450265884
+main,hammer_103_3900fe43,1004,r1 vs r2,0.03856423497200012
+main,hammer_103_3900fe43,1004,displacement cosine r1 r2,0.45022112131118774
+main,hammer_103_3900fe43,1004,displacement cosine r1 r2 (other prompt),-0.03875650092959404
+main,hammer_103_3900fe43,1004,r1 vs r3,0.08749887347221375
+main,hammer_103_3900fe43,1004,displacement cosine r1 r3,0.46403375267982483
+main,hammer_103_3900fe43,1004,displacement cosine r1 r3 (other prompt),-0.014802179299294949
+main,hammer_103_3900fe43,1004,r2 vs r3,0.09538815915584564
+main,hammer_103_3900fe43,1004,displacement cosine r2 r3,0.2436678409576416
+main,hammer_103_3900fe43,1004,displacement cosine r2 r3 (other prompt),-0.03111967071890831
+main,hammer_103_3b012450,1001,base vs r1,0.07662887871265411
+main,hammer_103_3b012450,1001,base vs r2,0.2554680109024048
+main,hammer_103_3b012450,1001,base vs r3,0.25339576601982117
+main,hammer_103_3b012450,1002,base vs r1,0.02387268841266632
+main,hammer_103_3b012450,1002,base vs r2,0.009934425354003906
+main,hammer_103_3b012450,1002,base vs r3,0.024388223886489868
+main,hammer_103_3b012450,1003,base vs r1,0.021742120385169983
+main,hammer_103_3b012450,1003,base vs r2,0.013153418898582458
+main,hammer_103_3b012450,1003,base vs r3,0.019743934273719788
+main,hammer_103_3b012450,1004,base vs r1,0.07665681838989258
+main,hammer_103_3b012450,1004,base vs r2,0.18417075276374817
+main,hammer_103_3b012450,1004,base vs r3,0.19975048303604126
+main,hammer_103_3b012450,1001,base seed vs seed,0.2800911068916321
+main,hammer_103_3b012450,1001,base seed vs seed,0.3714945912361145
+main,hammer_103_3b012450,1001,base seed vs seed,0.4168795645236969
+main,hammer_103_3b012450,1002,base seed vs seed,0.24034543335437775
+main,hammer_103_3b012450,1002,base seed vs seed,0.37395504117012024
+main,hammer_103_3b012450,1003,base seed vs seed,0.37772732973098755
+main,hammer_103_3b012450,1001,r1 vs r2,0.2786608934402466
+main,hammer_103_3b012450,1001,displacement cosine r1 r2,0.1862916350364685
+main,hammer_103_3b012450,1001,displacement cosine r1 r2 (other prompt),-0.016988685354590416
+main,hammer_103_3b012450,1001,r1 vs r3,0.2795987129211426
+main,hammer_103_3b012450,1001,displacement cosine r1 r3,0.17913727462291718
+main,hammer_103_3b012450,1001,displacement cosine r1 r3 (other prompt),0.009134875610470772
+main,hammer_103_3b012450,1001,r2 vs r3,0.04085978865623474
+main,hammer_103_3b012450,1001,displacement cosine r2 r3,0.9220452308654785
+main,hammer_103_3b012450,1001,displacement cosine r2 r3 (other prompt),0.020739899948239326
+main,hammer_103_3b012450,1002,r1 vs r2,0.02035580575466156
+main,hammer_103_3b012450,1002,displacement cosine r1 r2,0.4483371376991272
+main,hammer_103_3b012450,1002,displacement cosine r1 r2 (other prompt),0.027202749624848366
+main,hammer_103_3b012450,1002,r1 vs r3,0.013825774192810059
+main,hammer_103_3b012450,1002,displacement cosine r1 r3,0.720721960067749
+main,hammer_103_3b012450,1002,displacement cosine r1 r3 (other prompt),0.010908890515565872
+main,hammer_103_3b012450,1002,r2 vs r3,0.02107977867126465
+main,hammer_103_3b012450,1002,displacement cosine r2 r3,0.42461097240448
+main,hammer_103_3b012450,1002,displacement cosine r2 r3 (other prompt),0.036777302622795105
+main,hammer_103_3b012450,1003,r1 vs r2,0.010102853178977966
+main,hammer_103_3b012450,1003,displacement cosine r1 r2,0.7409563660621643
+main,hammer_103_3b012450,1003,displacement cosine r1 r2 (other prompt),-0.024679264053702354
+main,hammer_103_3b012450,1003,r1 vs r3,0.005691796541213989
+main,hammer_103_3b012450,1003,displacement cosine r1 r3,0.8630173802375793
+main,hammer_103_3b012450,1003,displacement cosine r1 r3 (other prompt),0.009869007393717766
+main,hammer_103_3b012450,1003,r2 vs r3,0.012418359518051147
+main,hammer_103_3b012450,1003,displacement cosine r2 r3,0.643868088722229
+main,hammer_103_3b012450,1003,displacement cosine r2 r3 (other prompt),-0.0030237259343266487
+main,hammer_103_3b012450,1004,r1 vs r2,0.16227877140045166
+main,hammer_103_3b012450,1004,displacement cosine r1 r2,0.4344552159309387
+main,hammer_103_3b012450,1004,displacement cosine r1 r2 (other prompt),0.06368468701839447
+main,hammer_103_3b012450,1004,r1 vs r3,0.1570952832698822
+main,hammer_103_3b012450,1004,displacement cosine r1 r3,0.5031694769859314
+main,hammer_103_3b012450,1004,displacement cosine r1 r3 (other prompt),0.0807000920176506
+main,hammer_103_3b012450,1004,r2 vs r3,0.016207128763198853
+main,hammer_103_3b012450,1004,displacement cosine r2 r3,0.9515026211738586
+main,hammer_103_3b012450,1004,displacement cosine r2 r3 (other prompt),0.033858269453048706
+main,jug_108_0000bca1,1001,base vs r1,0.028039902448654175
+main,jug_108_0000bca1,1001,base vs r2,0.018141373991966248
+main,jug_108_0000bca1,1001,base vs r3,0.030162572860717773
+main,jug_108_0000bca1,1002,base vs r1,0.005095258355140686
+main,jug_108_0000bca1,1002,base vs r2,0.0009513348340988159
+main,jug_108_0000bca1,1002,base vs r3,0.003306671977043152
+main,jug_108_0000bca1,1003,base vs r1,0.008174672722816467
+main,jug_108_0000bca1,1003,base vs r2,0.0034641623497009277
+main,jug_108_0000bca1,1003,base vs r3,0.010988608002662659
+main,jug_108_0000bca1,1004,base vs r1,0.02682146430015564
+main,jug_108_0000bca1,1004,base vs r2,0.011894971132278442
+main,jug_108_0000bca1,1004,base vs r3,0.03162652254104614
+main,jug_108_0000bca1,1001,base seed vs seed,0.3037266433238983
+main,jug_108_0000bca1,1001,base seed vs seed,0.16887390613555908
+main,jug_108_0000bca1,1001,base seed vs seed,0.17792481184005737
+main,jug_108_0000bca1,1002,base seed vs seed,0.21896542608737946
+main,jug_108_0000bca1,1002,base seed vs seed,0.24499309062957764
+main,jug_108_0000bca1,1003,base seed vs seed,0.1646263301372528
+main,jug_108_0000bca1,1001,r1 vs r2,0.007207423448562622
+main,jug_108_0000bca1,1001,displacement cosine r1 r2,0.8041641712188721
+main,jug_108_0000bca1,1001,displacement cosine r1 r2 (other prompt),-0.028467828407883644
+main,jug_108_0000bca1,1001,r1 vs r3,0.024416625499725342
+main,jug_108_0000bca1,1001,displacement cosine r1 r3,0.6304340362548828
+main,jug_108_0000bca1,1001,displacement cosine r1 r3 (other prompt),-0.016246020793914795
+main,jug_108_0000bca1,1001,r2 vs r3,0.02953381836414337
+main,jug_108_0000bca1,1001,displacement cosine r2 r3,0.4412114918231964
+main,jug_108_0000bca1,1001,displacement cosine r2 r3 (other prompt),0.002233938779681921
+main,jug_108_0000bca1,1002,r1 vs r2,0.0044076889753341675
+main,jug_108_0000bca1,1002,displacement cosine r1 r2,0.37630125880241394
+main,jug_108_0000bca1,1002,displacement cosine r1 r2 (other prompt),0.020131167024374008
+main,jug_108_0000bca1,1002,r1 vs r3,0.0015416592359542847
+main,jug_108_0000bca1,1002,displacement cosine r1 r3,0.8571797609329224
+main,jug_108_0000bca1,1002,displacement cosine r1 r3 (other prompt),0.08465206623077393
+main,jug_108_0000bca1,1002,r2 vs r3,0.0029105544090270996
+main,jug_108_0000bca1,1002,displacement cosine r2 r3,0.38743066787719727
+main,jug_108_0000bca1,1002,displacement cosine r2 r3 (other prompt),0.021275436505675316
+main,jug_108_0000bca1,1003,r1 vs r2,0.006783813238143921
+main,jug_108_0000bca1,1003,displacement cosine r1 r2,0.46973443031311035
+main,jug_108_0000bca1,1003,displacement cosine r1 r2 (other prompt),0.060493241995573044
+main,jug_108_0000bca1,1003,r1 vs r3,0.004933252930641174
+main,jug_108_0000bca1,1003,displacement cosine r1 r3,0.7715245485305786
+main,jug_108_0000bca1,1003,displacement cosine r1 r3 (other prompt),0.04032265394926071
+main,jug_108_0000bca1,1003,r2 vs r3,0.008391901850700378
+main,jug_108_0000bca1,1003,displacement cosine r2 r3,0.523097574710846
+main,jug_108_0000bca1,1003,displacement cosine r2 r3 (other prompt),0.07814422994852066
+main,jug_108_0000bca1,1004,r1 vs r2,0.01257316768169403
+main,jug_108_0000bca1,1004,displacement cosine r1 r2,0.7326001524925232
+main,jug_108_0000bca1,1004,displacement cosine r1 r2 (other prompt),0.03427526354789734
+main,jug_108_0000bca1,1004,r1 vs r3,0.00490860641002655
+main,jug_108_0000bca1,1004,displacement cosine r1 r3,0.9188165664672852
+main,jug_108_0000bca1,1004,displacement cosine r1 r3 (other prompt),0.08205490559339523
+main,jug_108_0000bca1,1004,r2 vs r3,0.014334633946418762
+main,jug_108_0000bca1,1004,displacement cosine r2 r3,0.7532130479812622
+main,jug_108_0000bca1,1004,displacement cosine r2 r3 (other prompt),0.04034004360437393
+main,jug_108_1c007479,1001,base vs r1,0.10360397398471832
+main,jug_108_1c007479,1001,base vs r2,0.041119933128356934
+main,jug_108_1c007479,1001,base vs r3,0.04144047200679779
+main,jug_108_1c007479,1002,base vs r1,0.004073828458786011
+main,jug_108_1c007479,1002,base vs r2,0.001417592167854309
+main,jug_108_1c007479,1002,base vs r3,0.004076957702636719
+main,jug_108_1c007479,1003,base vs r1,0.010424643754959106
+main,jug_108_1c007479,1003,base vs r2,0.0038954466581344604
+main,jug_108_1c007479,1003,base vs r3,0.009404227137565613
+main,jug_108_1c007479,1004,base vs r1,0.00798770785331726
+main,jug_108_1c007479,1004,base vs r2,0.00302770733833313
+main,jug_108_1c007479,1004,base vs r3,0.007659703493118286
+main,jug_108_1c007479,1001,base seed vs seed,0.23183104395866394
+main,jug_108_1c007479,1001,base seed vs seed,0.20116110146045685
+main,jug_108_1c007479,1001,base seed vs seed,0.2723528742790222
+main,jug_108_1c007479,1002,base seed vs seed,0.14396052062511444
+main,jug_108_1c007479,1002,base seed vs seed,0.1317298710346222
+main,jug_108_1c007479,1003,base seed vs seed,0.16441994905471802
+main,jug_108_1c007479,1001,r1 vs r2,0.05588337779045105
+main,jug_108_1c007479,1001,displacement cosine r1 r2,0.6772637367248535
+main,jug_108_1c007479,1001,displacement cosine r1 r2 (other prompt),0.0014977529644966125
+main,jug_108_1c007479,1001,r1 vs r3,0.052700817584991455
+main,jug_108_1c007479,1001,displacement cosine r1 r3,0.7148265838623047
+main,jug_108_1c007479,1001,displacement cosine r1 r3 (other prompt),-0.038061995059251785
+main,jug_108_1c007479,1001,r2 vs r3,0.01885196566581726
+main,jug_108_1c007479,1001,displacement cosine r2 r3,0.8259002566337585
+main,jug_108_1c007479,1001,displacement cosine r2 r3 (other prompt),-0.014129264280200005
+main,jug_108_1c007479,1002,r1 vs r2,0.0020427852869033813
+main,jug_108_1c007479,1002,displacement cosine r1 r2,0.712934136390686
+main,jug_108_1c007479,1002,displacement cosine r1 r2 (other prompt),0.09491109102964401
+main,jug_108_1c007479,1002,r1 vs r3,0.000657200813293457
+main,jug_108_1c007479,1002,displacement cosine r1 r3,0.9196536540985107
+main,jug_108_1c007479,1002,displacement cosine r1 r3 (other prompt),0.11543308198451996
+main,jug_108_1c007479,1002,r2 vs r3,0.0021416693925857544
+main,jug_108_1c007479,1002,displacement cosine r2 r3,0.69916170835495
+main,jug_108_1c007479,1002,displacement cosine r2 r3 (other prompt),0.09665343165397644
+main,jug_108_1c007479,1003,r1 vs r2,0.006551191210746765
+main,jug_108_1c007479,1003,displacement cosine r1 r2,0.6401392221450806
+main,jug_108_1c007479,1003,displacement cosine r1 r2 (other prompt),0.10928940773010254
+main,jug_108_1c007479,1003,r1 vs r3,0.0031128525733947754
+main,jug_108_1c007479,1003,displacement cosine r1 r3,0.8754281997680664
+main,jug_108_1c007479,1003,displacement cosine r1 r3 (other prompt),0.11703693121671677
+main,jug_108_1c007479,1003,r2 vs r3,0.006543368101119995
+main,jug_108_1c007479,1003,displacement cosine r2 r3,0.6223568916320801
+main,jug_108_1c007479,1003,displacement cosine r2 r3 (other prompt),0.06481809169054031
+main,jug_108_1c007479,1004,r1 vs r2,0.003908589482307434
+main,jug_108_1c007479,1004,displacement cosine r1 r2,0.7662172317504883
+main,jug_108_1c007479,1004,displacement cosine r1 r2 (other prompt),0.0797843188047409
+main,jug_108_1c007479,1004,r1 vs r3,0.0026853829622268677
+main,jug_108_1c007479,1004,displacement cosine r1 r3,0.8308461308479309
+main,jug_108_1c007479,1004,displacement cosine r1 r3 (other prompt),0.03090558387339115
+main,jug_108_1c007479,1004,r2 vs r3,0.005329981446266174
+main,jug_108_1c007479,1004,displacement cosine r2 r3,0.6196579337120056
+main,jug_108_1c007479,1004,displacement cosine r2 r3 (other prompt),-0.027446329593658447
+main,jug_108_1c010db8,1001,base vs r1,0.03316497802734375
+main,jug_108_1c010db8,1001,base vs r2,0.010830074548721313
+main,jug_108_1c010db8,1001,base vs r3,0.0070631057024002075
+main,jug_108_1c010db8,1002,base vs r1,0.019664615392684937
+main,jug_108_1c010db8,1002,base vs r2,0.01173904538154602
+main,jug_108_1c010db8,1002,base vs r3,0.03424586355686188
+main,jug_108_1c010db8,1003,base vs r1,0.018466517329216003
+main,jug_108_1c010db8,1003,base vs r2,0.013111934065818787
+main,jug_108_1c010db8,1003,base vs r3,0.017786309123039246
+main,jug_108_1c010db8,1004,base vs r1,0.007823705673217773
+main,jug_108_1c010db8,1004,base vs r2,0.004495114088058472
+main,jug_108_1c010db8,1004,base vs r3,0.00629696249961853
+main,jug_108_1c010db8,1001,base seed vs seed,0.31154099106788635
+main,jug_108_1c010db8,1001,base seed vs seed,0.3390491008758545
+main,jug_108_1c010db8,1001,base seed vs seed,0.1595657765865326
+main,jug_108_1c010db8,1002,base seed vs seed,0.32805532217025757
+main,jug_108_1c010db8,1002,base seed vs seed,0.2758164405822754
+main,jug_108_1c010db8,1003,base seed vs seed,0.31813427805900574
+main,jug_108_1c010db8,1001,r1 vs r2,0.016579002141952515
+main,jug_108_1c010db8,1001,displacement cosine r1 r2,0.7684946656227112
+main,jug_108_1c010db8,1001,displacement cosine r1 r2 (other prompt),0.05964931845664978
+main,jug_108_1c010db8,1001,r1 vs r3,0.02205730974674225
+main,jug_108_1c010db8,1001,displacement cosine r1 r3,0.6105509400367737
+main,jug_108_1c010db8,1001,displacement cosine r1 r3 (other prompt),0.024290699511766434
+main,jug_108_1c010db8,1001,r2 vs r3,0.007681131362915039
+main,jug_108_1c010db8,1001,displacement cosine r2 r3,0.6069693565368652
+main,jug_108_1c010db8,1001,displacement cosine r2 r3 (other prompt),0.02954920008778572
+main,jug_108_1c010db8,1002,r1 vs r2,0.00869046151638031
+main,jug_108_1c010db8,1002,displacement cosine r1 r2,0.7489838600158691
+main,jug_108_1c010db8,1002,displacement cosine r1 r2 (other prompt),0.03367185592651367
+main,jug_108_1c010db8,1002,r1 vs r3,0.026498422026634216
+main,jug_108_1c010db8,1002,displacement cosine r1 r3,0.5557761192321777
+main,jug_108_1c010db8,1002,displacement cosine r1 r3 (other prompt),-0.0053129782900214195
+main,jug_108_1c010db8,1002,r2 vs r3,0.03125222027301788
+main,jug_108_1c010db8,1002,displacement cosine r2 r3,0.36625468730926514
+main,jug_108_1c010db8,1002,displacement cosine r2 r3 (other prompt),-0.03783228248357773
+main,jug_108_1c010db8,1003,r1 vs r2,0.010785385966300964
+main,jug_108_1c010db8,1003,displacement cosine r1 r2,0.6447327136993408
+main,jug_108_1c010db8,1003,displacement cosine r1 r2 (other prompt),0.04071855545043945
+main,jug_108_1c010db8,1003,r1 vs r3,0.004787251353263855
+main,jug_108_1c010db8,1003,displacement cosine r1 r3,0.8483909368515015
+main,jug_108_1c010db8,1003,displacement cosine r1 r3 (other prompt),0.09133174270391464
+main,jug_108_1c010db8,1003,r2 vs r3,0.01125037670135498
+main,jug_108_1c010db8,1003,displacement cosine r2 r3,0.6128940582275391
+main,jug_108_1c010db8,1003,displacement cosine r2 r3 (other prompt),0.08315716683864594
+main,jug_108_1c010db8,1004,r1 vs r2,0.006982147693634033
+main,jug_108_1c010db8,1004,displacement cosine r1 r2,0.4292832314968109
+main,jug_108_1c010db8,1004,displacement cosine r1 r2 (other prompt),0.07762002944946289
+main,jug_108_1c010db8,1004,r1 vs r3,0.0023435205221176147
+main,jug_108_1c010db8,1004,displacement cosine r1 r3,0.833121657371521
+main,jug_108_1c010db8,1004,displacement cosine r1 r3 (other prompt),0.11579669266939163
+main,jug_108_1c010db8,1004,r2 vs r3,0.005606696009635925
+main,jug_108_1c010db8,1004,displacement cosine r2 r3,0.45440852642059326
+main,jug_108_1c010db8,1004,displacement cosine r2 r3 (other prompt),0.06498542428016663
+main,motorcycle_18_310025af,1001,base vs r1,0.057615816593170166
+main,motorcycle_18_310025af,1001,base vs r2,0.026095658540725708
+main,motorcycle_18_310025af,1001,base vs r3,0.03954364359378815
+main,motorcycle_18_310025af,1002,base vs r1,0.039807021617889404
+main,motorcycle_18_310025af,1002,base vs r2,0.030217856168746948
+main,motorcycle_18_310025af,1002,base vs r3,0.04891484975814819
+main,motorcycle_18_310025af,1003,base vs r1,0.014666825532913208
+main,motorcycle_18_310025af,1003,base vs r2,0.008843064308166504
+main,motorcycle_18_310025af,1003,base vs r3,0.01783740520477295
+main,motorcycle_18_310025af,1004,base vs r1,0.006486088037490845
+main,motorcycle_18_310025af,1004,base vs r2,0.009777158498764038
+main,motorcycle_18_310025af,1004,base vs r3,0.009347468614578247
+main,motorcycle_18_310025af,1001,base seed vs seed,0.19652743637561798
+main,motorcycle_18_310025af,1001,base seed vs seed,0.16937415301799774
+main,motorcycle_18_310025af,1001,base seed vs seed,0.12561273574829102
+main,motorcycle_18_310025af,1002,base seed vs seed,0.18530243635177612
+main,motorcycle_18_310025af,1002,base seed vs seed,0.18652011454105377
+main,motorcycle_18_310025af,1003,base seed vs seed,0.18975529074668884
+main,motorcycle_18_310025af,1001,r1 vs r2,0.050191476941108704
+main,motorcycle_18_310025af,1001,displacement cosine r1 r2,0.4347527325153351
+main,motorcycle_18_310025af,1001,displacement cosine r1 r2 (other prompt),0.08324066549539566
+main,motorcycle_18_310025af,1001,r1 vs r3,0.01062794029712677
+main,motorcycle_18_310025af,1001,displacement cosine r1 r3,0.9060011506080627
+main,motorcycle_18_310025af,1001,displacement cosine r1 r3 (other prompt),0.1622927188873291
+main,motorcycle_18_310025af,1001,r2 vs r3,0.03563733398914337
+main,motorcycle_18_310025af,1001,displacement cosine r2 r3,0.46601784229278564
+main,motorcycle_18_310025af,1001,displacement cosine r2 r3 (other prompt),0.1100221574306488
+main,motorcycle_18_310025af,1002,r1 vs r2,0.011087119579315186
+main,motorcycle_18_310025af,1002,displacement cosine r1 r2,0.8412249088287354
+main,motorcycle_18_310025af,1002,displacement cosine r1 r2 (other prompt),0.019406229257583618
+main,motorcycle_18_310025af,1002,r1 vs r3,0.02742178738117218
+main,motorcycle_18_310025af,1002,displacement cosine r1 r3,0.6786270141601562
+main,motorcycle_18_310025af,1002,displacement cosine r1 r3 (other prompt),0.07029109448194504
+main,motorcycle_18_310025af,1002,r2 vs r3,0.028438299894332886
+main,motorcycle_18_310025af,1002,displacement cosine r2 r3,0.6263943314552307
+main,motorcycle_18_310025af,1002,displacement cosine r2 r3 (other prompt),0.06496983021497726
+main,motorcycle_18_310025af,1003,r1 vs r2,0.005093023180961609
+main,motorcycle_18_310025af,1003,displacement cosine r1 r2,0.8097923994064331
+main,motorcycle_18_310025af,1003,displacement cosine r1 r2 (other prompt),0.18066902458667755
+main,motorcycle_18_310025af,1003,r1 vs r3,0.0017571300268173218
+main,motorcycle_18_310025af,1003,displacement cosine r1 r3,0.9505268335342407
+main,motorcycle_18_310025af,1003,displacement cosine r1 r3 (other prompt),0.1879614144563675
+main,motorcycle_18_310025af,1003,r2 vs r3,0.005166009068489075
+main,motorcycle_18_310025af,1003,displacement cosine r2 r3,0.853556752204895
+main,motorcycle_18_310025af,1003,displacement cosine r2 r3 (other prompt),0.10101093351840973
+main,motorcycle_18_310025af,1004,r1 vs r2,0.012152597308158875
+main,motorcycle_18_310025af,1004,displacement cosine r1 r2,0.25235211849212646
+main,motorcycle_18_310025af,1004,displacement cosine r1 r2 (other prompt),-0.0042916396632790565
+main,motorcycle_18_310025af,1004,r1 vs r3,0.0026911944150924683
+main,motorcycle_18_310025af,1004,displacement cosine r1 r3,0.837098240852356
+main,motorcycle_18_310025af,1004,displacement cosine r1 r3 (other prompt),0.05835660547018051
+main,motorcycle_18_310025af,1004,r2 vs r3,0.01344957947731018
+main,motorcycle_18_310025af,1004,displacement cosine r2 r3,0.30315500497817993
+main,motorcycle_18_310025af,1004,displacement cosine r2 r3 (other prompt),0.11170607805252075
+main,motorcycle_18_3901375f,1001,base vs r1,0.06035454571247101
+main,motorcycle_18_3901375f,1001,base vs r2,0.0548132061958313
+main,motorcycle_18_3901375f,1001,base vs r3,0.061845824122428894
+main,motorcycle_18_3901375f,1002,base vs r1,0.04150255024433136
+main,motorcycle_18_3901375f,1002,base vs r2,0.03696228563785553
+main,motorcycle_18_3901375f,1002,base vs r3,0.015809103846549988
+main,motorcycle_18_3901375f,1003,base vs r1,0.015942588448524475
+main,motorcycle_18_3901375f,1003,base vs r2,0.0059463828802108765
+main,motorcycle_18_3901375f,1003,base vs r3,0.008189499378204346
+main,motorcycle_18_3901375f,1004,base vs r1,0.057874128222465515
+main,motorcycle_18_3901375f,1004,base vs r2,0.0033905059099197388
+main,motorcycle_18_3901375f,1004,base vs r3,0.05290341377258301
+main,motorcycle_18_3901375f,1001,base seed vs seed,0.18824419379234314
+main,motorcycle_18_3901375f,1001,base seed vs seed,0.19520333409309387
+main,motorcycle_18_3901375f,1001,base seed vs seed,0.17561456561088562
+main,motorcycle_18_3901375f,1002,base seed vs seed,0.2299984097480774
+main,motorcycle_18_3901375f,1002,base seed vs seed,0.2339637130498886
+main,motorcycle_18_3901375f,1003,base seed vs seed,0.15325932204723358
+main,motorcycle_18_3901375f,1001,r1 vs r2,0.00944739580154419
+main,motorcycle_18_3901375f,1001,displacement cosine r1 r2,0.9081289172172546
+main,motorcycle_18_3901375f,1001,displacement cosine r1 r2 (other prompt),0.043387070298194885
+main,motorcycle_18_3901375f,1001,r1 vs r3,0.009077787399291992
+main,motorcycle_18_3901375f,1001,displacement cosine r1 r3,0.9101853370666504
+main,motorcycle_18_3901375f,1001,displacement cosine r1 r3 (other prompt),0.016670718789100647
+main,motorcycle_18_3901375f,1001,r2 vs r3,0.01851329207420349
+main,motorcycle_18_3901375f,1001,displacement cosine r2 r3,0.8180882930755615
+main,motorcycle_18_3901375f,1001,displacement cosine r2 r3 (other prompt),0.0269048810005188
+main,motorcycle_18_3901375f,1002,r1 vs r2,0.011545613408088684
+main,motorcycle_18_3901375f,1002,displacement cosine r1 r2,0.8189414143562317
+main,motorcycle_18_3901375f,1002,displacement cosine r1 r2 (other prompt),-0.031341031193733215
+main,motorcycle_18_3901375f,1002,r1 vs r3,0.041072458028793335
+main,motorcycle_18_3901375f,1002,displacement cosine r1 r3,0.32521963119506836
+main,motorcycle_18_3901375f,1002,displacement cosine r1 r3 (other prompt),-0.023877056315541267
+main,motorcycle_18_3901375f,1002,r2 vs r3,0.04693719744682312
+main,motorcycle_18_3901375f,1002,displacement cosine r2 r3,0.10170674324035645
+main,motorcycle_18_3901375f,1002,displacement cosine r2 r3 (other prompt),-0.01692153885960579
+main,motorcycle_18_3901375f,1003,r1 vs r2,0.01917003095149994
+main,motorcycle_18_3901375f,1003,displacement cosine r1 r2,0.16293050348758698
+main,motorcycle_18_3901375f,1003,displacement cosine r1 r2 (other prompt),-0.0023944485001266003
+main,motorcycle_18_3901375f,1003,r1 vs r3,0.010401740670204163
+main,motorcycle_18_3901375f,1003,displacement cosine r1 r3,0.6351619958877563
+main,motorcycle_18_3901375f,1003,displacement cosine r1 r3 (other prompt),0.007011799607425928
+main,motorcycle_18_3901375f,1003,r2 vs r3,0.010477617383003235
+main,motorcycle_18_3901375f,1003,displacement cosine r2 r3,0.2757370173931122
+main,motorcycle_18_3901375f,1003,displacement cosine r2 r3 (other prompt),-0.0031555932946503162
+main,motorcycle_18_3901375f,1004,r1 vs r2,0.052673205733299255
+main,motorcycle_18_3901375f,1004,displacement cosine r1 r2,0.314007043838501
+main,motorcycle_18_3901375f,1004,displacement cosine r1 r2 (other prompt),-0.0023814328014850616
+main,motorcycle_18_3901375f,1004,r1 vs r3,0.009721234440803528
+main,motorcycle_18_3901375f,1004,displacement cosine r1 r3,0.9074662923812866
+main,motorcycle_18_3901375f,1004,displacement cosine r1 r3 (other prompt),-0.022202085703611374
+main,motorcycle_18_3901375f,1004,r2 vs r3,0.04899488389492035
+main,motorcycle_18_3901375f,1004,displacement cosine r2 r3,0.2812250256538391
+main,motorcycle_18_3901375f,1004,displacement cosine r2 r3 (other prompt),-0.009097755886614323
+main,paper-box_119_3300b27a,1001,base vs r1,0.10301834344863892
+main,paper-box_119_3300b27a,1001,base vs r2,0.032196685671806335
+main,paper-box_119_3300b27a,1001,base vs r3,0.1273294985294342
+main,paper-box_119_3300b27a,1002,base vs r1,0.05381445586681366
+main,paper-box_119_3300b27a,1002,base vs r2,0.08132055401802063
+main,paper-box_119_3300b27a,1002,base vs r3,0.1100483238697052
+main,paper-box_119_3300b27a,1003,base vs r1,0.11193238198757172
+main,paper-box_119_3300b27a,1003,base vs r2,0.0933070033788681
+main,paper-box_119_3300b27a,1003,base vs r3,0.11764246225357056
+main,paper-box_119_3300b27a,1004,base vs r1,0.0677165538072586
+main,paper-box_119_3300b27a,1004,base vs r2,0.04510702192783356
+main,paper-box_119_3300b27a,1004,base vs r3,0.11573868989944458
+main,paper-box_119_3300b27a,1001,base seed vs seed,0.27521026134490967
+main,paper-box_119_3300b27a,1001,base seed vs seed,0.4065603017807007
+main,paper-box_119_3300b27a,1001,base seed vs seed,0.29972729086875916
+main,paper-box_119_3300b27a,1002,base seed vs seed,0.36567702889442444
+main,paper-box_119_3300b27a,1002,base seed vs seed,0.3086812496185303
+main,paper-box_119_3300b27a,1003,base seed vs seed,0.4451782703399658
+main,paper-box_119_3300b27a,1001,r1 vs r2,0.08056640625
+main,paper-box_119_3300b27a,1001,displacement cosine r1 r2,0.478544682264328
+main,paper-box_119_3300b27a,1001,displacement cosine r1 r2 (other prompt),-0.022741880267858505
+main,paper-box_119_3300b27a,1001,r1 vs r3,0.05915920436382294
+main,paper-box_119_3300b27a,1001,displacement cosine r1 r3,0.7429625391960144
+main,paper-box_119_3300b27a,1001,displacement cosine r1 r3 (other prompt),-0.008729270659387112
+main,paper-box_119_3300b27a,1001,r2 vs r3,0.11020419001579285
+main,paper-box_119_3300b27a,1001,displacement cosine r2 r3,0.38718748092651367
+main,paper-box_119_3300b27a,1001,displacement cosine r2 r3 (other prompt),0.009336335584521294
+main,paper-box_119_3300b27a,1002,r1 vs r2,0.1075601875782013
+main,paper-box_119_3300b27a,1002,displacement cosine r1 r2,0.195987731218338
+main,paper-box_119_3300b27a,1002,displacement cosine r1 r2 (other prompt),0.0027607076335698366
+main,paper-box_119_3300b27a,1002,r1 vs r3,0.10948538780212402
+main,paper-box_119_3300b27a,1002,displacement cosine r1 r3,0.3476504683494568
+main,paper-box_119_3300b27a,1002,displacement cosine r1 r3 (other prompt),-0.013175791129469872
+main,paper-box_119_3300b27a,1002,r2 vs r3,0.09348812699317932
+main,paper-box_119_3300b27a,1002,displacement cosine r2 r3,0.5220367908477783
+main,paper-box_119_3300b27a,1002,displacement cosine r2 r3 (other prompt),0.009777470491826534
+main,paper-box_119_3300b27a,1003,r1 vs r2,0.11778020858764648
+main,paper-box_119_3300b27a,1003,displacement cosine r1 r2,0.41083550453186035
+main,paper-box_119_3300b27a,1003,displacement cosine r1 r2 (other prompt),-0.007383817806839943
+main,paper-box_119_3300b27a,1003,r1 vs r3,0.11855493485927582
+main,paper-box_119_3300b27a,1003,displacement cosine r1 r3,0.5090764164924622
+main,paper-box_119_3300b27a,1003,displacement cosine r1 r3 (other prompt),0.0007286653853952885
+main,paper-box_119_3300b27a,1003,r2 vs r3,0.11709889769554138
+main,paper-box_119_3300b27a,1003,displacement cosine r2 r3,0.3987269103527069
+main,paper-box_119_3300b27a,1003,displacement cosine r2 r3 (other prompt),0.014890007674694061
+main,paper-box_119_3300b27a,1004,r1 vs r2,0.028273776173591614
+main,paper-box_119_3300b27a,1004,displacement cosine r1 r2,0.7643160820007324
+main,paper-box_119_3300b27a,1004,displacement cosine r1 r2 (other prompt),0.0182653721421957
+main,paper-box_119_3300b27a,1004,r1 vs r3,0.05792771279811859
+main,paper-box_119_3300b27a,1004,displacement cosine r1 r3,0.7087984681129456
+main,paper-box_119_3300b27a,1004,displacement cosine r1 r3 (other prompt),0.02122226357460022
+main,paper-box_119_3300b27a,1004,r2 vs r3,0.06348592042922974
+main,paper-box_119_3300b27a,1004,displacement cosine r2 r3,0.6757630705833435
+main,paper-box_119_3300b27a,1004,displacement cosine r2 r3 (other prompt),0.00369279645383358
+main,paper-box_119_33013324,1001,base vs r1,0.15030862390995026
+main,paper-box_119_33013324,1001,base vs r2,0.14380058646202087
+main,paper-box_119_33013324,1001,base vs r3,0.14195670187473297
+main,paper-box_119_33013324,1002,base vs r1,0.18289828300476074
+main,paper-box_119_33013324,1002,base vs r2,0.09627391397953033
+main,paper-box_119_33013324,1002,base vs r3,0.21513092517852783
+main,paper-box_119_33013324,1003,base vs r1,0.04008106887340546
+main,paper-box_119_33013324,1003,base vs r2,0.02400316298007965
+main,paper-box_119_33013324,1003,base vs r3,0.04222807288169861
+main,paper-box_119_33013324,1004,base vs r1,0.0646333247423172
+main,paper-box_119_33013324,1004,base vs r2,0.014562919735908508
+main,paper-box_119_33013324,1004,base vs r3,0.05267304182052612
+main,paper-box_119_33013324,1001,base seed vs seed,0.27971896529197693
+main,paper-box_119_33013324,1001,base seed vs seed,0.32543137669563293
+main,paper-box_119_33013324,1001,base seed vs seed,0.2966684103012085
+main,paper-box_119_33013324,1002,base seed vs seed,0.2684648334980011
+main,paper-box_119_33013324,1002,base seed vs seed,0.20162658393383026
+main,paper-box_119_33013324,1003,base seed vs seed,0.33032843470573425
+main,paper-box_119_33013324,1001,r1 vs r2,0.05222123861312866
+main,paper-box_119_33013324,1001,displacement cosine r1 r2,0.8126921057701111
+main,paper-box_119_33013324,1001,displacement cosine r1 r2 (other prompt),0.006839467212557793
+main,paper-box_119_33013324,1001,r1 vs r3,0.024615392088890076
+main,paper-box_119_33013324,1001,displacement cosine r1 r3,0.9179127216339111
+main,paper-box_119_33013324,1001,displacement cosine r1 r3 (other prompt),0.023119820281863213
+main,paper-box_119_33013324,1001,r2 vs r3,0.05829456448554993
+main,paper-box_119_33013324,1001,displacement cosine r2 r3,0.7866592407226562
+main,paper-box_119_33013324,1001,displacement cosine r2 r3 (other prompt),0.012664470821619034
+main,paper-box_119_33013324,1002,r1 vs r2,0.12289619445800781
+main,paper-box_119_33013324,1002,displacement cosine r1 r2,0.5942724347114563
+main,paper-box_119_33013324,1002,displacement cosine r1 r2 (other prompt),-0.14147336781024933
+main,paper-box_119_33013324,1002,r1 vs r3,0.04219658672809601
+main,paper-box_119_33013324,1002,displacement cosine r1 r3,0.896867573261261
+main,paper-box_119_33013324,1002,displacement cosine r1 r3 (other prompt),0.03678485006093979
+main,paper-box_119_33013324,1002,r2 vs r3,0.1604347974061966
+main,paper-box_119_33013324,1002,displacement cosine r2 r3,0.5274255871772766
+main,paper-box_119_33013324,1002,displacement cosine r2 r3 (other prompt),0.013971405103802681
+main,paper-box_119_33013324,1003,r1 vs r2,0.03815789520740509
+main,paper-box_119_33013324,1003,displacement cosine r1 r2,0.43230655789375305
+main,paper-box_119_33013324,1003,displacement cosine r1 r2 (other prompt),0.01197131909430027
+main,paper-box_119_33013324,1003,r1 vs r3,0.021195724606513977
+main,paper-box_119_33013324,1003,displacement cosine r1 r3,0.7704551815986633
+main,paper-box_119_33013324,1003,displacement cosine r1 r3 (other prompt),0.08365148305892944
+main,paper-box_119_33013324,1003,r2 vs r3,0.02782827615737915
+main,paper-box_119_33013324,1003,displacement cosine r2 r3,0.5806592106819153
+main,paper-box_119_33013324,1003,displacement cosine r2 r3 (other prompt),0.0059355515986680984
+main,paper-box_119_33013324,1004,r1 vs r2,0.06395472586154938
+main,paper-box_119_33013324,1004,displacement cosine r1 r2,0.27401459217071533
+main,paper-box_119_33013324,1004,displacement cosine r1 r2 (other prompt),0.02322058007121086
+main,paper-box_119_33013324,1004,r1 vs r3,0.030165687203407288
+main,paper-box_119_33013324,1004,displacement cosine r1 r3,0.6807730793952942
+main,paper-box_119_33013324,1004,displacement cosine r1 r3 (other prompt),0.01896071992814541
+main,paper-box_119_33013324,1004,r2 vs r3,0.048795729875564575
+main,paper-box_119_33013324,1004,displacement cosine r2 r3,0.38984978199005127
+main,paper-box_119_33013324,1004,displacement cosine r2 r3 (other prompt),0.05924589931964874
+main,paper-box_119_35007908,1001,base vs r1,0.0816391110420227
+main,paper-box_119_35007908,1001,base vs r2,0.09493274986743927
+main,paper-box_119_35007908,1001,base vs r3,0.1947478950023651
+main,paper-box_119_35007908,1002,base vs r1,0.05476975440979004
+main,paper-box_119_35007908,1002,base vs r2,0.013376668095588684
+main,paper-box_119_35007908,1002,base vs r3,0.02562294900417328
+main,paper-box_119_35007908,1003,base vs r1,0.02623969316482544
+main,paper-box_119_35007908,1003,base vs r2,0.043044209480285645
+main,paper-box_119_35007908,1003,base vs r3,0.06999394297599792
+main,paper-box_119_35007908,1004,base vs r1,0.11867749691009521
+main,paper-box_119_35007908,1004,base vs r2,0.10757596790790558
+main,paper-box_119_35007908,1004,base vs r3,0.12183119356632233
+main,paper-box_119_35007908,1001,base seed vs seed,0.4161074459552765
+main,paper-box_119_35007908,1001,base seed vs seed,0.3460335433483124
+main,paper-box_119_35007908,1001,base seed vs seed,0.39689767360687256
+main,paper-box_119_35007908,1002,base seed vs seed,0.4770835041999817
+main,paper-box_119_35007908,1002,base seed vs seed,0.4220154583454132
+main,paper-box_119_35007908,1003,base seed vs seed,0.3963130712509155
+main,paper-box_119_35007908,1001,r1 vs r2,0.017132043838500977
+main,paper-box_119_35007908,1001,displacement cosine r1 r2,0.8868380784988403
+main,paper-box_119_35007908,1001,displacement cosine r1 r2 (other prompt),-0.0022257156670093536
+main,paper-box_119_35007908,1001,r1 vs r3,0.12394720315933228
+main,paper-box_119_35007908,1001,displacement cosine r1 r3,0.6257603168487549
+main,paper-box_119_35007908,1001,displacement cosine r1 r3 (other prompt),0.028502602130174637
+main,paper-box_119_35007908,1001,r2 vs r3,0.12577979266643524
+main,paper-box_119_35007908,1001,displacement cosine r2 r3,0.6576377153396606
+main,paper-box_119_35007908,1001,displacement cosine r2 r3 (other prompt),0.025460947304964066
+main,paper-box_119_35007908,1002,r1 vs r2,0.06059129536151886
+main,paper-box_119_35007908,1002,displacement cosine r1 r2,0.14417093992233276
+main,paper-box_119_35007908,1002,displacement cosine r1 r2 (other prompt),0.02856539562344551
+main,paper-box_119_35007908,1002,r1 vs r3,0.03496107459068298
+main,paper-box_119_35007908,1002,displacement cosine r1 r3,0.7217046022415161
+main,paper-box_119_35007908,1002,displacement cosine r1 r3 (other prompt),0.025337517261505127
+main,paper-box_119_35007908,1002,r2 vs r3,0.0318572074174881
+main,paper-box_119_35007908,1002,displacement cosine r2 r3,0.11519578844308853
+main,paper-box_119_35007908,1002,displacement cosine r2 r3 (other prompt),-0.02158351242542267
+main,paper-box_119_35007908,1003,r1 vs r2,0.05350106954574585
+main,paper-box_119_35007908,1003,displacement cosine r1 r2,0.29395490884780884
+main,paper-box_119_35007908,1003,displacement cosine r1 r2 (other prompt),0.01670771650969982
+main,paper-box_119_35007908,1003,r1 vs r3,0.04943835735321045
+main,paper-box_119_35007908,1003,displacement cosine r1 r3,0.48734378814697266
+main,paper-box_119_35007908,1003,displacement cosine r1 r3 (other prompt),0.0045167505741119385
+main,paper-box_119_35007908,1003,r2 vs r3,0.09409365057945251
+main,paper-box_119_35007908,1003,displacement cosine r2 r3,0.21259991824626923
+main,paper-box_119_35007908,1003,displacement cosine r2 r3 (other prompt),0.024264853447675705
+main,paper-box_119_35007908,1004,r1 vs r2,0.032199129462242126
+main,paper-box_119_35007908,1004,displacement cosine r1 r2,0.8029758334159851
+main,paper-box_119_35007908,1004,displacement cosine r1 r2 (other prompt),-0.013807784765958786
+main,paper-box_119_35007908,1004,r1 vs r3,0.017117515206336975
+main,paper-box_119_35007908,1004,displacement cosine r1 r3,0.9002820253372192
+main,paper-box_119_35007908,1004,displacement cosine r1 r3 (other prompt),0.011434882879257202
+main,paper-box_119_35007908,1004,r2 vs r3,0.03606986999511719
+main,paper-box_119_35007908,1004,displacement cosine r2 r3,0.7922908067703247
+main,paper-box_119_35007908,1004,displacement cosine r2 r3 (other prompt),0.029554717242717743
+main,pillow_15_1600699d,1001,base vs r1,0.011517912149429321
+main,pillow_15_1600699d,1001,base vs r2,0.012024268507957458
+main,pillow_15_1600699d,1001,base vs r3,0.010864436626434326
+main,pillow_15_1600699d,1002,base vs r1,0.05357898771762848
+main,pillow_15_1600699d,1002,base vs r2,0.015330970287322998
+main,pillow_15_1600699d,1002,base vs r3,0.04949122667312622
+main,pillow_15_1600699d,1003,base vs r1,0.08679032325744629
+main,pillow_15_1600699d,1003,base vs r2,0.06778578460216522
+main,pillow_15_1600699d,1003,base vs r3,0.07722382247447968
+main,pillow_15_1600699d,1004,base vs r1,0.09449917078018188
+main,pillow_15_1600699d,1004,base vs r2,0.04636393487453461
+main,pillow_15_1600699d,1004,base vs r3,0.07341846823692322
+main,pillow_15_1600699d,1001,base seed vs seed,0.24579404294490814
+main,pillow_15_1600699d,1001,base seed vs seed,0.14437982439994812
+main,pillow_15_1600699d,1001,base seed vs seed,0.18254218995571136
+main,pillow_15_1600699d,1002,base seed vs seed,0.2919110655784607
+main,pillow_15_1600699d,1002,base seed vs seed,0.30885833501815796
+main,pillow_15_1600699d,1003,base seed vs seed,0.19337959587574005
+main,pillow_15_1600699d,1001,r1 vs r2,0.009823456406593323
+main,pillow_15_1600699d,1001,displacement cosine r1 r2,0.5819873213768005
+main,pillow_15_1600699d,1001,displacement cosine r1 r2 (other prompt),0.007419333327561617
+main,pillow_15_1600699d,1001,r1 vs r3,0.0038301944732666016
+main,pillow_15_1600699d,1001,displacement cosine r1 r3,0.8179188966751099
+main,pillow_15_1600699d,1001,displacement cosine r1 r3 (other prompt),0.0006887323688715696
+main,pillow_15_1600699d,1001,r2 vs r3,0.011190652847290039
+main,pillow_15_1600699d,1001,displacement cosine r2 r3,0.5064070224761963
+main,pillow_15_1600699d,1001,displacement cosine r2 r3 (other prompt),-0.005527741275727749
+main,pillow_15_1600699d,1002,r1 vs r2,0.04573100805282593
+main,pillow_15_1600699d,1002,displacement cosine r1 r2,0.43940597772598267
+main,pillow_15_1600699d,1002,displacement cosine r1 r2 (other prompt),0.0029006456024944782
+main,pillow_15_1600699d,1002,r1 vs r3,0.010702371597290039
+main,pillow_15_1600699d,1002,displacement cosine r1 r3,0.8736640214920044
+main,pillow_15_1600699d,1002,displacement cosine r1 r3 (other prompt),0.024172421544790268
+main,pillow_15_1600699d,1002,r2 vs r3,0.041201815009117126
+main,pillow_15_1600699d,1002,displacement cosine r2 r3,0.4786478877067566
+main,pillow_15_1600699d,1002,displacement cosine r2 r3 (other prompt),0.0032478407956659794
+main,pillow_15_1600699d,1003,r1 vs r2,0.047508299350738525
+main,pillow_15_1600699d,1003,displacement cosine r1 r2,0.6853693127632141
+main,pillow_15_1600699d,1003,displacement cosine r1 r2 (other prompt),0.0012453044764697552
+main,pillow_15_1600699d,1003,r1 vs r3,0.0312948077917099
+main,pillow_15_1600699d,1003,displacement cosine r1 r3,0.8394604325294495
+main,pillow_15_1600699d,1003,displacement cosine r1 r3 (other prompt),-0.013927184045314789
+main,pillow_15_1600699d,1003,r2 vs r3,0.02317441999912262
+main,pillow_15_1600699d,1003,displacement cosine r2 r3,0.7617238163948059
+main,pillow_15_1600699d,1003,displacement cosine r2 r3 (other prompt),-0.012759251520037651
+main,pillow_15_1600699d,1004,r1 vs r2,0.07278193533420563
+main,pillow_15_1600699d,1004,displacement cosine r1 r2,0.39772844314575195
+main,pillow_15_1600699d,1004,displacement cosine r1 r2 (other prompt),0.027015088126063347
+main,pillow_15_1600699d,1004,r1 vs r3,0.04789038002490997
+main,pillow_15_1600699d,1004,displacement cosine r1 r3,0.645505964756012
+main,pillow_15_1600699d,1004,displacement cosine r1 r3 (other prompt),0.010255707427859306
+main,pillow_15_1600699d,1004,r2 vs r3,0.03304778039455414
+main,pillow_15_1600699d,1004,displacement cosine r2 r3,0.7161301374435425
+main,pillow_15_1600699d,1004,displacement cosine r2 r3 (other prompt),0.01371590606868267
+main,pistol_11_00009b9f,1001,base vs r1,0.03686398267745972
+main,pistol_11_00009b9f,1001,base vs r2,0.03795686364173889
+main,pistol_11_00009b9f,1001,base vs r3,0.05907842516899109
+main,pistol_11_00009b9f,1002,base vs r1,0.11024066805839539
+main,pistol_11_00009b9f,1002,base vs r2,0.024074792861938477
+main,pistol_11_00009b9f,1002,base vs r3,0.09531368315219879
+main,pistol_11_00009b9f,1003,base vs r1,0.021686211228370667
+main,pistol_11_00009b9f,1003,base vs r2,0.014219239354133606
+main,pistol_11_00009b9f,1003,base vs r3,0.011810362339019775
+main,pistol_11_00009b9f,1004,base vs r1,0.033567920327186584
+main,pistol_11_00009b9f,1004,base vs r2,0.0020525753498077393
+main,pistol_11_00009b9f,1004,base vs r3,0.029368475079536438
+main,pistol_11_00009b9f,1001,base seed vs seed,0.20360958576202393
+main,pistol_11_00009b9f,1001,base seed vs seed,0.23725929856300354
+main,pistol_11_00009b9f,1001,base seed vs seed,0.5949618816375732
+main,pistol_11_00009b9f,1002,base seed vs seed,0.1723421961069107
+main,pistol_11_00009b9f,1002,base seed vs seed,0.5166735053062439
+main,pistol_11_00009b9f,1003,base seed vs seed,0.4711649715900421
+main,pistol_11_00009b9f,1001,r1 vs r2,0.043942585587501526
+main,pistol_11_00009b9f,1001,displacement cosine r1 r2,0.4091187119483948
+main,pistol_11_00009b9f,1001,displacement cosine r1 r2 (other prompt),0.03116428107023239
+main,pistol_11_00009b9f,1001,r1 vs r3,0.05574671924114227
+main,pistol_11_00009b9f,1001,displacement cosine r1 r3,0.4328691065311432
+main,pistol_11_00009b9f,1001,displacement cosine r1 r3 (other prompt),-0.019722742959856987
+main,pistol_11_00009b9f,1001,r2 vs r3,0.032020777463912964
+main,pistol_11_00009b9f,1001,displacement cosine r2 r3,0.6804121732711792
+main,pistol_11_00009b9f,1001,displacement cosine r2 r3 (other prompt),0.017812278121709824
+main,pistol_11_00009b9f,1002,r1 vs r2,0.09414821863174438
+main,pistol_11_00009b9f,1002,displacement cosine r1 r2,0.4177859127521515
+main,pistol_11_00009b9f,1002,displacement cosine r1 r2 (other prompt),-0.018778609111905098
+main,pistol_11_00009b9f,1002,r1 vs r3,0.017426282167434692
+main,pistol_11_00009b9f,1002,displacement cosine r1 r3,0.9046818614006042
+main,pistol_11_00009b9f,1002,displacement cosine r1 r3 (other prompt),8.067674934864044e-05
+main,pistol_11_00009b9f,1002,r2 vs r3,0.07812599837779999
+main,pistol_11_00009b9f,1002,displacement cosine r2 r3,0.4605499505996704
+main,pistol_11_00009b9f,1002,displacement cosine r2 r3 (other prompt),-0.020076952874660492
+main,pistol_11_00009b9f,1003,r1 vs r2,0.013873949646949768
+main,pistol_11_00009b9f,1003,displacement cosine r1 r2,0.631231963634491
+main,pistol_11_00009b9f,1003,displacement cosine r1 r2 (other prompt),0.015091907232999802
+main,pistol_11_00009b9f,1003,r1 vs r3,0.008779540657997131
+main,pistol_11_00009b9f,1003,displacement cosine r1 r3,0.7703842520713806
+main,pistol_11_00009b9f,1003,displacement cosine r1 r3 (other prompt),0.008365215733647346
+main,pistol_11_00009b9f,1003,r2 vs r3,0.009406015276908875
+main,pistol_11_00009b9f,1003,displacement cosine r2 r3,0.6335707306861877
+main,pistol_11_00009b9f,1003,displacement cosine r2 r3 (other prompt),0.013256625272333622
+main,pistol_11_00009b9f,1004,r1 vs r2,0.03485448658466339
+main,pistol_11_00009b9f,1004,displacement cosine r1 r2,0.03619807958602905
+main,pistol_11_00009b9f,1004,displacement cosine r1 r2 (other prompt),0.013744151219725609
+main,pistol_11_00009b9f,1004,r1 vs r3,0.012020230293273926
+main,pistol_11_00009b9f,1004,displacement cosine r1 r3,0.8293251991271973
+main,pistol_11_00009b9f,1004,displacement cosine r1 r3 (other prompt),-0.011598024517297745
+main,pistol_11_00009b9f,1004,r2 vs r3,0.030928879976272583
+main,pistol_11_00009b9f,1004,displacement cosine r2 r3,0.01778942160308361
+main,pistol_11_00009b9f,1004,displacement cosine r2 r3 (other prompt),-0.02114233747124672
+main,plush-toy_52_32002940,1001,base vs r1,0.020932495594024658
+main,plush-toy_52_32002940,1001,base vs r2,0.01499958336353302
+main,plush-toy_52_32002940,1001,base vs r3,0.02372969686985016
+main,plush-toy_52_32002940,1002,base vs r1,0.029748305678367615
+main,plush-toy_52_32002940,1002,base vs r2,0.025596246123313904
+main,plush-toy_52_32002940,1002,base vs r3,0.02475215494632721
+main,plush-toy_52_32002940,1003,base vs r1,0.060025155544281006
+main,plush-toy_52_32002940,1003,base vs r2,0.02836771309375763
+main,plush-toy_52_32002940,1003,base vs r3,0.03179268538951874
+main,plush-toy_52_32002940,1004,base vs r1,0.052014872431755066
+main,plush-toy_52_32002940,1004,base vs r2,0.04034842550754547
+main,plush-toy_52_32002940,1004,base vs r3,0.03833281993865967
+main,plush-toy_52_32002940,1001,base seed vs seed,0.2577643394470215
+main,plush-toy_52_32002940,1001,base seed vs seed,0.2054169476032257
+main,plush-toy_52_32002940,1001,base seed vs seed,0.22728276252746582
+main,plush-toy_52_32002940,1002,base seed vs seed,0.23346643149852753
+main,plush-toy_52_32002940,1002,base seed vs seed,0.3053598403930664
+main,plush-toy_52_32002940,1003,base seed vs seed,0.2384340465068817
+main,plush-toy_52_32002940,1001,r1 vs r2,0.01303701102733612
+main,plush-toy_52_32002940,1001,displacement cosine r1 r2,0.6404154896736145
+main,plush-toy_52_32002940,1001,displacement cosine r1 r2 (other prompt),-0.011779728345572948
+main,plush-toy_52_32002940,1001,r1 vs r3,0.01631578803062439
+main,plush-toy_52_32002940,1001,displacement cosine r1 r3,0.631472647190094
+main,plush-toy_52_32002940,1001,displacement cosine r1 r3 (other prompt),-0.02425791323184967
+main,plush-toy_52_32002940,1001,r2 vs r3,0.024079829454421997
+main,plush-toy_52_32002940,1001,displacement cosine r2 r3,0.3735063076019287
+main,plush-toy_52_32002940,1001,displacement cosine r2 r3 (other prompt),-0.005767103284597397
+main,plush-toy_52_32002940,1002,r1 vs r2,0.03272348642349243
+main,plush-toy_52_32002940,1002,displacement cosine r1 r2,0.36849090456962585
+main,plush-toy_52_32002940,1002,displacement cosine r1 r2 (other prompt),-0.01695728302001953
+main,plush-toy_52_32002940,1002,r1 vs r3,0.029789894819259644
+main,plush-toy_52_32002940,1002,displacement cosine r1 r3,0.4663281738758087
+main,plush-toy_52_32002940,1002,displacement cosine r1 r3 (other prompt),-0.03315291926264763
+main,plush-toy_52_32002940,1002,r2 vs r3,0.042843326926231384
+main,plush-toy_52_32002940,1002,displacement cosine r2 r3,0.13532797992229462
+main,plush-toy_52_32002940,1002,displacement cosine r2 r3 (other prompt),-0.00014415523037314415
+main,plush-toy_52_32002940,1003,r1 vs r2,0.04474027454853058
+main,plush-toy_52_32002940,1003,displacement cosine r1 r2,0.5290837287902832
+main,plush-toy_52_32002940,1003,displacement cosine r1 r2 (other prompt),-0.019394855946302414
+main,plush-toy_52_32002940,1003,r1 vs r3,0.0530935674905777
+main,plush-toy_52_32002940,1003,displacement cosine r1 r3,0.4705072045326233
+main,plush-toy_52_32002940,1003,displacement cosine r1 r3 (other prompt),0.0038992713671177626
+main,plush-toy_52_32002940,1003,r2 vs r3,0.024648740887641907
+main,plush-toy_52_32002940,1003,displacement cosine r2 r3,0.5949901938438416
+main,plush-toy_52_32002940,1003,displacement cosine r2 r3 (other prompt),0.012894553132355213
+main,plush-toy_52_32002940,1004,r1 vs r2,0.052351564168930054
+main,plush-toy_52_32002940,1004,displacement cosine r1 r2,0.3963349759578705
+main,plush-toy_52_32002940,1004,displacement cosine r1 r2 (other prompt),0.00168140372261405
+main,plush-toy_52_32002940,1004,r1 vs r3,0.031813740730285645
+main,plush-toy_52_32002940,1004,displacement cosine r1 r3,0.6768047213554382
+main,plush-toy_52_32002940,1004,displacement cosine r1 r3 (other prompt),-0.005333130247890949
+main,plush-toy_52_32002940,1004,r2 vs r3,0.04299198091030121
+main,plush-toy_52_32002940,1004,displacement cosine r2 r3,0.4226036071777344
+main,plush-toy_52_32002940,1004,displacement cosine r2 r3 (other prompt),-0.023766743019223213
+main,screw-driver_105_3000af4d,1001,base vs r1,0.10924266278743744
+main,screw-driver_105_3000af4d,1001,base vs r2,0.06736443936824799
+main,screw-driver_105_3000af4d,1001,base vs r3,0.1130959540605545
+main,screw-driver_105_3000af4d,1002,base vs r1,0.005337849259376526
+main,screw-driver_105_3000af4d,1002,base vs r2,0.06745539605617523
+main,screw-driver_105_3000af4d,1002,base vs r3,0.005137503147125244
+main,screw-driver_105_3000af4d,1003,base vs r1,0.01351916790008545
+main,screw-driver_105_3000af4d,1003,base vs r2,0.029492288827896118
+main,screw-driver_105_3000af4d,1003,base vs r3,0.012212812900543213
+main,screw-driver_105_3000af4d,1004,base vs r1,0.12662288546562195
+main,screw-driver_105_3000af4d,1004,base vs r2,0.09567707777023315
+main,screw-driver_105_3000af4d,1004,base vs r3,0.12422381341457367
+main,screw-driver_105_3000af4d,1001,base seed vs seed,0.542015016078949
+main,screw-driver_105_3000af4d,1001,base seed vs seed,0.5144528746604919
+main,screw-driver_105_3000af4d,1001,base seed vs seed,0.3709361255168915
+main,screw-driver_105_3000af4d,1002,base seed vs seed,0.33071011304855347
+main,screw-driver_105_3000af4d,1002,base seed vs seed,0.5734315514564514
+main,screw-driver_105_3000af4d,1003,base seed vs seed,0.47734278440475464
+main,screw-driver_105_3000af4d,1001,r1 vs r2,0.09938250482082367
+main,screw-driver_105_3000af4d,1001,displacement cosine r1 r2,0.46365344524383545
+main,screw-driver_105_3000af4d,1001,displacement cosine r1 r2 (other prompt),0.02074948139488697
+main,screw-driver_105_3000af4d,1001,r1 vs r3,0.027252942323684692
+main,screw-driver_105_3000af4d,1001,displacement cosine r1 r3,0.8792747855186462
+main,screw-driver_105_3000af4d,1001,displacement cosine r1 r3 (other prompt),0.020419688895344734
+main,screw-driver_105_3000af4d,1001,r2 vs r3,0.0968790203332901
+main,screw-driver_105_3000af4d,1001,displacement cosine r2 r3,0.4909312129020691
+main,screw-driver_105_3000af4d,1001,displacement cosine r2 r3 (other prompt),0.0036446088925004005
+main,screw-driver_105_3000af4d,1002,r1 vs r2,0.07000783085823059
+main,screw-driver_105_3000af4d,1002,displacement cosine r1 r2,0.2275107353925705
+main,screw-driver_105_3000af4d,1002,displacement cosine r1 r2 (other prompt),0.0660344734787941
+main,screw-driver_105_3000af4d,1002,r1 vs r3,0.0017605125904083252
+main,screw-driver_105_3000af4d,1002,displacement cosine r1 r3,0.8116397261619568
+main,screw-driver_105_3000af4d,1002,displacement cosine r1 r3 (other prompt),0.06278472393751144
+main,screw-driver_105_3000af4d,1002,r2 vs r3,0.06740118563175201
+main,screw-driver_105_3000af4d,1002,displacement cosine r2 r3,0.35606858134269714
+main,screw-driver_105_3000af4d,1002,displacement cosine r2 r3 (other prompt),-0.018275290727615356
+main,screw-driver_105_3000af4d,1003,r1 vs r2,0.027540773153305054
+main,screw-driver_105_3000af4d,1003,displacement cosine r1 r2,0.3338955044746399
+main,screw-driver_105_3000af4d,1003,displacement cosine r1 r2 (other prompt),0.015386110171675682
+main,screw-driver_105_3000af4d,1003,r1 vs r3,0.007190421223640442
+main,screw-driver_105_3000af4d,1003,displacement cosine r1 r3,0.6713658571243286
+main,screw-driver_105_3000af4d,1003,displacement cosine r1 r3 (other prompt),0.04374620318412781
+main,screw-driver_105_3000af4d,1003,r2 vs r3,0.017719686031341553
+main,screw-driver_105_3000af4d,1003,displacement cosine r2 r3,0.5066331624984741
+main,screw-driver_105_3000af4d,1003,displacement cosine r2 r3 (other prompt),0.03568252548575401
+main,screw-driver_105_3000af4d,1004,r1 vs r2,0.03696832060813904
+main,screw-driver_105_3000af4d,1004,displacement cosine r1 r2,0.7928640842437744
+main,screw-driver_105_3000af4d,1004,displacement cosine r1 r2 (other prompt),0.03236891329288483
+main,screw-driver_105_3000af4d,1004,r1 vs r3,0.006003335118293762
+main,screw-driver_105_3000af4d,1004,displacement cosine r1 r3,0.9637964367866516
+main,screw-driver_105_3000af4d,1004,displacement cosine r1 r3 (other prompt),0.02011057920753956
+main,screw-driver_105_3000af4d,1004,r2 vs r3,0.03508433699607849
+main,screw-driver_105_3000af4d,1004,displacement cosine r2 r3,0.8109849095344543
+main,screw-driver_105_3000af4d,1004,displacement cosine r2 r3 (other prompt),0.03061109408736229
+main,screw-driver_105_3400b22a,1001,base vs r1,0.08259832859039307
+main,screw-driver_105_3400b22a,1001,base vs r2,0.05691802501678467
+main,screw-driver_105_3400b22a,1001,base vs r3,0.08849179744720459
+main,screw-driver_105_3400b22a,1002,base vs r1,0.0051602572202682495
+main,screw-driver_105_3400b22a,1002,base vs r2,0.004558682441711426
+main,screw-driver_105_3400b22a,1002,base vs r3,0.008529379963874817
+main,screw-driver_105_3400b22a,1003,base vs r1,0.011314809322357178
+main,screw-driver_105_3400b22a,1003,base vs r2,0.004690080881118774
+main,screw-driver_105_3400b22a,1003,base vs r3,0.0048139989376068115
+main,screw-driver_105_3400b22a,1004,base vs r1,0.09262645244598389
+main,screw-driver_105_3400b22a,1004,base vs r2,0.0453825443983078
+main,screw-driver_105_3400b22a,1004,base vs r3,0.07619310915470123
+main,screw-driver_105_3400b22a,1001,base seed vs seed,0.505206286907196
+main,screw-driver_105_3400b22a,1001,base seed vs seed,0.48307615518569946
+main,screw-driver_105_3400b22a,1001,base seed vs seed,0.6157801151275635
+main,screw-driver_105_3400b22a,1002,base seed vs seed,0.1596061885356903
+main,screw-driver_105_3400b22a,1002,base seed vs seed,0.3208203911781311
+main,screw-driver_105_3400b22a,1003,base seed vs seed,0.2798337936401367
+main,screw-driver_105_3400b22a,1001,r1 vs r2,0.02632126212120056
+main,screw-driver_105_3400b22a,1001,displacement cosine r1 r2,0.8003123998641968
+main,screw-driver_105_3400b22a,1001,displacement cosine r1 r2 (other prompt),-0.00228977482765913
+main,screw-driver_105_3400b22a,1001,r1 vs r3,0.0138406902551651
+main,screw-driver_105_3400b22a,1001,displacement cosine r1 r3,0.9062089920043945
+main,screw-driver_105_3400b22a,1001,displacement cosine r1 r3 (other prompt),-0.008976398967206478
+main,screw-driver_105_3400b22a,1001,r2 vs r3,0.0291873961687088
+main,screw-driver_105_3400b22a,1001,displacement cosine r2 r3,0.7872635126113892
+main,screw-driver_105_3400b22a,1001,displacement cosine r2 r3 (other prompt),-0.020445046946406364
+main,screw-driver_105_3400b22a,1002,r1 vs r2,0.006574675440788269
+main,screw-driver_105_3400b22a,1002,displacement cosine r1 r2,0.4594508111476898
+main,screw-driver_105_3400b22a,1002,displacement cosine r1 r2 (other prompt),0.036642931401729584
+main,screw-driver_105_3400b22a,1002,r1 vs r3,0.006104081869125366
+main,screw-driver_105_3400b22a,1002,displacement cosine r1 r3,0.6222599744796753
+main,screw-driver_105_3400b22a,1002,displacement cosine r1 r3 (other prompt),0.06672064960002899
+main,screw-driver_105_3400b22a,1002,r2 vs r3,0.004100874066352844
+main,screw-driver_105_3400b22a,1002,displacement cosine r2 r3,0.6003397703170776
+main,screw-driver_105_3400b22a,1002,displacement cosine r2 r3 (other prompt),0.052331648766994476
+main,screw-driver_105_3400b22a,1003,r1 vs r2,0.008310332894325256
+main,screw-driver_105_3400b22a,1003,displacement cosine r1 r2,0.4678742289543152
+main,screw-driver_105_3400b22a,1003,displacement cosine r1 r2 (other prompt),-0.015429681167006493
+main,screw-driver_105_3400b22a,1003,r1 vs r3,0.0069004446268081665
+main,screw-driver_105_3400b22a,1003,displacement cosine r1 r3,0.6242066621780396
+main,screw-driver_105_3400b22a,1003,displacement cosine r1 r3 (other prompt),-0.037766288965940475
+main,screw-driver_105_3400b22a,1003,r2 vs r3,0.005444571375846863
+main,screw-driver_105_3400b22a,1003,displacement cosine r2 r3,0.35265594720840454
+main,screw-driver_105_3400b22a,1003,displacement cosine r2 r3 (other prompt),-0.014141412451863289
+main,screw-driver_105_3400b22a,1004,r1 vs r2,0.021215230226516724
+main,screw-driver_105_3400b22a,1004,displacement cosine r1 r2,0.8941171765327454
+main,screw-driver_105_3400b22a,1004,displacement cosine r1 r2 (other prompt),0.10720853507518768
+main,screw-driver_105_3400b22a,1004,r1 vs r3,0.003686577081680298
+main,screw-driver_105_3400b22a,1004,displacement cosine r1 r3,0.9813271760940552
+main,screw-driver_105_3400b22a,1004,displacement cosine r1 r3 (other prompt),0.13424937427043915
+main,screw-driver_105_3400b22a,1004,r2 vs r3,0.012324139475822449
+main,screw-driver_105_3400b22a,1004,displacement cosine r2 r3,0.9271559715270996
+main,screw-driver_105_3400b22a,1004,displacement cosine r2 r3 (other prompt),0.11005174368619919
+main,shower_124_27006b61,1001,base vs r1,0.05808793008327484
+main,shower_124_27006b61,1001,base vs r2,0.04574677348136902
+main,shower_124_27006b61,1001,base vs r3,0.1150674968957901
+main,shower_124_27006b61,1002,base vs r1,0.02909451723098755
+main,shower_124_27006b61,1002,base vs r2,0.010281577706336975
+main,shower_124_27006b61,1002,base vs r3,0.02326197922229767
+main,shower_124_27006b61,1003,base vs r1,0.026474639773368835
+main,shower_124_27006b61,1003,base vs r2,0.010623633861541748
+main,shower_124_27006b61,1003,base vs r3,0.02035166323184967
+main,shower_124_27006b61,1004,base vs r1,0.013705074787139893
+main,shower_124_27006b61,1004,base vs r2,0.0019026696681976318
+main,shower_124_27006b61,1004,base vs r3,0.008544698357582092
+main,shower_124_27006b61,1001,base seed vs seed,0.4161468744277954
+main,shower_124_27006b61,1001,base seed vs seed,0.40044379234313965
+main,shower_124_27006b61,1001,base seed vs seed,0.44826236367225647
+main,shower_124_27006b61,1002,base seed vs seed,0.2379063367843628
+main,shower_124_27006b61,1002,base seed vs seed,0.36205336451530457
+main,shower_124_27006b61,1003,base seed vs seed,0.40636810660362244
+main,shower_124_27006b61,1001,r1 vs r2,0.09293858706951141
+main,shower_124_27006b61,1001,displacement cosine r1 r2,0.14763511717319489
+main,shower_124_27006b61,1001,displacement cosine r1 r2 (other prompt),-0.021149735897779465
+main,shower_124_27006b61,1001,r1 vs r3,0.041737765073776245
+main,shower_124_27006b61,1001,displacement cosine r1 r3,0.793412983417511
+main,shower_124_27006b61,1001,displacement cosine r1 r3 (other prompt),0.06736275553703308
+main,shower_124_27006b61,1001,r2 vs r3,0.15508149564266205
+main,shower_124_27006b61,1001,displacement cosine r2 r3,-0.023786868900060654
+main,shower_124_27006b61,1001,displacement cosine r2 r3 (other prompt),-0.010597852990031242
+main,shower_124_27006b61,1002,r1 vs r2,0.021537303924560547
+main,shower_124_27006b61,1002,displacement cosine r1 r2,0.5315970182418823
+main,shower_124_27006b61,1002,displacement cosine r1 r2 (other prompt),0.002284240908920765
+main,shower_124_27006b61,1002,r1 vs r3,0.003468930721282959
+main,shower_124_27006b61,1002,displacement cosine r1 r3,0.9070382118225098
+main,shower_124_27006b61,1002,displacement cosine r1 r3 (other prompt),0.03246401622891426
+main,shower_124_27006b61,1002,r2 vs r3,0.017030104994773865
+main,shower_124_27006b61,1002,displacement cosine r2 r3,0.5816830992698669
+main,shower_124_27006b61,1002,displacement cosine r2 r3 (other prompt),0.056740857660770416
+main,shower_124_27006b61,1003,r1 vs r2,0.016484171152114868
+main,shower_124_27006b61,1003,displacement cosine r1 r2,0.5708800554275513
+main,shower_124_27006b61,1003,displacement cosine r1 r2 (other prompt),0.031200038269162178
+main,shower_124_27006b61,1003,r1 vs r3,0.004419103264808655
+main,shower_124_27006b61,1003,displacement cosine r1 r3,0.8900803327560425
+main,shower_124_27006b61,1003,displacement cosine r1 r3 (other prompt),-0.029460854828357697
+main,shower_124_27006b61,1003,r2 vs r3,0.013556122779846191
+main,shower_124_27006b61,1003,displacement cosine r2 r3,0.5315340161323547
+main,shower_124_27006b61,1003,displacement cosine r2 r3 (other prompt),-0.013005887158215046
+main,shower_124_27006b61,1004,r1 vs r2,0.010632827877998352
+main,shower_124_27006b61,1004,displacement cosine r1 r2,0.5032406449317932
+main,shower_124_27006b61,1004,displacement cosine r1 r2 (other prompt),-0.01687457785010338
+main,shower_124_27006b61,1004,r1 vs r3,0.004401534795761108
+main,shower_124_27006b61,1004,displacement cosine r1 r3,0.8424954414367676
+main,shower_124_27006b61,1004,displacement cosine r1 r3 (other prompt),0.010597865097224712
+main,shower_124_27006b61,1004,r2 vs r3,0.007488667964935303
+main,shower_124_27006b61,1004,displacement cosine r2 r3,0.41752544045448303
+main,shower_124_27006b61,1004,displacement cosine r2 r3 (other prompt),-0.014951652847230434
+main,spoon_111_000046b2,1001,base vs r1,0.011741995811462402
+main,spoon_111_000046b2,1001,base vs r2,0.010890945792198181
+main,spoon_111_000046b2,1001,base vs r3,0.03485827147960663
+main,spoon_111_000046b2,1002,base vs r1,0.023493260145187378
+main,spoon_111_000046b2,1002,base vs r2,0.009021759033203125
+main,spoon_111_000046b2,1002,base vs r3,0.027158081531524658
+main,spoon_111_000046b2,1003,base vs r1,0.10610981285572052
+main,spoon_111_000046b2,1003,base vs r2,0.0030655115842819214
+main,spoon_111_000046b2,1003,base vs r3,0.008929714560508728
+main,spoon_111_000046b2,1004,base vs r1,0.04361890256404877
+main,spoon_111_000046b2,1004,base vs r2,0.00793406367301941
+main,spoon_111_000046b2,1004,base vs r3,0.04338943958282471
+main,spoon_111_000046b2,1001,base seed vs seed,0.5227397680282593
+main,spoon_111_000046b2,1001,base seed vs seed,0.5420578122138977
+main,spoon_111_000046b2,1001,base seed vs seed,0.43638041615486145
+main,spoon_111_000046b2,1002,base seed vs seed,0.3008144497871399
+main,spoon_111_000046b2,1002,base seed vs seed,0.5274748802185059
+main,spoon_111_000046b2,1003,base seed vs seed,0.5143924355506897
+main,spoon_111_000046b2,1001,r1 vs r2,0.014499813318252563
+main,spoon_111_000046b2,1001,displacement cosine r1 r2,0.3463960886001587
+main,spoon_111_000046b2,1001,displacement cosine r1 r2 (other prompt),0.03468666225671768
+main,spoon_111_000046b2,1001,r1 vs r3,0.02929149568080902
+main,spoon_111_000046b2,1001,displacement cosine r1 r3,0.5481247901916504
+main,spoon_111_000046b2,1001,displacement cosine r1 r3 (other prompt),-0.020304590463638306
+main,spoon_111_000046b2,1001,r2 vs r3,0.031199082732200623
+main,spoon_111_000046b2,1001,displacement cosine r2 r3,0.3797522783279419
+main,spoon_111_000046b2,1001,displacement cosine r2 r3 (other prompt),0.005308032501488924
+main,spoon_111_000046b2,1002,r1 vs r2,0.0102052241563797
+main,spoon_111_000046b2,1002,displacement cosine r1 r2,0.742831826210022
+main,spoon_111_000046b2,1002,displacement cosine r1 r2 (other prompt),-0.0007138336077332497
+main,spoon_111_000046b2,1002,r1 vs r3,0.0022174417972564697
+main,spoon_111_000046b2,1002,displacement cosine r1 r3,0.9420028924942017
+main,spoon_111_000046b2,1002,displacement cosine r1 r3 (other prompt),-0.0019681905396282673
+main,spoon_111_000046b2,1002,r2 vs r3,0.013193264603614807
+main,spoon_111_000046b2,1002,displacement cosine r2 r3,0.7232756614685059
+main,spoon_111_000046b2,1002,displacement cosine r2 r3 (other prompt),-0.01289297454059124
+main,spoon_111_000046b2,1003,r1 vs r2,0.09747770428657532
+main,spoon_111_000046b2,1003,displacement cosine r1 r2,0.4544607400894165
+main,spoon_111_000046b2,1003,displacement cosine r1 r2 (other prompt),0.027201704680919647
+main,spoon_111_000046b2,1003,r1 vs r3,0.09411250054836273
+main,spoon_111_000046b2,1003,displacement cosine r1 r3,0.4547670781612396
+main,spoon_111_000046b2,1003,displacement cosine r1 r3 (other prompt),0.04549279436469078
+main,spoon_111_000046b2,1003,r2 vs r3,0.005937203764915466
+main,spoon_111_000046b2,1003,displacement cosine r2 r3,0.5703291893005371
+main,spoon_111_000046b2,1003,displacement cosine r2 r3 (other prompt),0.0493403822183609
+main,spoon_111_000046b2,1004,r1 vs r2,0.04558748006820679
+main,spoon_111_000046b2,1004,displacement cosine r1 r2,0.18103215098381042
+main,spoon_111_000046b2,1004,displacement cosine r1 r2 (other prompt),0.0028130989521741867
+main,spoon_111_000046b2,1004,r1 vs r3,0.043909862637519836
+main,spoon_111_000046b2,1004,displacement cosine r1 r3,0.6484646797180176
+main,spoon_111_000046b2,1004,displacement cosine r1 r3 (other prompt),-0.019999472424387932
+main,spoon_111_000046b2,1004,r2 vs r3,0.046204566955566406
+main,spoon_111_000046b2,1004,displacement cosine r2 r3,0.1980850249528885
+main,spoon_111_000046b2,1004,displacement cosine r2 r3 (other prompt),-0.0034013716503977776
+main,walking-stick_121_16017464,1001,base vs r1,0.0575634241104126
+main,walking-stick_121_16017464,1001,base vs r2,0.07683615386486053
+main,walking-stick_121_16017464,1001,base vs r3,0.06860731542110443
+main,walking-stick_121_16017464,1002,base vs r1,0.05666564404964447
+main,walking-stick_121_16017464,1002,base vs r2,0.04717463254928589
+main,walking-stick_121_16017464,1002,base vs r3,0.0548887699842453
+main,walking-stick_121_16017464,1003,base vs r1,0.1653924584388733
+main,walking-stick_121_16017464,1003,base vs r2,0.025951072573661804
+main,walking-stick_121_16017464,1003,base vs r3,0.15196967124938965
+main,walking-stick_121_16017464,1004,base vs r1,0.057857245206832886
+main,walking-stick_121_16017464,1004,base vs r2,0.03937700390815735
+main,walking-stick_121_16017464,1004,base vs r3,0.10228011012077332
+main,walking-stick_121_16017464,1001,base seed vs seed,0.4959891140460968
+main,walking-stick_121_16017464,1001,base seed vs seed,0.32686686515808105
+main,walking-stick_121_16017464,1001,base seed vs seed,0.2640654444694519
+main,walking-stick_121_16017464,1002,base seed vs seed,0.3973029851913452
+main,walking-stick_121_16017464,1002,base seed vs seed,0.46265512704849243
+main,walking-stick_121_16017464,1003,base seed vs seed,0.2958238124847412
+main,walking-stick_121_16017464,1001,r1 vs r2,0.07526257634162903
+main,walking-stick_121_16017464,1001,displacement cosine r1 r2,0.43378233909606934
+main,walking-stick_121_16017464,1001,displacement cosine r1 r2 (other prompt),-0.017530977725982666
+main,walking-stick_121_16017464,1001,r1 vs r3,0.0636817216873169
+main,walking-stick_121_16017464,1001,displacement cosine r1 r3,0.47644081711769104
+main,walking-stick_121_16017464,1001,displacement cosine r1 r3 (other prompt),-0.012789073400199413
+main,walking-stick_121_16017464,1001,r2 vs r3,0.06969316303730011
+main,walking-stick_121_16017464,1001,displacement cosine r2 r3,0.4886893630027771
+main,walking-stick_121_16017464,1001,displacement cosine r2 r3 (other prompt),-0.0038680110592395067
+main,walking-stick_121_16017464,1002,r1 vs r2,0.009781405329704285
+main,walking-stick_121_16017464,1002,displacement cosine r1 r2,0.8845097422599792
+main,walking-stick_121_16017464,1002,displacement cosine r1 r2 (other prompt),-0.015066295862197876
+main,walking-stick_121_16017464,1002,r1 vs r3,0.011988818645477295
+main,walking-stick_121_16017464,1002,displacement cosine r1 r3,0.8868804574012756
+main,walking-stick_121_16017464,1002,displacement cosine r1 r3 (other prompt),-0.0135322455316782
+main,walking-stick_121_16017464,1002,r2 vs r3,0.009955376386642456
+main,walking-stick_121_16017464,1002,displacement cosine r2 r3,0.9028764963150024
+main,walking-stick_121_16017464,1002,displacement cosine r2 r3 (other prompt),-0.006419416982680559
+main,walking-stick_121_16017464,1003,r1 vs r2,0.1625502109527588
+main,walking-stick_121_16017464,1003,displacement cosine r1 r2,0.22560346126556396
+main,walking-stick_121_16017464,1003,displacement cosine r1 r2 (other prompt),-0.02472112700343132
+main,walking-stick_121_16017464,1003,r1 vs r3,0.007009297609329224
+main,walking-stick_121_16017464,1003,displacement cosine r1 r3,0.9794409275054932
+main,walking-stick_121_16017464,1003,displacement cosine r1 r3 (other prompt),0.030362773686647415
+main,walking-stick_121_16017464,1003,r2 vs r3,0.14713473618030548
+main,walking-stick_121_16017464,1003,displacement cosine r2 r3,0.24911552667617798
+main,walking-stick_121_16017464,1003,displacement cosine r2 r3 (other prompt),-0.02943633496761322
+main,walking-stick_121_16017464,1004,r1 vs r2,0.05320341885089874
+main,walking-stick_121_16017464,1004,displacement cosine r1 r2,0.45905134081840515
+main,walking-stick_121_16017464,1004,displacement cosine r1 r2 (other prompt),-0.010318555869162083
+main,walking-stick_121_16017464,1004,r1 vs r3,0.07566604018211365
+main,walking-stick_121_16017464,1004,displacement cosine r1 r3,0.5579978823661804
+main,walking-stick_121_16017464,1004,displacement cosine r1 r3 (other prompt),0.022531922906637192
+main,walking-stick_121_16017464,1004,r2 vs r3,0.09902136027812958
+main,walking-stick_121_16017464,1004,displacement cosine r2 r3,0.3356388807296753
+main,walking-stick_121_16017464,1004,displacement cosine r2 r3 (other prompt),0.007850458845496178
+sweep,Flower_141_0a00b063,1001,base vs c100,0.0011385232210159302
+sweep,Flower_141_0a00b063,1001,base vs c200,0.00579659640789032
+sweep,Flower_141_0a00b063,1001,base vs c300,0.006492137908935547
+sweep,Flower_141_0a00b063,1001,base vs c400,0.009843036532402039
+sweep,Flower_141_0a00b063,1001,base vs s0,0.0
+sweep,Flower_141_0a00b063,1001,base vs s0.25,0.0013134926557540894
+sweep,Flower_141_0a00b063,1001,base vs s0.5,0.0032428354024887085
+sweep,Flower_141_0a00b063,1001,base vs s0.75,0.008049845695495605
+sweep,Flower_141_0a00b063,1001,base vs s1.0,0.010013982653617859
+sweep,Flower_141_0a00b063,1001,base vs s1.5,0.01597835123538971
+sweep,Flower_141_0a00b063,1002,base vs c100,0.001140788197517395
+sweep,Flower_141_0a00b063,1002,base vs c200,0.006387308239936829
+sweep,Flower_141_0a00b063,1002,base vs c300,0.005348995327949524
+sweep,Flower_141_0a00b063,1002,base vs c400,0.015557125210762024
+sweep,Flower_141_0a00b063,1002,base vs s0,0.0
+sweep,Flower_141_0a00b063,1002,base vs s0.25,0.002759605646133423
+sweep,Flower_141_0a00b063,1002,base vs s0.5,0.008103251457214355
+sweep,Flower_141_0a00b063,1002,base vs s0.75,0.010744169354438782
+sweep,Flower_141_0a00b063,1002,base vs s1.0,0.01959514617919922
+sweep,Flower_141_0a00b063,1002,base vs s1.5,0.02303960919380188
+sweep,Flower_141_0a00b063,1001,base seed vs seed,0.1380864828824997
+sweep,Racket_202_3d000372,1001,base vs c100,0.00493110716342926
+sweep,Racket_202_3d000372,1001,base vs c200,0.004411280155181885
+sweep,Racket_202_3d000372,1001,base vs c300,0.0036507993936538696
+sweep,Racket_202_3d000372,1001,base vs c400,0.01706644892692566
+sweep,Racket_202_3d000372,1001,base vs s0,0.0
+sweep,Racket_202_3d000372,1001,base vs s0.25,0.0014033764600753784
+sweep,Racket_202_3d000372,1001,base vs s0.5,0.006331220269203186
+sweep,Racket_202_3d000372,1001,base vs s0.75,0.013767510652542114
+sweep,Racket_202_3d000372,1001,base vs s1.0,0.016782104969024658
+sweep,Racket_202_3d000372,1001,base vs s1.5,0.06774760782718658
+sweep,Racket_202_3d000372,1002,base vs c100,0.0005599409341812134
+sweep,Racket_202_3d000372,1002,base vs c200,0.0008243024349212646
+sweep,Racket_202_3d000372,1002,base vs c300,0.001307949423789978
+sweep,Racket_202_3d000372,1002,base vs c400,0.003939330577850342
+sweep,Racket_202_3d000372,1002,base vs s0,-8.940696716308594e-08
+sweep,Racket_202_3d000372,1002,base vs s0.25,0.000791206955909729
+sweep,Racket_202_3d000372,1002,base vs s0.5,0.0014171004295349121
+sweep,Racket_202_3d000372,1002,base vs s0.75,0.003240719437599182
+sweep,Racket_202_3d000372,1002,base vs s1.0,0.0037346482276916504
+sweep,Racket_202_3d000372,1002,base vs s1.5,0.004661574959754944
+sweep,Racket_202_3d000372,1001,base seed vs seed,0.23967863619327545
+sweep,Rockery_137_21018252,1001,base vs c100,0.0015235841274261475
+sweep,Rockery_137_21018252,1001,base vs c200,0.004024386405944824
+sweep,Rockery_137_21018252,1001,base vs c300,0.02896970510482788
+sweep,Rockery_137_21018252,1001,base vs c400,0.029469609260559082
+sweep,Rockery_137_21018252,1001,base vs s0,-2.9802322387695312e-08
+sweep,Rockery_137_21018252,1001,base vs s0.25,0.0017893165349960327
+sweep,Rockery_137_21018252,1001,base vs s0.5,0.011960923671722412
+sweep,Rockery_137_21018252,1001,base vs s0.75,0.022242039442062378
+sweep,Rockery_137_21018252,1001,base vs s1.0,0.047417834401130676
+sweep,Rockery_137_21018252,1001,base vs s1.5,0.07667507231235504
+sweep,Rockery_137_21018252,1002,base vs c100,0.0017736107110977173
+sweep,Rockery_137_21018252,1002,base vs c200,0.003936097025871277
+sweep,Rockery_137_21018252,1002,base vs c300,0.013812512159347534
+sweep,Rockery_137_21018252,1002,base vs c400,0.03683823347091675
+sweep,Rockery_137_21018252,1002,base vs s0,-4.470348358154297e-08
+sweep,Rockery_137_21018252,1002,base vs s0.25,0.002814576029777527
+sweep,Rockery_137_21018252,1002,base vs s0.5,0.006288021802902222
+sweep,Rockery_137_21018252,1002,base vs s0.75,0.033401668071746826
+sweep,Rockery_137_21018252,1002,base vs s1.0,0.04130755364894867
+sweep,Rockery_137_21018252,1002,base vs s1.5,0.051853179931640625
+sweep,Rockery_137_21018252,1001,base seed vs seed,0.20481324195861816
+sweep,Telescope_223_3100cff8,1001,base vs c100,0.0029422491788864136
+sweep,Telescope_223_3100cff8,1001,base vs c200,0.006362423300743103
+sweep,Telescope_223_3100cff8,1001,base vs c300,0.012674644589424133
+sweep,Telescope_223_3100cff8,1001,base vs c400,0.037100791931152344
+sweep,Telescope_223_3100cff8,1001,base vs s0,-2.9802322387695312e-08
+sweep,Telescope_223_3100cff8,1001,base vs s0.25,0.005925118923187256
+sweep,Telescope_223_3100cff8,1001,base vs s0.5,0.014798939228057861
+sweep,Telescope_223_3100cff8,1001,base vs s0.75,0.022653117775917053
+sweep,Telescope_223_3100cff8,1001,base vs s1.0,0.04524467885494232
+sweep,Telescope_223_3100cff8,1001,base vs s1.5,0.09680573642253876
+sweep,Telescope_223_3100cff8,1002,base vs c100,0.024350911378860474
+sweep,Telescope_223_3100cff8,1002,base vs c200,0.009186819195747375
+sweep,Telescope_223_3100cff8,1002,base vs c300,0.01641973853111267
+sweep,Telescope_223_3100cff8,1002,base vs c400,0.024625688791275024
+sweep,Telescope_223_3100cff8,1002,base vs s0,-2.9802322387695312e-08
+sweep,Telescope_223_3100cff8,1002,base vs s0.25,0.0032918304204940796
+sweep,Telescope_223_3100cff8,1002,base vs s0.5,0.012461185455322266
+sweep,Telescope_223_3100cff8,1002,base vs s0.75,0.020685195922851562
+sweep,Telescope_223_3100cff8,1002,base vs s1.0,0.027553409337997437
+sweep,Telescope_223_3100cff8,1002,base vs s1.5,0.03481452167034149
+sweep,Telescope_223_3100cff8,1001,base seed vs seed,0.5372275710105896
+sweep,Toy-butterfly_203_3200b6e3,1001,base vs c100,0.0012665390968322754
+sweep,Toy-butterfly_203_3200b6e3,1001,base vs c200,0.0018243491649627686
+sweep,Toy-butterfly_203_3200b6e3,1001,base vs c300,0.0038572996854782104
+sweep,Toy-butterfly_203_3200b6e3,1001,base vs c400,0.0220395028591156
+sweep,Toy-butterfly_203_3200b6e3,1001,base vs s0,-5.960464477539063e-08
+sweep,Toy-butterfly_203_3200b6e3,1001,base vs s0.25,0.014157101511955261
+sweep,Toy-butterfly_203_3200b6e3,1001,base vs s0.5,0.013200044631958008
+sweep,Toy-butterfly_203_3200b6e3,1001,base vs s0.75,0.02009357511997223
+sweep,Toy-butterfly_203_3200b6e3,1001,base vs s1.0,0.018578141927719116
+sweep,Toy-butterfly_203_3200b6e3,1001,base vs s1.5,0.016390308737754822
+sweep,Toy-butterfly_203_3200b6e3,1002,base vs c100,0.011635959148406982
+sweep,Toy-butterfly_203_3200b6e3,1002,base vs c200,0.005748644471168518
+sweep,Toy-butterfly_203_3200b6e3,1002,base vs c300,0.010250389575958252
+sweep,Toy-butterfly_203_3200b6e3,1002,base vs c400,0.016335010528564453
+sweep,Toy-butterfly_203_3200b6e3,1002,base vs s0,-5.960464477539063e-08
+sweep,Toy-butterfly_203_3200b6e3,1002,base vs s0.25,0.005421534180641174
+sweep,Toy-butterfly_203_3200b6e3,1002,base vs s0.5,0.01782122254371643
+sweep,Toy-butterfly_203_3200b6e3,1002,base vs s0.75,0.01824192702770233
+sweep,Toy-butterfly_203_3200b6e3,1002,base vs s1.0,0.014368727803230286
+sweep,Toy-butterfly_203_3200b6e3,1002,base vs s1.5,0.018933534622192383
+sweep,Toy-butterfly_203_3200b6e3,1001,base seed vs seed,0.19680096209049225
+sweep,bag_0_38016701,1001,base vs c100,0.009310364723205566
+sweep,bag_0_38016701,1001,base vs c200,0.14992912113666534
+sweep,bag_0_38016701,1001,base vs c300,0.03090636432170868
+sweep,bag_0_38016701,1001,base vs c400,0.28686797618865967
+sweep,bag_0_38016701,1001,base vs s0,-2.9802322387695312e-08
+sweep,bag_0_38016701,1001,base vs s0.25,0.0762198269367218
+sweep,bag_0_38016701,1001,base vs s0.5,0.04272612929344177
+sweep,bag_0_38016701,1001,base vs s0.75,0.25951409339904785
+sweep,bag_0_38016701,1001,base vs s1.0,0.28670454025268555
+sweep,bag_0_38016701,1001,base vs s1.5,0.32996678352355957
+sweep,bag_0_38016701,1002,base vs c100,0.0032690316438674927
+sweep,bag_0_38016701,1002,base vs c200,0.002129465341567993
+sweep,bag_0_38016701,1002,base vs c300,0.0018612146377563477
+sweep,bag_0_38016701,1002,base vs c400,0.030000686645507812
+sweep,bag_0_38016701,1002,base vs s0,-8.940696716308594e-08
+sweep,bag_0_38016701,1002,base vs s0.25,0.0037202835083007812
+sweep,bag_0_38016701,1002,base vs s0.5,0.00449959933757782
+sweep,bag_0_38016701,1002,base vs s0.75,0.021566525101661682
+sweep,bag_0_38016701,1002,base vs s1.0,0.05205622315406799
+sweep,bag_0_38016701,1002,base vs s1.5,0.057203590869903564
+sweep,bag_0_38016701,1001,base seed vs seed,0.28820449113845825
+sweep,bottle_1_00016e7a,1001,base vs c100,0.0038538873195648193
+sweep,bottle_1_00016e7a,1001,base vs c200,0.015599429607391357
+sweep,bottle_1_00016e7a,1001,base vs c300,0.02015767991542816
+sweep,bottle_1_00016e7a,1001,base vs c400,0.05550074577331543
+sweep,bottle_1_00016e7a,1001,base vs s0,-2.9802322387695312e-08
+sweep,bottle_1_00016e7a,1001,base vs s0.25,0.010797232389450073
+sweep,bottle_1_00016e7a,1001,base vs s0.5,0.010837718844413757
+sweep,bottle_1_00016e7a,1001,base vs s0.75,0.019914060831069946
+sweep,bottle_1_00016e7a,1001,base vs s1.0,0.030308514833450317
+sweep,bottle_1_00016e7a,1001,base vs s1.5,0.07343722879886627
+sweep,bottle_1_00016e7a,1002,base vs c100,0.02925814688205719
+sweep,bottle_1_00016e7a,1002,base vs c200,0.04643838107585907
+sweep,bottle_1_00016e7a,1002,base vs c300,0.0318695604801178
+sweep,bottle_1_00016e7a,1002,base vs c400,0.022830337285995483
+sweep,bottle_1_00016e7a,1002,base vs s0,-1.1920928955078125e-07
+sweep,bottle_1_00016e7a,1002,base vs s0.25,0.006671786308288574
+sweep,bottle_1_00016e7a,1002,base vs s0.5,0.01645800471305847
+sweep,bottle_1_00016e7a,1002,base vs s0.75,0.017543628811836243
+sweep,bottle_1_00016e7a,1002,base vs s1.0,0.020911961793899536
+sweep,bottle_1_00016e7a,1002,base vs s1.5,0.030304402112960815
+sweep,bottle_1_00016e7a,1001,base seed vs seed,0.48976045846939087
+sweep,hammer_103_2400158e,1001,base vs c100,0.0020296424627304077
+sweep,hammer_103_2400158e,1001,base vs c200,0.00232599675655365
+sweep,hammer_103_2400158e,1001,base vs c300,0.0031956881284713745
+sweep,hammer_103_2400158e,1001,base vs c400,0.0057249516248703
+sweep,hammer_103_2400158e,1001,base vs s0,-2.9802322387695312e-08
+sweep,hammer_103_2400158e,1001,base vs s0.25,0.0010867267847061157
+sweep,hammer_103_2400158e,1001,base vs s0.5,0.0021668076515197754
+sweep,hammer_103_2400158e,1001,base vs s0.75,0.005735605955123901
+sweep,hammer_103_2400158e,1001,base vs s1.0,0.008862718939781189
+sweep,hammer_103_2400158e,1001,base vs s1.5,0.015003681182861328
+sweep,hammer_103_2400158e,1002,base vs c100,0.0007738620042800903
+sweep,hammer_103_2400158e,1002,base vs c200,0.0020183175802230835
+sweep,hammer_103_2400158e,1002,base vs c300,0.0030651092529296875
+sweep,hammer_103_2400158e,1002,base vs c400,0.005520835518836975
+sweep,hammer_103_2400158e,1002,base vs s0,-5.960464477539063e-08
+sweep,hammer_103_2400158e,1002,base vs s0.25,0.0017387568950653076
+sweep,hammer_103_2400158e,1002,base vs s0.5,0.002660393714904785
+sweep,hammer_103_2400158e,1002,base vs s0.75,0.003968685865402222
+sweep,hammer_103_2400158e,1002,base vs s1.0,0.005407363176345825
+sweep,hammer_103_2400158e,1002,base vs s1.5,0.012571647763252258
+sweep,hammer_103_2400158e,1001,base seed vs seed,0.23012839257717133
+sweep,paper-box_119_3300b27a,1001,base vs c100,0.014301270246505737
+sweep,paper-box_119_3300b27a,1001,base vs c200,0.03018428385257721
+sweep,paper-box_119_3300b27a,1001,base vs c300,0.025756269693374634
+sweep,paper-box_119_3300b27a,1001,base vs c400,0.1055152416229248
+sweep,paper-box_119_3300b27a,1001,base vs s0,-2.9802322387695312e-08
+sweep,paper-box_119_3300b27a,1001,base vs s0.25,0.01896001398563385
+sweep,paper-box_119_3300b27a,1001,base vs s0.5,0.05253852903842926
+sweep,paper-box_119_3300b27a,1001,base vs s0.75,0.060151830315589905
+sweep,paper-box_119_3300b27a,1001,base vs s1.0,0.10301834344863892
+sweep,paper-box_119_3300b27a,1001,base vs s1.5,0.11669440567493439
+sweep,paper-box_119_3300b27a,1002,base vs c100,0.03459431231021881
+sweep,paper-box_119_3300b27a,1002,base vs c200,0.059810370206832886
+sweep,paper-box_119_3300b27a,1002,base vs c300,0.03688596189022064
+sweep,paper-box_119_3300b27a,1002,base vs c400,0.06564226746559143
+sweep,paper-box_119_3300b27a,1002,base vs s0,-2.9802322387695312e-08
+sweep,paper-box_119_3300b27a,1002,base vs s0.25,0.02194012701511383
+sweep,paper-box_119_3300b27a,1002,base vs s0.5,0.047882840037345886
+sweep,paper-box_119_3300b27a,1002,base vs s0.75,0.038873761892318726
+sweep,paper-box_119_3300b27a,1002,base vs s1.0,0.05381445586681366
+sweep,paper-box_119_3300b27a,1002,base vs s1.5,0.07691149413585663
+sweep,paper-box_119_3300b27a,1001,base seed vs seed,0.27521026134490967
+sweep,pillow_15_1600699d,1001,base vs c100,0.0051174163818359375
+sweep,pillow_15_1600699d,1001,base vs c200,0.004454672336578369
+sweep,pillow_15_1600699d,1001,base vs c300,0.012787342071533203
+sweep,pillow_15_1600699d,1001,base vs c400,0.01502293348312378
+sweep,pillow_15_1600699d,1001,base vs s0,-5.960464477539063e-08
+sweep,pillow_15_1600699d,1001,base vs s0.25,0.0042493343353271484
+sweep,pillow_15_1600699d,1001,base vs s0.5,0.0068193525075912476
+sweep,pillow_15_1600699d,1001,base vs s0.75,0.008519917726516724
+sweep,pillow_15_1600699d,1001,base vs s1.0,0.011517912149429321
+sweep,pillow_15_1600699d,1001,base vs s1.5,0.02104698121547699
+sweep,pillow_15_1600699d,1002,base vs c100,0.009020760655403137
+sweep,pillow_15_1600699d,1002,base vs c200,0.010297372937202454
+sweep,pillow_15_1600699d,1002,base vs c300,0.017135873436927795
+sweep,pillow_15_1600699d,1002,base vs c400,0.05340489745140076
+sweep,pillow_15_1600699d,1002,base vs s0,0.0
+sweep,pillow_15_1600699d,1002,base vs s0.25,0.0158270001411438
+sweep,pillow_15_1600699d,1002,base vs s0.5,0.022439584136009216
+sweep,pillow_15_1600699d,1002,base vs s0.75,0.02824176847934723
+sweep,pillow_15_1600699d,1002,base vs s1.0,0.05357898771762848
+sweep,pillow_15_1600699d,1002,base vs s1.5,0.07227867841720581
+sweep,pillow_15_1600699d,1001,base seed vs seed,0.24579404294490814
+sweep,pistol_11_00009b9f,1001,base vs c100,0.004610598087310791
+sweep,pistol_11_00009b9f,1001,base vs c200,0.013059884309768677
+sweep,pistol_11_00009b9f,1001,base vs c300,0.01258876919746399
+sweep,pistol_11_00009b9f,1001,base vs c400,0.04454261064529419
+sweep,pistol_11_00009b9f,1001,base vs s0,-2.9802322387695312e-08
+sweep,pistol_11_00009b9f,1001,base vs s0.25,0.0208415687084198
+sweep,pistol_11_00009b9f,1001,base vs s0.5,0.022831007838249207
+sweep,pistol_11_00009b9f,1001,base vs s0.75,0.04671922326087952
+sweep,pistol_11_00009b9f,1001,base vs s1.0,0.03686398267745972
+sweep,pistol_11_00009b9f,1001,base vs s1.5,0.04847145080566406
+sweep,pistol_11_00009b9f,1002,base vs c100,0.004361450672149658
+sweep,pistol_11_00009b9f,1002,base vs c200,0.024891376495361328
+sweep,pistol_11_00009b9f,1002,base vs c300,0.0960923582315445
+sweep,pistol_11_00009b9f,1002,base vs c400,0.10381674766540527
+sweep,pistol_11_00009b9f,1002,base vs s0,-5.960464477539063e-08
+sweep,pistol_11_00009b9f,1002,base vs s0.25,0.009932070970535278
+sweep,pistol_11_00009b9f,1002,base vs s0.5,0.058868080377578735
+sweep,pistol_11_00009b9f,1002,base vs s0.75,0.10182678699493408
+sweep,pistol_11_00009b9f,1002,base vs s1.0,0.11024066805839539
+sweep,pistol_11_00009b9f,1002,base vs s1.5,0.1531132310628891
+sweep,pistol_11_00009b9f,1001,base seed vs seed,0.20360958576202393
+sweep,screw-driver_105_3400b22a,1001,base vs c100,0.00682424008846283
+sweep,screw-driver_105_3400b22a,1001,base vs c200,0.04328605532646179
+sweep,screw-driver_105_3400b22a,1001,base vs c300,0.022313028573989868
+sweep,screw-driver_105_3400b22a,1001,base vs c400,0.08556199073791504
+sweep,screw-driver_105_3400b22a,1001,base vs s0,-5.960464477539063e-08
+sweep,screw-driver_105_3400b22a,1001,base vs s0.25,0.04076969623565674
+sweep,screw-driver_105_3400b22a,1001,base vs s0.5,0.0448341965675354
+sweep,screw-driver_105_3400b22a,1001,base vs s0.75,0.05437508225440979
+sweep,screw-driver_105_3400b22a,1001,base vs s1.0,0.08259832859039307
+sweep,screw-driver_105_3400b22a,1001,base vs s1.5,0.104795902967453
+sweep,screw-driver_105_3400b22a,1002,base vs c100,0.0017215460538864136
+sweep,screw-driver_105_3400b22a,1002,base vs c200,0.002514258027076721
+sweep,screw-driver_105_3400b22a,1002,base vs c300,0.003713265061378479
+sweep,screw-driver_105_3400b22a,1002,base vs c400,0.008259549736976624
+sweep,screw-driver_105_3400b22a,1002,base vs s0,-5.960464477539063e-08
+sweep,screw-driver_105_3400b22a,1002,base vs s0.25,0.0010105818510055542
+sweep,screw-driver_105_3400b22a,1002,base vs s0.5,0.0025880634784698486
+sweep,screw-driver_105_3400b22a,1002,base vs s0.75,0.0045534223318099976
+sweep,screw-driver_105_3400b22a,1002,base vs s1.0,0.0051602572202682495
+sweep,screw-driver_105_3400b22a,1002,base vs s1.5,0.013032451272010803
+sweep,screw-driver_105_3400b22a,1001,base seed vs seed,0.505206286907196

@@ -61,7 +61,10 @@ the frames are the same ones, in the same tile order.
 
 ### What the crop does to the data (seen before training)
 
-From `training/study1b_crop/build_info.json` and a visual check of the crops:
+From `results/study1b/crop/` (`build_info.json`, `crop_manifest.jsonl`; copies of the
+build records in the git-ignored `training/study1b_crop/`) and a visual check of the crops.
+The build is deterministic: rebuilt from the committed code, all 423 images and crop
+records came out identical.
 
 * 1,692 frames: 1,568 portrait, 124 landscape. 7 had no object found and were
   centred.

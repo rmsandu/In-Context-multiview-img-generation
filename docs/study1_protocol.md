@@ -312,3 +312,11 @@ small. At 500 steps and lr 1e-4 it changes the picture far less than a new seed
 does. The most likely explanation for the null result is that this recipe is too
 weak, not that In-Context LoRA cannot improve identity. Only a stronger training
 run that does learn the bars can test that.
+
+### 3. The bars are a preprocessing error (2026-11-12)
+
+The paragraph above proposed training until the adapter learns the bars. That was
+the wrong follow-up: the bars come from letterboxing portrait frames into square
+tiles, and the model should never learn them. The follow-up removes them instead,
+with object-centred square crops and everything else held fixed. Its rules are in
+[study1b_protocol.md](study1b_protocol.md). Nothing in this study's verdict changes.

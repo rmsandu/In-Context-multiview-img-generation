@@ -204,6 +204,23 @@ How the new data is built (decided 2026-11-12, before any run B caption existed)
    A's 381 crops and the new crops into `training/runb_crop/train`, checking run A's
    part against the committed build record `results/study1b/crop/split_manifest.jsonl`.
 
+What the new data looks like (built 2026-11-12, seen before any run B training;
+records in `results/study1b/runb_crop/`):
+
+* 1,367 objects were captioned; 936 composites were accepted. Every new object
+  passed the overlap checks against Study 1 (`src/runb_split.py new`).
+* The crop build is deterministic: rebuilt from the committed code, all 936 crop
+  records and images came out identical.
+* 3,744 frames: 3,528 portrait, 216 landscape. 24 frames in 15 composites had no
+  object found and were centred.
+* The object's bounding box is fully inside the crop in 86% of frames; 752 of 936
+  composites have all four views inside. 88 composites have a view with more than
+  25% of the object box cut, again mostly clothing on stands (23 trousers, 7
+  skirts, 3 other clothing; the mask includes the stand), scarves (9) and electric
+  saws (7). All are kept, as in run A.
+* Run B's training folder, `training/runb_crop/train`, holds 1,317 composites: run
+  A's 381 (checked against run A's build record) and the 936 new ones.
+
 Still open, to be fixed here before training run B: the number of steps (about
 2,000), the learning rate, and the number of replicates. They depend on run A's
 S2 result.

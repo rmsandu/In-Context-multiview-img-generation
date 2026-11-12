@@ -179,6 +179,25 @@ What is already settled:
   local category list, and mixing releases would be a second change on top of
   "more data".
 
+How the new data is built (decided 2026-11-12, before any run B caption existed):
+
+1. **Frames.** `src/extract_missing_frames.py` copied only the JPEG frames of the
+   1,367 objects from the shard zips into `data_runb/` (git-ignored); `data/` is
+   untouched. 40,396 frames, each with its SHA-256 in
+   `data_runb/extraction_manifest.jsonl`.
+2. **Captions, exactly as for the first 423.** The unchanged
+   `src.batch_dataset_builder` builds the *letterboxed* composite of each object and
+   captions it with `gemini-3.5-flash` (prompt `structured-viewpoints-v5`, schema
+   `structured-viewpoints-v4`, the shared cache) through the batch API. So every run
+   B caption, old or new, comes from one pipeline, and the crop never changes a
+   caption. Output: `training/composites_4view_grid_runb` and its abstention folder;
+   batch state in `.gemini_batch/runb`.
+3. **Crops.** `src.crop_composites` then crops the accepted composites with the run
+   A rule. As in run A, it first checks that the letterboxed rebuild equals the
+   captioned composite pixel for pixel. Masks run on the GPU, like run A's.
+4. **Split.** Every accepted new composite goes to train. The 42 holdout composites
+   and the 381 run A training composites are reused unchanged.
+
 Still open, to be fixed here before training run B: the number of steps (about
 2,000), the learning rate, and the number of replicates. They depend on run A's
 S2 result.

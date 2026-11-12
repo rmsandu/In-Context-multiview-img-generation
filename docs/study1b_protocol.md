@@ -197,6 +197,12 @@ How the new data is built (decided 2026-11-12, before any run B caption existed)
    captioned composite pixel for pixel. Masks run on the GPU, like run A's.
 4. **Split.** Every accepted new composite goes to train. The 42 holdout composites
    and the 381 run A training composites are reused unchanged.
+   `src/runb_split.py new` puts the new letterboxed composites in a train-only split
+   (`training/runb_new`) after checking them against Study 1: no shared object,
+   composite hash or frame hash with the holdout, and no object already in run A.
+   After cropping (`training/runb_new_crop`), `src/runb_split.py combine` copies run
+   A's 381 crops and the new crops into `training/runb_crop/train`, checking run A's
+   part against the committed build record `results/study1b/crop/split_manifest.jsonl`.
 
 Still open, to be fixed here before training run B: the number of steps (about
 2,000), the learning rate, and the number of replicates. They depend on run A's

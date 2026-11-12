@@ -159,6 +159,32 @@ EVALUATIONS = (
         ),
         (Path("results/study1b/figures/crop_vs_letterbox.png"),),
     ),
+    Evaluation(
+        "study1b-runB-main",
+        "study1b",
+        Path("results/metrics/runb_main"),
+        Path("evaluation/results/study1b_8bit/runb_main/generation_manifest.jsonl"),
+        Path("results/study1b/runb/summary.json"),
+        (
+            "primary",
+            "decision",
+            "reading",
+            "base_identical",
+            "T1_runb_minus_runa",
+            "T2_adapter_strength",
+            "T4_bars",
+            "code_versions",
+        ),
+        (Path("results/study1b/runb/figures/runb_vs_runa.png"),),
+    ),
+    Evaluation(
+        "study1b-runB-sweep",
+        "study1b",
+        Path("results/metrics/runb_sweep"),
+        Path("evaluation/results/study1b_8bit/runb_sweep/generation_manifest.jsonl"),
+        Path("results/study1b/runb/summary.json"),
+        ("T3_length",),
+    ),
 )
 
 

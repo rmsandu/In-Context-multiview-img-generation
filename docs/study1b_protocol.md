@@ -221,9 +221,78 @@ records in `results/study1b/runb_crop/`):
 * Run B's training folder, `training/runb_crop/train`, holds 1,317 composites: run
   A's 381 (checked against run A's build record) and the 936 new ones.
 
-Still open, to be fixed here before training run B: the number of steps (about
-2,000), the learning rate, and the number of replicates. They depend on run A's
-S2 result.
+### Run B recipe (fixed 2026-11-12, after run A's results, before any run B training)
+
+Run A's adapters moved each image about a tenth as much as a new seed does. Its S2
+interval lay above 1, but the three adapters within each family differed as much
+as the two families did (median distance to base 0.020, 0.036, 0.027 for crop;
+0.031, 0.015, 0.028 for letterbox). In Study 1's sweep, identity rose a little
+with adapter scale and with training steps. So run B trains longer as well as on
+more data: about twice run A's passes over the data, with the learning rate
+unchanged so that only data and length change.
+
+| | Run A (`c1`-`c3`) | Run B (`b1`-`b3`) |
+| --- | --- | --- |
+| Training data | 381 cropped composites | 1,317 (`training/runb_crop/train`) |
+| Steps | 500 | 4,000 |
+| Passes over the data (4 images per step) | 5.2 | 12.1 |
+| Checkpoints and training samples | every 50 steps | every 250 steps |
+| Everything else | rank 16, alpha 16, lr 1e-4 (constant), batch 1 x accum 4, EMA 0.99, 8-bit base | same |
+| Training seeds | 41, 42, 43 | 41, 42, 43 |
+
+`configs/study1b_runb_b{1,2,3}.yaml` differ from `configs/study1b_crop_c{1,2,3}.yaml`
+only in the run name, the dataset folder, `steps`, `save_every` and `sample_every`.
+Saving every 50 steps would need about 41 GB of checkpoints; sampling every 50 would
+add about an hour per replicate. Neither is a training setting.
+
+The learning rate is constant (ai-toolkit's default, no warmup), so each adapter's
+step-2,000 checkpoint is what a 2,000-step run would have produced. It is evaluated
+as a secondary analysis (T3), so one training answers both "more data" (about run
+A's passes, on 3.5 times the data) and "longer".
+
+### Run B generation
+
+As in run A: 8-bit, 20 steps, guidance 3.5, 1024x1024, unfused adapters at scale
+1.0, with `PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True` from the start
+(deviation 1). Stages in `scripts/run_study1b.sh`:
+
+* `main-b`: the 42 holdout prompts x seeds 1001-1004, arms `base`, `b1`, `b2`,
+  `b3` (step 4,000).
+* `sweep-b`: the 12 sweep prompts x seeds 1001-1002, arms `base`,
+  `b1_s2000`-`b3_s2000` (step 2,000) and `b1`-`b3` (step 4,000).
+* **Base gate:** all 168 main and 24 sweep base images must be byte-identical to
+  Study 1's (`check-base-b`). If any differs, T1 is not reported.
+
+### Run B analysis
+
+**Primary: the Study 1 rule, unchanged**, with the pooled run B arm (mean of
+`b1`-`b3` per prompt-seed cell) against this run's base, exactly as in
+[run A](#primary-analysis-the-study-1-rule-unchanged): A1 (95% CI lower bound > 0,
+same sign in `b1`, `b2` and `b3`), A2, V, and H1 only if A1, A2 and V pass. Holm
+across A1 and A2, and the A2-cal sensitivity analysis.
+
+Key secondary analyses (pre-specified, not part of the verdict):
+
+| ID | Comparison | Estimate |
+| --- | --- | --- |
+| T1 | run B vs run A: delta `identity_dino`, pooled `b` - pooled `c`, paired by prompt and seed | cluster bootstrap 95% CI; `identity_dreamsim` alongside |
+| T2 | adapter strength: per-tile DreamSim distance to the base image with the same prompt and seed, as in S2 | median for `b` and for `c`; ratio `b` / `c` with a 95% CI from a bootstrap over prompts; each adapter's own median, `b1`-`b3` and `c1`-`c3` |
+| T3 | training length, on the sweep prompts: pooled step 4,000 - pooled step 2,000, and each against base | delta `identity_dino` with a cluster bootstrap 95% CI over the 12 prompts; T2's distance ratio, step 4,000 / step 2,000 |
+| T4 | bars in generated grids | `max_letterbox_fraction` and `soft_bar_fraction` by arm |
+
+How the results will be read, written in advance:
+
+* **A1 passes.** More data and longer training give a measurable identity gain with
+  this recipe. H1 then decides the full claim.
+* **A1 fails and T2's CI lies above 1.** Run B's adapters move images further than
+  run A's, but that still does not show as an identity gain with 42 prompts.
+* **A1 fails and T2's CI includes 1 or lies below it.** Three and a half times the
+  data and eight times the steps did not make the adapter stronger.
+* **Any `b` arm draws bars** (T4 above 0.05 on average): a bug in the data; stop
+  and investigate.
+
+`results/study1b/runb/report.md` will be produced by `analysis/study1b_runb_report.py`,
+committed before the first run B metric is computed.
 
 ## Deviations
 

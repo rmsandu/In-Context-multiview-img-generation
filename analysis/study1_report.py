@@ -84,9 +84,9 @@ def _axes(grids: pd.DataFrame) -> tuple[list[str], list[int]]:
 # ---------------------------------------------------------------------- analysis
 
 
-def primary_analysis(grids: pd.DataFrame) -> dict:
+def primary_analysis(grids: pd.DataFrame, replicates: tuple[str, ...] = REPLICATES) -> dict:
     prompts, seeds = _axes(grids)
-    reps = [arm for arm in REPLICATES if arm in set(grids["arm"])]
+    reps = [arm for arm in replicates if arm in set(grids["arm"])]
     out: dict = {"replicates": reps, "n_prompts": len(prompts), "seeds": seeds, "metrics": {}}
     for metric in REPORTED:
         base = cell_matrix(grids, "base", metric, prompts, seeds)

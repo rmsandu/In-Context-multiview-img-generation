@@ -210,4 +210,20 @@ S2 result.
 
 ## Deviations
 
-None yet.
+1. **Generation was restarted twice, and the last launch changed a memory setting
+   (2026-11-12, before any crop-arm metric was computed).** The 8-bit pipeline needs
+   slightly more than the GPU's 24 GB. With the desktop in use and the 13 GB run B
+   frame extraction filling the WSL page cache, the overflow went to Windows shared
+   memory and images took 110-230 s instead of about 25 s. Generation was stopped
+   twice and resumed with `--resume`, which keeps the finished images and checks
+   them against the manifest. The last launch set
+   `PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True`, which changes how PyTorch
+   reserves GPU memory, not what it computes.
+   The generator renders all base images before any adapter image, so the first two
+   launches made only base images (45), and all 504 adapter images come from the last
+   launch. All 168 base images, from all three launches, are byte-identical to Study
+   1's, so the base gate also shows that the setting did not change the output.
+   The manifest therefore records three commits (`8db510d`: 26 images, `ac03dc9`: 19,
+   `8724b7c`: 627). The commits in between changed only this protocol, `.gitignore`
+   and the run B extraction script, none of the generation code.
+   `elapsed_seconds` for the early images reflects the slowdown, not the model.

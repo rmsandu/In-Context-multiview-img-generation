@@ -47,6 +47,7 @@ mlruns/
 # ─────────────────────────────
 # Local bucket mounts or scratch
 data/
+data_runb/
 outputs/
 models/ 
 .cache/

@@ -1,7 +1,13 @@
+import importlib.util
+
 import numpy as np
 import pytest
 
 pd = pytest.importorskip("pandas")
+# The primary analysis uses scipy (Wilcoxon), which only .venv-eval has.
+needs_scipy = pytest.mark.skipif(
+    importlib.util.find_spec("scipy") is None, reason="needs scipy (.venv-eval)"
+)
 
 from analysis.study1_report import REPORTED  # noqa: E402
 from analysis.study1b_effect import tile_distances  # noqa: E402
@@ -112,6 +118,7 @@ def test_reading_follows_the_protocol(a1, ci, bug, start):
     assert reading(_gates(a1), s2, {"bug": bug}).startswith(start)
 
 
+@needs_scipy
 def test_analyse_end_to_end():
     crop = _grids({"c1": 0.05, "c2": 0.06, "c3": 0.04})
     letterbox = _grids({"r1": 0.01, "r2": 0.0, "r3": 0.01})
@@ -128,6 +135,7 @@ def test_analyse_end_to_end():
     assert out["reading"].startswith("removing the bars was enough")
 
 
+@needs_scipy
 def test_analyse_flags_bars_in_a_crop_arm():
     crop = _grids({"c1": 0.0, "c2": 0.0, "c3": 0.0})
     letterbox = _grids({"r1": 0.0, "r2": 0.0, "r3": 0.0})

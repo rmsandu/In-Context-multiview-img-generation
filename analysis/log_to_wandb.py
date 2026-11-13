@@ -51,6 +51,10 @@ TRAINING_RUNS = {
     "study1b_crop_c1": "ytaryzfx",
     "study1b_crop_c2": "95zt4wc9",
     "study1b_crop_c3": "6e0bjcy3",
+    # Synced 2026-11-13; each offline run names only its own replicate.
+    "study1b_runb_b1": "9b539www",
+    "study1b_runb_b2": "gbgetvph",
+    "study1b_runb_b3": "j4jf23v6",
 }
 METRICS = (
     "identity_dino",

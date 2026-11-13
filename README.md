@@ -45,6 +45,33 @@ direction. But every training composite has black side bars, and not one generat
 grid draws them. 500 steps at lr 1e-4 wasn't enough to learn even that
 ([analysis](analysis/adapter_effect.py), protocol note 2).
 
+**Study 1b: without the bars and with eight times the training, the adapter moves
+the picture five times as far, but objects are no more consistent.** Two follow-up
+runs, each pre-registered before training ([protocol](docs/study1b_protocol.md)):
+run A replaced the letterboxed tiles with square crops centred on the object and
+changed nothing else. Run B added 936 new objects and trained for 4,000 steps
+instead of 500. Same 42 test prompts, same rule
+([run A report](results/study1b/report.md), [run B report](results/study1b/runb/report.md)):
+
+| 42 prompts x 4 seeds | Training composites | Steps | Identity, LoRA - base, 95% CI | Median tile distance from base* |
+| --- | --: | --: | --: | --: |
+| Study 1 (letterboxed) | 381 | 500 | +0.006 [-0.009, +0.020] | 0.024 |
+| Run A (cropped) | 381 | 500 | +0.002 [-0.012, +0.015] | 0.028 |
+| Run B (cropped) | 1,317 | 4,000 | +0.012 [-0.018, +0.042] | 0.141 |
+
+\* DreamSim, median over every tile of the three runs pooled. The 0.03-0.05 above
+is the same distance summarised per run as a median over prompts.
+
+Run B's adapters move each tile about half as far as a new seed does (0.30), so
+the adapter is clearly learning something. Identity barely follows: all three run
+B adapters score a little higher than base (+0.008 to +0.017), but every interval
+includes zero. Training longer moves images further without helping: from step
+2,000 to step 4,000 the distance grows 1.7 times and identity doesn't change
+(-0.008 [-0.051, +0.039]). No generated grid draws bars, and variety of views
+doesn't drop.
+
+![Identity vs base and distance moved, run A vs run B](results/study1b/runb/figures/runb_vs_runa.png)
+
 **The pose model and the captions disagree with the cameras, in opposite
 directions.** MVImgNet ships COLMAP camera poses for part of the data, which gives
 the true angle between any two tiles. Orient Anything V2 reads those angles at about

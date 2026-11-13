@@ -47,6 +47,7 @@ mlruns/
 # ─────────────────────────────
 # Local bucket mounts or scratch
 data/
+data_runb/
 outputs/
 models/ 
 .cache/
@@ -69,9 +70,12 @@ models/
 *.png
 *.jpg
 *.webm
-!sanity_check_2_imgs.png
-!sanity_check_4_imgs.png
+!docs/assets/*.png
+!results/lora_anatomy/*.png
+!results/study1/figures/*.png
+!results/real_arcs/*.png
 training/
+evaluation/results/
 
 # ─────────────────────────────
 #  Environment / secrets
@@ -109,3 +113,16 @@ Thumbs.db
 # ─────────────────────────────
 #  End of file
 # ─────────────────────────────
+
+# Local working notes (exported assistant transcripts) - kept out of the repo
+LORA_PROJECT_CONVERSATIONS.md
+
+# Fetched third-party code (see scripts/fetch_orient_anything.sh)
+third_party/
+.venv-eval/
+
+# Per-image metric cache (rebuildable)
+.metric_cache/
+
+# Real MVImgNet frames for the Gemini audit (dataset terms: keep local)
+results/gemini_audit/images/

@@ -284,6 +284,8 @@ def test_cli_quantization_defaults_and_rejects_8bit_cpu_offload() -> None:
 
 
 def test_installed_8bit_dependencies_are_compatible() -> None:
+    pytest.importorskip("bitsandbytes")
+    pytest.importorskip("accelerate")
     validate_8bit_dependency_versions()
 
 

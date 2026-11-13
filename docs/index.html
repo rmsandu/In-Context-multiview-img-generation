@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Four views, one object?</title>
+<meta name="description" content="Does a four-view In-Context LoRA on FLUX.1-dev keep one object consistent across tiles without just repeating the same view? Browse every generated grid and its scores.">
+<style>
+:root {
+  color-scheme: light;
+  --page: #f9f9f7;
+  --surface: #fcfcfb;
+  --ink: #0b0b0b;
+  --ink-2: #52514e;
+  --muted: #898781;
+  --grid: #e1e0d9;
+  --axis: #c3c2b7;
+  --ring: rgba(11, 11, 11, 0.10);
+  --lora: #2a78d6;
+  --base: #eb6834;
+  --real: #1baf7a;
+  --good: #006300;
+  --bad: #b3261e;
+  --chip: #f0efec;
+}
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    color-scheme: dark;
+    --page: #0d0d0d;
+    --surface: #1a1a19;
+    --ink: #f0efec;
+    --ink-2: #c3c2b7;
+    --muted: #898781;
+    --grid: #2c2c2a;
+    --axis: #383835;
+    --ring: rgba(255, 255, 255, 0.10);
+    --lora: #3987e5;
+    --base: #d95926;
+    --real: #199e70;
+    --good: #0ca30c;
+    --bad: #f2786d;
+    --chip: #2c2c2a;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d;
+  --surface: #1a1a19;
+  --ink: #f0efec;
+  --ink-2: #c3c2b7;
+  --muted: #898781;
+  --grid: #2c2c2a;
+  --axis: #383835;
+  --ring: rgba(255, 255, 255, 0.10);
+  --lora: #3987e5;
+  --base: #d95926;
+  --real: #199e70;
+  --good: #0ca30c;
+  --bad: #f2786d;
+  --chip: #2c2c2a;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+main { max-width: 1040px; margin: 0 auto; padding: 32px 16px 64px; }
+header { display: flex; justify-content: space-between; gap: 16px; align-items: start; }
+h1 { font-size: 1.9rem; line-height: 1.2; margin: 0 0 8px; letter-spacing: -0.01em; }
+h2 { font-size: 1.2rem; margin: 0 0 4px; }
+p { margin: 0 0 12px; color: var(--ink-2); max-width: 68ch; }
+a { color: var(--lora); }
+section {
+  background: var(--surface);
+  border: 1px solid var(--ring);
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 24px;
+}
+.lede { font-size: 1.05rem; }
+.verdict {
+  display: inline-block; padding: 2px 10px; border-radius: 999px;
+  background: var(--chip); color: var(--ink); font-weight: 600; font-size: 0.9rem;
+}
+button.theme {
+  border: 1px solid var(--ring); background: var(--surface); color: var(--ink-2);
+  border-radius: 8px; padding: 6px 10px; font: inherit; font-size: 0.85rem; cursor: pointer;
+}
+.controls { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; margin: 12px 0; }
+.controls label { font-size: 0.85rem; color: var(--ink-2); display: flex; gap: 6px; align-items: center; }
+select, .seg button {
+  font: inherit; font-size: 0.9rem; color: var(--ink); background: var(--page);
+  border: 1px solid var(--ring); border-radius: 8px; padding: 5px 8px;
+}
+select { max-width: 100%; }
+.seg { display: inline-flex; gap: 0; }
+.seg button { border-radius: 0; cursor: pointer; margin-left: -1px; }
+.seg button:first-child { border-radius: 8px 0 0 8px; margin-left: 0; }
+.seg button:last-child { border-radius: 0 8px 8px 0; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--surface); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 0.85rem; color: var(--ink-2); }
+.key { display: inline-flex; align-items: center; gap: 6px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+svg text { font: 12px system-ui, sans-serif; fill: var(--muted); }
+svg .lbl { fill: var(--ink); font-size: 12px; paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+#scatter { width: 100%; height: auto; display: block; touch-action: manipulation; }
+.tip {
+  position: fixed; pointer-events: none; z-index: 10; display: none;
+  background: var(--surface); color: var(--ink); border: 1px solid var(--ring);
+  border-radius: 8px; padding: 8px 10px; font-size: 0.82rem; max-width: 260px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+.tip b { display: block; margin-bottom: 2px; }
+.compare-wrap { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: 20px; }
+@media (max-width: 760px) { .compare-wrap { grid-template-columns: 1fr; } }
+.slider {
+  position: relative; width: 100%; aspect-ratio: 1; border-radius: 8px; overflow: hidden;
+  background: var(--chip); user-select: none; touch-action: none; cursor: ew-resize;
+}
+.slider img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.slider .top { clip-path: inset(0 0 0 var(--cut, 50%)); }
+.slider .bar {
+  position: absolute; top: 0; bottom: 0; left: var(--cut, 50%); width: 2px;
+  background: #fff; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.35); transform: translateX(-1px);
+}
+.slider .tag {
+  position: absolute; top: 8px; padding: 2px 8px; border-radius: 6px; font-size: 0.78rem;
+  font-weight: 600; color: #fff;
+}
+.slider .tag.l { left: 8px; background: var(--base); }
+.slider .tag.r { right: 8px; background: var(--lora); }
+.tiles { position: absolute; inset: 0; display: grid; grid-template-columns: 1fr 1fr; pointer-events: none; }
+.tiles span {
+  align-self: end; justify-self: start; margin: 6px; padding: 1px 6px; border-radius: 6px;
+  background: rgba(0, 0, 0, 0.62); color: #fff; font-size: 0.72rem;
+}
+table { border-collapse: collapse; width: 100%; font-size: 0.88rem; font-variant-numeric: tabular-nums; }
+th, td { text-align: right; padding: 4px 6px; border-bottom: 1px solid var(--grid); }
+th:first-child, td:first-child { text-align: left; }
+th { color: var(--ink-2); font-weight: 600; }
+.prompt { font-size: 0.85rem; color: var(--ink-2); background: var(--page); border-radius: 8px; padding: 8px 10px; }
+.sweep { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: 20px; }
+@media (max-width: 760px) { .sweep { grid-template-columns: 1fr; } }
+.sweep img { width: 100%; aspect-ratio: 1; border-radius: 8px; background: var(--chip); display: block; }
+input[type=range] { width: 100%; accent-color: var(--lora); }
+.ticks { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--muted); }
+details { margin-top: 12px; }
+summary { cursor: pointer; color: var(--ink-2); font-size: 0.9rem; }
+.note { font-size: 0.85rem; color: var(--muted); }
+.up { color: var(--good); }
+.down { color: var(--bad); }
+.empty { color: var(--muted); font-style: italic; }
+footer { margin-top: 32px; font-size: 0.85rem; color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+<header>
+  <div>
+    <h1>Four views, one object?</h1>
+    <p class="lede">A LoRA on FLUX.1-dev was trained to draw a 2&times;2 grid showing one object from four
+      sides. The question: does it keep the object the same across the tiles <em>without</em> cheating by
+      drawing the same view four times? Every generated grid from the study is here, with its scores.</p>
+    <p>Verdict under the pre-registered rule: <span class="verdict" id="verdict">pending</span>
+      &middot; <a href="https://github.com/rmsandu/2D-multiview-generation/blob/main/docs/study1_protocol.md">protocol</a></p>
+    <p class="lede">Why: with prompt and seed fixed, the LoRA moves each tile about an eighth as far as
+      a new seed does, and it never learned the black side bars every training photo had. The three
+      training runs do push each picture the same way. The effect is real, just small.</p>
+  </div>
+  <button class="theme" id="theme" type="button" aria-label="Toggle dark mode">Theme</button>
+</header>
+
+<section id="plane">
+  <h2>Identity against view diversity</h2>
+  <p>Identity alone is a trap: four copies of one view score perfectly. So every grid is a point on two
+    axes. Each line joins one prompt's base-model average to its LoRA average. Further up is a more
+    consistent object; further right is more distinct viewpoints. Click a point to open that prompt below.</p>
+  <div class="controls">
+    <div class="legend">
+      <span class="key"><span class="dot" style="background:var(--base)"></span>Base FLUX.1-dev</span>
+      <span class="key"><span class="dot" style="background:var(--lora)"></span>LoRA (mean of 3 training runs)</span>
+      <span class="key"><span class="dot" style="background:var(--real)"></span>Real photos (scores only)</span>
+    </div>
+    <label>Views counted
+      <span class="seg" id="viewmode">
+        <button type="button" data-v="views" aria-pressed="true">as measured</button>
+        <button type="button" data-v="views_cal" aria-pressed="false">calibrated</button>
+      </span>
+    </label>
+  </div>
+  <svg id="scatter" viewBox="0 0 720 420" role="img" aria-label="Scatter of identity against distinct views per prompt"></svg>
+  <p class="note" id="viewnote"></p>
+  <details>
+    <summary>Show as a table</summary>
+    <div style="overflow-x:auto"><table id="planeTable"></table></div>
+  </details>
+</section>
+
+<section id="compare">
+  <h2>Base vs LoRA, same prompt and seed</h2>
+  <p>Drag across the image. Left of the line is the base model, right is the LoRA. Labels on each tile give
+    the camera angle the pose model measured, relative to the first tile.</p>
+  <div class="controls">
+    <label>Prompt <select id="promptSel"></select></label>
+    <label>Seed <span class="seg" id="seedSeg"></span></label>
+    <label>LoRA run <span class="seg" id="repSeg"></span></label>
+  </div>
+  <div class="compare-wrap">
+    <div>
+      <div class="slider" id="slider" style="--cut:50%">
+        <img id="imgBase" alt="Base model grid">
+        <img id="imgLora" class="top" alt="LoRA grid">
+        <div class="tiles" id="tilesBase" style="clip-path: inset(0 calc(100% - var(--cut)) 0 0)"></div>
+        <div class="tiles" id="tilesLora" style="clip-path: inset(0 0 0 var(--cut))"></div>
+        <div class="bar"></div>
+        <span class="tag l">Base</span><span class="tag r">LoRA</span>
+      </div>
+      <input type="range" id="cut" min="0" max="100" value="50" aria-label="Divider position">
+    </div>
+    <div>
+      <table id="cmpTable"></table>
+      <p class="prompt" id="promptText" style="margin-top:12px"></p>
+    </div>
+  </div>
+</section>
+
+<section id="sweepSec">
+  <h2>Walking along the LoRA</h2>
+  <p>Same prompt, same seed. The first slider scales the LoRA update from 0 (the base model) to 1.5&times;
+    its trained size. The second shows training checkpoints of the same run.</p>
+  <div class="controls">
+    <label>Prompt <select id="sweepPrompt"></select></label>
+    <label>Seed <span class="seg" id="sweepSeed"></span></label>
+    <label>Slide over <span class="seg" id="sweepKind">
+      <button type="button" data-k="scale" aria-pressed="true">LoRA scale</button>
+      <button type="button" data-k="checkpoint" aria-pressed="false">training step</button>
+    </span></label>
+  </div>
+  <div class="sweep">
+    <div>
+      <img id="sweepImg" alt="Grid at the selected LoRA scale">
+      <input type="range" id="sweepRange" min="0" max="5" step="1" value="4" aria-label="Sweep position">
+      <div class="ticks" id="sweepTicks"></div>
+    </div>
+    <div><table id="sweepTable"></table><p class="note" id="sweepNote"></p></div>
+  </div>
+</section>
+
+<footer>
+  Real MVImgNet photos are not shown: the dataset's terms don't allow redistribution, so the real
+  composites appear only as scores. Generated with FLUX.1-dev (non-commercial license).
+  Source, protocol and raw numbers:
+  <a href="https://github.com/rmsandu/2D-multiview-generation">github.com/rmsandu/2D-multiview-generation</a>.
+</footer>
+</main>
+<div class="tip" id="tip"></div>
+
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const REPS = ["r1", "r2", "r3"];
+  const SCALES = ["base", "s0.25", "s0.5", "s0.75", "s1.0", "s1.5"];
+  const SCALE_LABEL = ["0", "0.25", "0.5", "0.75", "1", "1.5"];
+  const CKPTS = ["base", "c100", "c200", "c300", "c400", "s1.0"];
+  const CKPT_LABEL = ["0", "100", "200", "300", "400", "500"];
+  const state = { viewKey: "views", prompt: null, seed: null, rep: "r1",
+                  sweepPrompt: null, sweepSeed: null, sweepKind: "scale" };
+  let D = null;
+
+  // ------------------------------------------------------------ theme
+  const root = document.documentElement;
+  try { const t = localStorage.getItem("theme"); if (t) root.dataset.theme = t; } catch (e) {}
+  $("theme").addEventListener("click", () => {
+    const dark = root.dataset.theme
+      ? root.dataset.theme === "dark"
+      : matchMedia("(prefers-color-scheme: dark)").matches;
+    root.dataset.theme = dark ? "light" : "dark";
+    try { localStorage.setItem("theme", root.dataset.theme); } catch (e) {}
+  });
+
+  // ------------------------------------------------------------ helpers
+  const mean = (xs) => xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : NaN;
+  const fmt = (x, d = 3) => Number.isFinite(x) ? x.toFixed(d) : "–";
+  const key = (p, s, a) => `${p}/${s}/${a}`;
+  const shortName = (id) => id.replace(/_[0-9]+_[0-9a-f]+$/, "").replace(/-/g, " ");
+  const tip = $("tip");
+  function showTip(evt, html) {
+    tip.innerHTML = html; tip.style.display = "block";
+    const x = Math.min(evt.clientX + 14, innerWidth - tip.offsetWidth - 8);
+    const y = Math.min(evt.clientY + 14, innerHeight - tip.offsetHeight - 8);
+    tip.style.left = x + "px"; tip.style.top = y + "px";
+  }
+  const hideTip = () => { tip.style.display = "none"; };
+  function seg(el, values, labels, current, onPick) {
+    el.innerHTML = "";
+    values.forEach((v, i) => {
+      const b = document.createElement("button");
+      b.type = "button"; b.textContent = labels ? labels[i] : v;
+      b.setAttribute("aria-pressed", String(v === current));
+      b.addEventListener("click", () => {
+        [...el.children].forEach((c) => c.setAttribute("aria-pressed", "false"));
+        b.setAttribute("aria-pressed", "true"); onPick(v);
+      });
+      el.appendChild(b);
+    });
+  }
+  function tileLabels(el, grid) {
+    el.innerHTML = "";
+    const az = grid && grid.rel_az ? grid.rel_az : [];
+    for (let i = 0; i < 4; i++) {
+      const s = document.createElement("span");
+      s.textContent = i === 0 ? "ref" : (Number.isFinite(az[i]) ? `${az[i] > 0 ? "+" : ""}${Math.round(az[i])}°` : "no object");
+      el.appendChild(s);
+    }
+  }
+
+  // ------------------------------------------------------------ data
+  function perPrompt(split, arms) {
+    const out = {};
+    for (const g of Object.values(D[split])) {
+      if (!arms.includes(g.arm)) continue;
+      const o = (out[g.prompt] ||= { identity: [], views: [], views_cal: [] });
+      o.identity.push(g.identity); o.views.push(g.views); o.views_cal.push(g.views_cal);
+    }
+    const res = {};
+    for (const [p, o] of Object.entries(out)) {
+      res[p] = { identity: mean(o.identity), views: mean(o.views), views_cal: mean(o.views_cal), n: o.identity.length };
+    }
+    return res;
+  }
+
+  // ------------------------------------------------------------ scatter
+  function drawScatter() {
+    // Size the coordinate space to the rendered width so text stays 12px on phones.
+    const svg = $("scatter"), W = Math.max(320, Math.min(720, svg.clientWidth || 720));
+    const narrow = W < 520, H = narrow ? 360 : 420, m = { l: narrow ? 44 : 56, r: 12, t: 16, b: 46 };
+    svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+    const vk = state.viewKey;
+    const base = perPrompt("main", ["base"]);
+    const lora = perPrompt("main", REPS);
+    const prompts = Object.keys(base).filter((p) => lora[p]);
+    const ref = D.reference || {};
+    const pts = [];
+    prompts.forEach((p) => { pts.push(base[p][vk], lora[p][vk]); });
+    const ys = prompts.flatMap((p) => [base[p].identity, lora[p].identity]);
+    ["real", "dup4", "mixed"].forEach((r) => { if (ref[r]) { pts.push(ref[r][vk]); ys.push(ref[r].identity); } });
+    const x0 = 0.85, x1 = 4.15, y0 = Math.max(0, Math.floor(Math.min(...ys) * 10) / 10 - 0.05), y1 = 1.02;
+    const X = (v) => m.l + (v - x0) / (x1 - x0) * (W - m.l - m.r);
+    const Y = (v) => m.t + (y1 - v) / (y1 - y0) * (H - m.t - m.b);
+    let s = "";
+    for (let v = 1; v <= 4; v += 0.5) {
+      s += `<line x1="${X(v)}" x2="${X(v)}" y1="${m.t}" y2="${H - m.b}" stroke="var(--grid)"/>`;
+      if (Number.isInteger(v)) s += `<text x="${X(v)}" y="${H - m.b + 18}" text-anchor="middle">${v}</text>`;
+    }
+    for (let v = Math.ceil(y0 * 10) / 10; v <= 1.0001; v += 0.1) {
+      s += `<line x1="${m.l}" x2="${W - m.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--grid)"/>`;
+      s += `<text x="${m.l - 8}" y="${Y(v) + 4}" text-anchor="end">${v.toFixed(1)}</text>`;
+    }
+    s += `<line x1="${m.l}" x2="${W - m.r}" y1="${H - m.b}" y2="${H - m.b}" stroke="var(--axis)"/>`;
+    s += `<text x="${(m.l + W - m.r) / 2}" y="${H - 8}" text-anchor="middle">${narrow ? "distinct views per grid" : "distinct views per grid (1 = one view repeated, 4 = all different)"}</text>`;
+    s += `<text transform="translate(12 ${(m.t + H - m.b) / 2}) rotate(-90)" text-anchor="middle">${narrow ? "identity (DINOv2)" : "identity (masked DINOv2 similarity)"}</text>`;
+    prompts.forEach((p) => {
+      s += `<line x1="${X(base[p][vk])}" y1="${Y(base[p].identity)}" x2="${X(lora[p][vk])}" y2="${Y(lora[p].identity)}" stroke="var(--axis)" stroke-width="1.5"/>`;
+    });
+    const dot = (p, o, col, arm) =>
+      `<circle class="pt" data-p="${p}" data-arm="${arm}" cx="${X(o[vk])}" cy="${Y(o.identity)}" r="5" fill="${col}" stroke="var(--surface)" stroke-width="2"/>` +
+      `<circle class="hit" data-p="${p}" data-arm="${arm}" cx="${X(o[vk])}" cy="${Y(o.identity)}" r="11" fill="transparent" style="cursor:pointer"/>`;
+    prompts.forEach((p) => { s += dot(p, base[p], "var(--base)", "base"); });
+    prompts.forEach((p) => { s += dot(p, lora[p], "var(--lora)", "LoRA"); });
+    const refs = [["real", "real photos", "var(--real)", true], ["dup4", "one tile ×4", "var(--muted)", false], ["mixed", "4 different objects", "var(--muted)", false]];
+    refs.forEach(([r, label, col, filled]) => {
+      if (!ref[r]) return;
+      const cx = X(ref[r][vk]), cy = Y(ref[r].identity);
+      s += `<rect x="${cx - 6}" y="${cy - 6}" width="12" height="12" transform="rotate(45 ${cx} ${cy})" fill="${filled ? col : "var(--surface)"}" stroke="${col}" stroke-width="2"/>`;
+      const anchor = cx > W - (narrow ? 110 : 140) ? "end" : "start";
+      s += `<text class="lbl" x="${cx + (anchor === "end" ? -12 : 12)}" y="${cy + 4}" text-anchor="${anchor}">${label}</text>`;
+    });
+    svg.innerHTML = s;
+    svg.querySelectorAll(".hit").forEach((c) => {
+      const p = c.dataset.p, arm = c.dataset.arm, o = arm === "base" ? base[p] : lora[p];
+      c.addEventListener("mousemove", (e) => showTip(e, `<b>${shortName(p)}</b>${arm}: identity ${fmt(o.identity)}, views ${fmt(o[vk], 2)}<br>mean of ${o.n} grids`));
+      c.addEventListener("mouseleave", hideTip);
+      c.addEventListener("click", () => { hideTip(); selectPrompt(p); $("compare").scrollIntoView({ behavior: "smooth" }); });
+    });
+    const cam = D.camera_truth && D.camera_truth.orient_anything_vs_colmap;
+    $("viewnote").textContent = vk === "views"
+      ? "Views as measured: two tiles count as one view when the pose model puts them less than 30° apart. Checked against real camera poses, the model reads angles at about 0.7× their true size, so this undercounts."
+      : "Calibrated: the same count with a 21° threshold, which matches 30° of real camera motion once the pose model's shrinkage is accounted for. A sensitivity analysis, not the pre-registered endpoint.";
+    let t = `<tr><th>Prompt</th><th>Base identity</th><th>LoRA identity</th><th>Base views</th><th>LoRA views</th></tr>`;
+    prompts.forEach((p) => {
+      t += `<tr><td>${shortName(p)}</td><td>${fmt(base[p].identity)}</td><td>${fmt(lora[p].identity)}</td><td>${fmt(base[p][vk], 2)}</td><td>${fmt(lora[p][vk], 2)}</td></tr>`;
+    });
+    $("planeTable").innerHTML = t;
+  }
+  $("viewmode").querySelectorAll("button").forEach((b) => b.addEventListener("click", () => {
+    $("viewmode").querySelectorAll("button").forEach((c) => c.setAttribute("aria-pressed", String(c === b)));
+    state.viewKey = b.dataset.v; drawScatter();
+  }));
+
+  // ------------------------------------------------------------ compare
+  function selectPrompt(p) { state.prompt = p; $("promptSel").value = p; drawCompare(); }
+  function drawCompare() {
+    const b = D.main[key(state.prompt, state.seed, "base")];
+    const l = D.main[key(state.prompt, state.seed, state.rep)];
+    $("imgBase").src = b ? "explorer/" + b.thumb : "";
+    $("imgLora").src = l ? "explorer/" + l.thumb : (b ? "explorer/" + b.thumb : "");
+    tileLabels($("tilesBase"), b); tileLabels($("tilesLora"), l);
+    const vk = state.viewKey;
+    const rows = [["identity (DINOv2)", "identity", 3, 1], ["identity (DreamSim)", "dreamsim", 3, 1],
+                  ["distinct views", vk, 0, 1], ["black-bar share", "letterbox", 2, -1]];
+    let t = `<tr><th></th><th style="color:var(--base)">Base</th><th style="color:var(--lora)">LoRA ${state.rep}</th></tr>`;
+    rows.forEach(([name, k, d, good]) => {
+      const bv = b ? b[k] : NaN, lv = l ? l[k] : NaN;
+      const cls = Number.isFinite(bv) && Number.isFinite(lv) && lv !== bv ? ((lv - bv) * good > 0 ? "up" : "down") : "";
+      t += `<tr><td>${name}</td><td>${fmt(bv, d)}</td><td class="${cls}">${fmt(lv, d)}</td></tr>`;
+    });
+    if (!l) t += `<tr><td colspan="3" class="empty">No LoRA grid for this cell yet.</td></tr>`;
+    $("cmpTable").innerHTML = t;
+    const pr = D.prompts[state.prompt];
+    $("promptText").textContent = pr ? pr.text : "";
+  }
+  function setCut(pct) { $("slider").style.setProperty("--cut", pct + "%"); $("cut").value = pct; }
+  $("cut").addEventListener("input", (e) => setCut(e.target.value));
+  const sl = $("slider");
+  const drag = (e) => {
+    const r = sl.getBoundingClientRect();
+    setCut(Math.max(0, Math.min(100, ((e.clientX - r.left) / r.width) * 100)));
+  };
+  sl.addEventListener("pointerdown", (e) => { sl.setPointerCapture(e.pointerId); drag(e); });
+  sl.addEventListener("pointermove", (e) => { if (sl.hasPointerCapture(e.pointerId)) drag(e); });
+
+  // ------------------------------------------------------------ sweep
+  function drawSweep() {
+    const arms = state.sweepKind === "scale" ? SCALES : CKPTS;
+    const labels = state.sweepKind === "scale" ? SCALE_LABEL : CKPT_LABEL;
+    const i = Number($("sweepRange").value);
+    $("sweepTicks").innerHTML = labels.map((l) => `<span>${l}</span>`).join("");
+    const g = D.sweep[key(state.sweepPrompt, state.sweepSeed, arms[i])];
+    const b = D.sweep[key(state.sweepPrompt, state.sweepSeed, "base")];
+    $("sweepImg").src = g ? "explorer/" + g.thumb : "";
+    const vk = state.viewKey;
+    let t = `<tr><th></th><th>${state.sweepKind === "scale" ? "scale " + labels[i] : "step " + labels[i]}</th><th>base</th></tr>`;
+    [["identity", "identity", 3], ["distinct views", vk, 0], ["black-bar share", "letterbox", 2]].forEach(([n, k, d]) => {
+      t += `<tr><td>${n}</td><td>${g ? fmt(g[k], d) : "–"}</td><td>${b ? fmt(b[k], d) : "–"}</td></tr>`;
+    });
+    $("sweepTable").innerHTML = t;
+    $("sweepNote").textContent = state.sweepKind === "checkpoint"
+      ? "Step 0 is the base model and step 500 is the final adapter at scale 1."
+      : "Scale 0 is the base model: the adapter is loaded but contributes nothing (checked byte-identical).";
+  }
+  $("sweepRange").addEventListener("input", drawSweep);
+  $("sweepKind").querySelectorAll("button").forEach((b) => b.addEventListener("click", () => {
+    $("sweepKind").querySelectorAll("button").forEach((c) => c.setAttribute("aria-pressed", String(c === b)));
+    state.sweepKind = b.dataset.k; drawSweep();
+  }));
+
+  // ------------------------------------------------------------ boot
+  fetch("explorer/data.json").then((r) => r.json()).then((data) => {
+    D = data;
+    if (D.summary) $("verdict").textContent = D.summary.verdict;
+    const prompts = [...new Set(Object.values(D.main).map((g) => g.prompt))].sort();
+    const seeds = [...new Set(Object.values(D.main).map((g) => g.seed))].sort();
+    const groups = {};
+    prompts.forEach((p) => { const gname = (D.prompts[p] || {}).group || "other"; (groups[gname] ||= []).push(p); });
+    $("promptSel").innerHTML = Object.entries(groups).map(([gname, ps]) =>
+      `<optgroup label="${gname.replace(/_/g, " ")}">${ps.map((p) => `<option value="${p}">${shortName(p)}</option>`).join("")}</optgroup>`).join("");
+    state.prompt = prompts[0]; state.seed = seeds[0];
+    $("promptSel").addEventListener("change", (e) => selectPrompt(e.target.value));
+    seg($("seedSeg"), seeds, null, state.seed, (v) => { state.seed = v; drawCompare(); });
+    const reps = REPS.filter((r) => Object.values(D.main).some((g) => g.arm === r));
+    seg($("repSeg"), reps, null, state.rep, (v) => { state.rep = v; drawCompare(); });
+    drawScatter(); drawCompare();
+    let resizeTimer;
+    addEventListener("resize", () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(drawScatter, 150); });
+
+    const sp = [...new Set(Object.values(D.sweep).map((g) => g.prompt))].sort();
+    if (!sp.length) { $("sweepSec").querySelector(".sweep").innerHTML = `<p class="empty">Sweep not generated yet.</p>`; return; }
+    const ss = [...new Set(Object.values(D.sweep).map((g) => g.seed))].sort();
+    $("sweepPrompt").innerHTML = sp.map((p) => `<option value="${p}">${shortName(p)}</option>`).join("");
+    state.sweepPrompt = sp[0]; state.sweepSeed = ss[0];
+    $("sweepPrompt").addEventListener("change", (e) => { state.sweepPrompt = e.target.value; drawSweep(); });
+    seg($("sweepSeed"), ss, null, state.sweepSeed, (v) => { state.sweepSeed = v; drawSweep(); });
+    drawSweep();
+  }).catch((err) => {
+    document.querySelector("main").insertAdjacentHTML("beforeend", `<p class="empty">Could not load explorer/data.json (${err}).</p>`);
+  });
+})();
+</script>
+</body>
+</html>

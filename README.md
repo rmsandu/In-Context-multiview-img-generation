@@ -1,296 +1,198 @@
-# Multi-Image Generation with In-Context LoRA
+# Four views, one object?
 
-This repo aims to generate and evaluate coherent 2D multi-view scenes (multiple images with intrinsic relationships, such as different viewpoints of the same object or scene) using minimal training data and limited compute. The approach builds on [In-Context LoRA](https://ali-vilab.github.io/In-Context-LoRA-Page/), a method to adapt diffusion transformer (DiT) models to multi-image outputs without changing the model architecture. The key idea is to concatenate multiple images into one larger image during training, use a joint caption describing all sub-images, and fine-tune on a small dataset . The limitation of the paper is that only qualitative visual evaluation has been performed. This repo aims to implement a quantitative approach for evaluating In-Context LoRA vs Base Flux.1 model. Essentialy, we are trying to answer: **Does LoRA preserves object identity without duplicating views?**
+A rank-16 [In-Context LoRA](https://ali-vilab.github.io/In-Context-LoRA-Page/) on
+FLUX.1-dev, trained to draw one object from four sides in a 2x2 grid, and an
+evaluation built to answer one question honestly:
 
-## Project status
+> **Does the LoRA keep the object consistent across the four tiles without just
+> drawing the same view four times?**
 
-The 4x4 grid composite images have been automatically captioned with Gemini 3.5 Flash. This run over every eligible four-view instance
-under `data/` produced 423 accepted training pairs and retained 106 ambiguous
-composites for abstention analysis. Another model can be used instead of Gemini 3.5 Flash for captioning. The minimal Study 1 pilot split, training config,
-paired generation harness, and blinded scorecard are implemented in `configs/study1_pilot.yaml`  The gold benchmark, model comparison, confidence
-calibration, and human review described in [PLANS.md](PLANS.md) detail future
-work.
+The In-Context LoRA paper evaluates by eye. This repo measures: a pre-registered
+protocol, paired base-vs-LoRA generation over 42 held-out prompts x 4 seeds x 3
+training runs, metrics that were tested against controls before they were
+trusted, camera-pose ground truth for the real data, and blinded human ratings.
+
+[Explorer](https://rmsandu.github.io/2D-multiview-generation/) ·
+[Protocol](docs/study1_protocol.md) ·
+[LoRA notes](docs/lora_notes.md) ·
+[Model on Hugging Face](https://huggingface.co/rmsandu/fourviews-incontext-lora) ·
+[Demo](https://huggingface.co/spaces/rmsandu/fourviews-incontext-lora)
+
+## Results
+
+**No evidence that the LoRA improves identity.** That is the rule fixed in
+[the protocol](docs/study1_protocol.md) before any LoRA image was scored, applied as
+written ([full report](results/study1/report.md)):
+
+| 42 prompts x 4 seeds | Base | LoRA (3 runs pooled) | LoRA - base, 95% CI |
+| --- | --: | --: | --: |
+| identity (masked DINOv2) | 0.651 | 0.656 | +0.006 [-0.009, +0.020] |
+| distinct views (of 4) | 2.21 | 2.26 | +0.05 [-0.08, +0.17] |
+| grids with an object in every tile | 84% | 85% | +1 pt [-2, +5] |
+
+All three runs point the same way (+0.004 to +0.007), but the study could only
+detect a change of about 0.043. Real photos score 0.766, so there was room to
+improve. Human ratings are still being collected. They can't change the verdict,
+because the identity gate already failed.
+
+![Identity vs view diversity, base and three LoRA runs](results/study1/figures/identity_vs_views.png)
+
+**Why the effect is so small: the adapter barely moves the picture.** With prompt
+and seed fixed, the LoRA moves each tile a DreamSim distance of 0.03-0.05 from the
+base image, while a new seed moves it 0.30. The effect is real: it grows steadily
+with LoRA scale and training step, and the three runs push each image in the same
+direction. But every training composite has black side bars, and not one generated
+grid draws them. 500 steps at lr 1e-4 wasn't enough to learn even that
+([analysis](analysis/adapter_effect.py), protocol note 2).
+
+**Study 1b: without the bars and with eight times the training, the adapter moves
+the picture five times as far, but objects are no more consistent.** Two follow-up
+runs, each pre-registered before training ([protocol](docs/study1b_protocol.md)):
+run A replaced the letterboxed tiles with square crops centred on the object and
+changed nothing else. Run B added 936 new objects and trained for 4,000 steps
+instead of 500. Same 42 test prompts, same rule
+([run A report](results/study1b/report.md), [run B report](results/study1b/runb/report.md)):
+
+| 42 prompts x 4 seeds | Training composites | Steps | Identity, LoRA - base, 95% CI | Median tile distance from base* |
+| --- | --: | --: | --: | --: |
+| Study 1 (letterboxed) | 381 | 500 | +0.006 [-0.009, +0.020] | 0.024 |
+| Run A (cropped) | 381 | 500 | +0.002 [-0.012, +0.015] | 0.028 |
+| Run B (cropped) | 1,317 | 4,000 | +0.012 [-0.018, +0.042] | 0.141 |
+
+\* DreamSim, median over every tile of the three runs pooled. The 0.03-0.05 above
+is the same distance summarised per run as a median over prompts.
+
+Run B's adapters move each tile about half as far as a new seed does (0.30), so
+the adapter is clearly learning something. Identity barely follows: all three run
+B adapters score a little higher than base (+0.008 to +0.017), but every interval
+includes zero. Training longer moves images further without helping: from step
+2,000 to step 4,000 the distance grows 1.7 times and identity doesn't change
+(-0.008 [-0.051, +0.039]). No generated grid draws bars, and variety of views
+doesn't drop.
+
+![Identity vs base and distance moved, run A vs run B](results/study1b/runb/figures/runb_vs_runa.png)
+
+**The pose model and the captions disagree with the cameras, in opposite
+directions.** MVImgNet ships COLMAP camera poses for part of the data, which gives
+the true angle between any two tiles. Orient Anything V2 reads those angles at about
+0.70x their size. Gemini's view labels stretch them: tiles it calls "180 deg apart"
+are a median 88 deg apart.
+
+![Measured vs true angle between tiles](results/real_arcs/angles.png)
+
+**Three runs of the same recipe learn almost orthogonal weight updates (cosine
+0.02), and that is LoRA's parametrisation, not disagreement.** The input
+projection A stays at its random initialisation; the runs agree on the output side
+B at 10-14x chance. Their images agree even more: the change each run makes to a
+given tile has cosine 0.49-0.73 with the others' (0.01 for unrelated tiles).
+Fusing the adapter into 8-bit weights would erase most of it, so the 8-bit
+evaluation keeps it unfused.
+
+![Subspace overlap of the LoRA matrices](results/lora_anatomy/subspace_overlap.png)
+
+## How it works
+
+1. **Data.** 529 MVImgNet capture videos; four evenly spaced frames from each form a
+   2x2 composite ([pipeline](docs/pipeline.md)).
+2. **Captions.** Gemini 3.5 Flash returns a schema-constrained JSON view label per
+   tile, or abstains. 423 composites are accepted, 106 abstained.
+3. **Split.** 381 train / 42 holdout by source instance, with hash checks against
+   leakage (`src/study1_split.py`).
+4. **LoRA.** Rank 16, alpha 16, 500 steps with [AI Toolkit](https://github.com/ostris/ai-toolkit)
+   (`configs/study1_pilot.yaml`), trained three times.
+5. **Paired generation.** Same prompt, seed and scheduler for base and every adapter,
+   8-bit base with an unfused bf16 LoRA (`evaluation/generate_pairs.py`).
+6. **Metrics.** Masked DINOv2 and DreamSim identity, Orient Anything V2 viewpoints,
+   duplicate and letterbox checks (`evaluation/metrics/`).
+7. **Humans.** Blinded 2AFC and per-grid ratings ([rater guide](docs/rater_guide.md)).
+8. **Verdict.** Cluster bootstrap over prompts, Holm correction, gates fixed in
+   advance (`analysis/study1_report.py`).
+
+## Key decisions and why
+
+* **Identity is never reported alone.** Four copies of one view score perfect
+  similarity, which is exactly the failure being tested. Every result is a point on
+  identity x view diversity.
+* **Metrics had to pass controls first.** One tile copied four times, four different
+  objects, shuffled tiles, real photos. Pose accuracy failed and was dropped from the
+  verdict; the controls table is in the protocol.
+* **The analysis was written down before looking.** The protocol commit (`e73ec48`)
+  predates every LoRA metric. Later changes are listed as dated deviations.
+* **Three training runs, four seeds, 42 prompts.** The unit of analysis is the
+  prompt. Run-to-run spread is part of the result, not noise to hide.
+* **8-bit, unfused.** 7-11x faster than bf16 with offload on a 24 GB card, checked
+  against the earlier bf16 run, and the only way the update survives quantization.
+* **Real photos are never published.** MVImgNet's terms don't allow redistribution,
+  so real composites appear as scores, and generated grids as images.
+
+## What didn't work
+
+* **Free-form captions.** The first captions ("This photo shows a 45-degree angle of
+  the lamp") were inconsistent. They were replaced by a fixed schema with abstention.
+* **Judging by eye.** The first read was "base and LoRA look very similar". That
+  could not distinguish an effect from seed noise.
+* **A cached base image.** The July `base.png` came from a crashed run and was reused.
+  It differed from a fresh render in 97% of pixels. Provenance checks caught it.
+* **Trusting the pose model's angles.** I first concluded the real photos span narrow
+  arcs. Camera poses showed half of that was the pose model shrinking angles
+  (protocol, deviation 1).
+* **Undefined left and right.** The captioning prompt never said whose left "left"
+  is.
+* **The training recipe.** 500 steps at lr 1e-4 produced an adapter too weak to
+  learn the black bars in every training image. A run that learns those bars is
+  the positive control this study should have started with.
+
+## Limitations
+
+* 42 held-out prompts, all from MVImgNet categories seen in training. Nothing here
+  says how the LoRA does on unseen object types.
+* Orient Anything's calibration rests on 19 posed holdout composites: 114 tile
+  pairs, of which only 19 are truly the same view.
+* Human ratings come from the author and one or two friends, not a panel.
+* One base model (FLUX.1-dev), one rank, one step count.
+* Everything runs in 8-bit. The bf16 check covers base and one adapter on two seeds.
+
+## Quickstart
+
+CPU only, from the committed metric tables:
+
+```bash
+make dev && make test        # unit tests (no GPU, no model weights)
+make eval-env && make report # rebuild results/study1 from results/metrics/*.csv
+```
+
+The GPU path (needs FLUX.1-dev access, MVImgNet, and a 24 GB card) is
+`scripts/run_study1.sh`, documented in [docs/pipeline.md](docs/pipeline.md).
 
 ### Latest dataset build
 
 | Item | Result |
 | --- | ---: |
-| Input root | `data/` |
 | Model | `gemini-3.5-flash` |
 | Eligible four-view instances | 529 |
 | Selected source images | 2,116 |
 | Accepted image/caption pairs | 423 |
 | Abstention composites | 106 |
-| Invalid cached responses after repair | 0 |
-| Unexpected processing failures | 0 |
-
-Generated data is written to
-`training/composites_4view_grid_all`, with ambiguous examples in
-`training/composites_4view_grid_all_abstention`.
-
-### Current structured-data examples
-
-The following contact sheets sample accepted 2×2 composites together with their
-structured captions. The first shows two examples:
-
-![Sanity-check contact sheet with two accepted four-view composites and captions](sanity_check_2_imgs.png)
-
-The second shows four examples:
-
-![Sanity-check contact sheet with four accepted four-view composites and captions](sanity_check_4_imgs.png)
-
-If you want to display another deterministic contact sheet with the captioned composite images RUN:
-
-```bash
-.venv/bin/python -m src.sanity_check \
-  --input-dir training/composites_4view_grid_all \
-  --output sanity_check.png \
-  --count 4 \
-  --columns 4 \
-  --seed 17
-```
-
-### Research questions
-
-- [Does LoRA preserves object identity without duplicating views?](PLANS.md#study-1-does-lora-improve-identity-without-duplicating-views)
-- [Which Gemini model annotates viewpoints best?](PLANS.md#study-2-which-gemini-model-annotates-viewpoints-best)
-
-
-## 1. Dataset Preparation (Multi-View Image Sets)
-
-Collect or curate groups containing multiple views of the same object or scene.
-[MVImgNet](https://github.com/GAP-LAB-CUHK-SZ/MVImgNet) is one suitable source.
-The current dataset build found 529 eligible instances and deterministically selected
-four spaced views from each; structured annotation accepted 423 of the resulting
-composites. The original small-scale experiments used 126 selected images, while the
-current Study 1 pilot uses the larger accepted dataset described above.
-
-## 2. Automatic Caption Generation for Multi-Image Scenes
-
-`python -m src.dataset_builder` generates captioned 2x2 composites from an
-MVImgNet-style directory. Gemini credentials are loaded only when captioning starts.
-Set `GOOGLE_API_KEY` in your environment or a local `.env` file:
-
-```bash
-export GOOGLE_API_KEY=your-key
-python -m src.dataset_builder \
-  --objects-dir data/ \
-  --category-file mvimgnet_category.txt \
-  --output-dir training/composites_4view_grid \
-  --abstention-dir training/composites_4view_grid_abstention \
-  --cache-dir .gemini_cache \
-  --model gemini-3.5-flash \
-  --limit 63 \
-  --tile-width 512 \
-  --tile-height 512
-```
-
-Gemini 3.5 Flash (`gemini-3.5-flash`) returns a **JSON annotation constrained by the
-`MultiviewAnnotation` Pydantic output schema** rather than a free-form caption. Each
-tile receives an **absolute horizontal viewpoint, side, vertical angle, framing,
-visible features, and confidence. Python validates the annotation and renders the
-final caption deterministically.**
-
-Annotations containing an `indeterminate` viewpoint field are not written into the
-LoRA training directory. Their composites and annotations
-are retained in the abstention directory for evaluating whether the vision-language
-model declines ambiguous orientation judgments. If `--abstention-dir` is omitted, it
-defaults to a sibling named `<output-dir>_abstention`.
-
-The cache consists of versioned JSON envelopes. Each entry preserves the exact
-raw model text, parsed annotation, validation result, model and prompt versions,
-latency, composite-image hash, and hashes of the four source images. Old free-form
-`.txt` cache entries are left untouched and are not reused by the structured pipeline.
-
-**For hundreds of composites, use the resumable Gemini Batch API workflow instead of
-the synchronous builder**. Preparation creates keyed JSONL chunks, submission records
-each job before continuing, and collection downloads, validates, caches, and renders
-the completed dataset:
-
-```bash
-python -m src.batch_dataset_builder prepare \
-  --objects-dir data \
-  --category-file data/mvimgnet_category.txt \
-  --output-dir training/composites_4view_grid_all \
-  --abstention-dir training/composites_4view_grid_all_abstention \
-  --cache-dir .gemini_cache \
-  --work-dir .gemini_batch/all_data \
-  --model gemini-3.5-flash
-python -m src.batch_dataset_builder submit --work-dir .gemini_batch/all_data
-python -m src.batch_dataset_builder collect --work-dir .gemini_batch/all_data --wait
-```
-
-The commands are resumable. `state.json` records every submitted job ID, successful
-responses are stored in the versioned cache, and rerunning `prepare` excludes valid
-cached annotations while retrying invalid ones. The July 2026 run used the paths in
-the example above and produced the counts reported in
-[Latest dataset build](#latest-dataset-build).
-
-For each image set, we need a single descriptive caption that encompasses all views/images. Writing these by hand is possible but to ensure scalability and consistency, we can automate caption generation using multimodal models: The captioning pipeline defaults to Gemini 3.5 Flash (`gemini-3.5-flash`) for each
-image set. Override it explicitly with `--model` when running another model. The prompt works best when the images have already been concatenated into a single
-composite image (also cheaper).
-
-## 2. Fine-tuning In-Context LoRA on the FLUX model
-
-To train the model, we will use the In-Context LoRA approach on a diffusion transformer model like FLUX.
-
-LoRA (Low-Rank Adaptation) inserts trainable low-rank weight matrices into the model (typically into attention layers) and freezes the original model weights. This drastically reduces the number of parameters that need updating (and thus memory usage), making it feasible to train on a single high-end RTX 4090 NVIDIA GPU. I trained a LoRA adapter on the FLUX model using the prepared multi-image dataset using the repository [AI-toolkit](https://github.com/ostris/ai-toolkit) and used as inspiration the [In-Context LoRA](https://github.com/ali-vilab/In-Context-LoRA/tree/main) config file.
-
-The repository retains the original `config_4views.yaml` and now includes the
-reproducible pilot config at `configs/study1_pilot.yaml`. 
-
-### RUN Fine-tuning with LoRA
-
-You can remove the [Wandb](https://wandb.ai/) login (I use it for monitoring the loss). You need to login into HuggingFace to accept the FLUX model license usage.
-
-```bash
-../ai-toolkit/.venv/bin/wandb login
-../ai-toolkit/.venv/bin/huggingface-cli login
-
-WANDB_MODE=online CUDA_VISIBLE_DEVICES=0 \
-  ../ai-toolkit/.venv/bin/python \
-  ../ai-toolkit/run.py \
-  configs/study1_pilot.yaml
-```
-
-###  Development and reproducibility
-
-For CPU-only preprocessing development and tests, install the lightweight project
-dependencies rather than the CUDA training stack:
-
-```bash
-python3.11 -m venv .venv
-.venv/bin/python -m pip install -e ".[test]"
-.venv/bin/python -m ruff check .
-.venv/bin/python -m pytest
-```
-
-`requirements.txt` remains the ** CUDA 12.1** environment for model training. Install it
-only on a compatible GPU system. To run the local Gradio demo, supply the checkpoint
-path explicitly:
-
-```bash
-python app.py --lora-model models/4views.safetensors
-```
-
-To renumber an existing directory of image/caption pairs:
-
-```bash
-python -m src.rename_files training/composites_4view_grid --start 1
-```
-
-### Study 1 Pilot Fine-Tuning LoRA
-
-The minimal pilot uses a deterministic, source-instance-level 90/10 split of the
-423 accepted pairs. Seed 17 produces 381 training pairs and 42 holdout pairs. The
-split command verifies matching PNG/TXT stems and rejects source-instance, composite
-image SHA-256, or selected source-image SHA-256 overlap across partitions:
-
-```bash
-.venv/bin/python -m src.study1_split
-```
-
-This writes `training/study1_pilot/train`, `training/study1_pilot/holdout`, and
-`training/study1_pilot/split_manifest.jsonl`. The manifest records every source
-instance, destination path, split parameter, composite hash, and selected source
-image hashes. Re-running the command is idempotent when the existing files match;
-it refuses to overwrite a different file or accept stale extra pairs.
-
-Training uses the neighboring AI Toolkit checkout already expected by this project.
-From this repository root, launch the 500-step pilot explicitly with:
-
-```bash
-python3.11 ../ai-toolkit/run.py configs/study1_pilot.yaml
-```
-
-The config trains one rank-16/alpha-16 LoRA and samples two fixed holdout captions
-every 100 steps. This repository never launches that GPU command automatically.
-
-After selecting the desired AI Toolkit checkpoint, generate the controlled base/LoRA
-pairs with the eight synthetic prompts and two fixed seeds:
-
-```bash
-.venv/bin/python -m evaluation.generate_pairs \
-  --lora output/study1_pilot/study1_pilot.safetensors \
-  --cpu-offload
-```
-
-The generator produces 32 grids: eight prompts × seeds 1001 and 1002 × base and
-LoRA. Both conditions use guidance 3.5, 20 steps, and 1024×1024 resolution. It
-recreates the CPU-backed torch generator immediately before every condition, leaves
-the LoRA unfused, and writes all settings, hashes, and output paths to
-`evaluation/outputs/study1_pilot/generation_manifest.jsonl`.
-
-Create randomized A/B image copies, a blank scoring CSV, and a separate condition
-key with:
-
-```bash
-.venv/bin/python -m evaluation.create_blinded_scorecard \
-  --generation-manifest evaluation/outputs/study1_pilot/generation_manifest.jsonl \
-  --output-dir evaluation/outputs/study1_pilot_blinded \
-  --blind-seed 17
-```
-
-Give raters `scorecard.csv` and the adjacent `images/` directory, but withhold
-`blind_key.jsonl` until scoring is complete. Run the focused CPU checks with:
-
-```bash
-.venv/bin/python -m pytest tests/test_study1_split.py tests/test_evaluation_pairing.py
-```
-
-
-### Implemented
-
-- [x] Deterministic four-view selection and 2×2 composite construction.
-- [x] Duplicate source-image detection and hashing.
-- [x] Gemini model selection through `--model`.
-- [x] Pydantic structured annotation schema.
-- [x] Controlled viewpoint labels and explicit `indeterminate` abstention.
-- [x] Raw-response caching with model, prompt, latency, and image metadata.
-- [x] Deterministic caption rendering.
-- [x] Separate accepted and abstention manifests.
-- [x] Resumable Batch API preparation, submission, polling, and collection.
-- [x] Keyed JSONL chunks with persisted job IDs and per-request result matching.
-- [x] Gemini-compatible flattened structured-output schema.
-- [x] Full Gemini 3.5 Flash batch run over all 529 eligible instances in `data/`.
-- [x] Existing FLUX LoRA checkpoint
-- [x] Unit tests for annotation, cache, rendering, preprocessing, and batch payloads.
-- [x] Seed-17 instance-level Study 1 pilot split with leakage checks.
-- [x] Minimal 500-step Study 1 LoRA config with fixed holdout monitor prompts.
-- [x] Paired base-FLUX/LoRA generation manifest and blinded scoring CSV tooling.
-
-### Next steps
-
-- [ ] Review the 106 abstentions and spot-check the 423 accepted annotations before
-  treating the generated output as training data.
-- [ ] Build and adjudicate the 100-composite gold benchmark.
-- [ ] Benchmark the four selected Gemini models.
-- [ ] Calibrate the low-confidence threshold.
-- [ ] Add benchmark, strict-pose, and appearance-only dataset exports.
-- [ ] Verify that identity captions never contain pose labels or `indeterminate`.
-- [ ] Train pose-conditioned and appearance-only LoRAs with three seeds each.
-- [ ] Run the Study 1 pilot training, paired generation, and blinded human scoring.
-- [ ] Add DINOv2, DreamSim, LPIPS, and perceptual-hash supporting metrics.
-
-
-## Try the Demo on Hugging Face :hugging_face:
-
-Here is the [Hugging Face Model Card](https://huggingface.co/rmsandu/fourviews-incontext-lora) and the [Hugging Face Demo Space](https://huggingface.co/spaces/rmsandu/fourviews-incontext-lora?).
-
-### Historical example outputs :image:
-
-These outputs and free-form captions predate the current structured annotation
-pipeline. They are retained as historical examples and are not the final research
-caption format.
-
-![Example Output](example_output1.jpeg)
-
-```
- [FOUR-VIEWS] a red desk lamp from multiple views;[TOP-LEFT] This photo shows a 45-degree angle of desk lamp;[TOP-RIGHT] This photo shows a high-angle shot of the lamp; [BOTTOM-LEFT] Here is a side view shot of lamp; [BOTTOM-RIGHT] The back view of the desk lamp.
-```
-
-![Example Output](example_output2.jpeg)
-
-```
-[FOUR-VIEWS] a bedroom from multiple views;[TOP-LEFT] This photo shows a 45-degree angle of the bedroom;[TOP-RIGHT] This photo shows a high-angle shot of the bedroom; [BOTTOM-LEFT] Here is a side view shot of bedroom; [BOTTOM-RIGHT] A low angle view of the bedroom.
-```
+| Composites with COLMAP poses | 231 |
+
+## Repository map
+
+| Path | What |
+| --- | --- |
+| `src/` | view selection, Gemini captioning, batch API, split |
+| `configs/` | AI Toolkit training configs |
+| `evaluation/` | paired generation, controls, metrics, blinded scorecards, human analysis |
+| `analysis/` | report, LoRA anatomy, int8 fusion check, camera arcs, Gemini audit, explorer export |
+| `results/` | committed metric tables, summaries and figures |
+| `docs/` | protocol, pipeline, LoRA notes, rater guide, future work, explorer site |
+
+## Licenses and credits
+
+Code: Apache-2.0. The LoRA weights and generated images inherit the
+[FLUX.1-dev non-commercial license](https://huggingface.co/black-forest-labs/FLUX.1-dev/blob/main/LICENSE.md).
+MVImgNet data is under [its own terms](https://github.com/GAP-LAB-CUHK-SZ/MVImgNet)
+and is not redistributed here.
+
+Built on In-Context LoRA, AI Toolkit, DINOv2, DreamSim, Orient Anything V2 and
+MVImgNet. AI coding assistants were used for parts of the tooling and analysis
+code. Cite with [CITATION.cff](CITATION.cff).

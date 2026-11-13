@@ -1,0 +1,40 @@
+{
+  "git_commit": "7dbad856621944ca1f6e36a3a96f1be71e085dc8",
+  "mask_long_side": 1024,
+  "masker": {
+    "model": "isnet-general-use",
+    "providers": [
+      "CUDAExecutionProvider",
+      "CPUExecutionProvider"
+    ]
+  },
+  "min_object_fraction": 0.01,
+  "objects_dir": "data",
+  "python_sources_dirty": false,
+  "software_versions": {
+    "numpy": "2.4.6",
+    "onnxruntime-gpu": "1.22.0",
+    "pillow": "13.0.0",
+    "rembg": "2.0.87",
+    "scipy": "1.17.1"
+  },
+  "source_manifest": "training/composites_4view_grid_all/manifest.jsonl",
+  "source_split": "training/study1_pilot",
+  "source_split_manifest_sha256": "c8b62d555a54313313e2284977e03a03eb39dbbc6796817ae5b4e917315b0a31",
+  "summary": {
+    "by_split": {
+      "holdout": 42,
+      "train": 381
+    },
+    "composites": 423,
+    "composites_all_views_inside": 316,
+    "cut_fraction_max": 0.4375,
+    "cut_fraction_p90": 0.1786,
+    "landscape_views": 124,
+    "mask_fallback_views": 7,
+    "object_inside_share": 0.8209,
+    "portrait_views": 1568,
+    "views": 1692
+  },
+  "tile_size": 512
+}

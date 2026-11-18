@@ -1,0 +1,34 @@
+{
+  "grid_list": "evaluation/results/study1b_8bit/runb_sweep/generation_manifest.jsonl",
+  "grid_list_sha256": "df33950985103277fa96f8c76450ea1e084774d98199eb3483ac5efdf22480a1",
+  "n_grids": 168,
+  "arms_filter": null,
+  "metric_version": "1",
+  "thresholds": {
+    "same_view_deg": 30.0,
+    "pose_tolerance_deg": 45.0,
+    "azimuth_sign": -1,
+    "min_foreground": 0.01
+  },
+  "models": {
+    "mask_model": "rembg/isnet-general-use",
+    "dinov2": "facebook/dinov2-base",
+    "dreamsim": "dreamsim ensemble (pretrained=True)",
+    "orient_anything": "Viglong/OriAnyV2_ckpt/demo_ckpts/rotmod_realrotaug_best.pt",
+    "orient_anything_code": "SpatialVision/Orient-Anything-V2@73b11c9dc83e84daeb563d0c766831f2c66b0a18",
+    "mask_providers": [
+      "CUDAExecutionProvider",
+      "CPUExecutionProvider"
+    ]
+  },
+  "measured_this_run": true,
+  "software_versions": {
+    "torch": "2.7.1+cu126",
+    "transformers": "4.57.6",
+    "dreamsim": "0.2.1",
+    "rembg": "2.0.87",
+    "imagehash": "4.3.2",
+    "onnxruntime-gpu": "1.22.0"
+  },
+  "git_commit": "a6b36ba10823d1344cd8ceaf4ead28b9fec75587"
+}

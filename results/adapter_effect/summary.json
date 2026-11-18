@@ -1,0 +1,156 @@
+{
+  "dreamsim_tiles": {
+    "main | base seed vs seed": {
+      "median_over_prompts": 0.30292845641573274,
+      "mean_over_prompts": 0.3052629136613437,
+      "n_prompts": 42
+    },
+    "main | base vs r1": {
+      "median_over_prompts": 0.04450382851064205,
+      "mean_over_prompts": 0.04736303954961754,
+      "n_prompts": 42
+    },
+    "main | base vs r2": {
+      "median_over_prompts": 0.024512534961104393,
+      "mean_over_prompts": 0.030531889271168483,
+      "n_prompts": 42
+    },
+    "main | base vs r3": {
+      "median_over_prompts": 0.041984373703598976,
+      "mean_over_prompts": 0.05209873536867755,
+      "n_prompts": 42
+    },
+    "main | displacement cosine r1 r2": {
+      "median_over_prompts": 0.4860260421410203,
+      "mean_over_prompts": 0.48854505323937963,
+      "n_prompts": 42
+    },
+    "main | displacement cosine r1 r2 (other prompt)": {
+      "median_over_prompts": 0.0028549773851409554,
+      "mean_over_prompts": 0.003957417700716871,
+      "n_prompts": 42
+    },
+    "main | displacement cosine r1 r3": {
+      "median_over_prompts": 0.7326579950749874,
+      "mean_over_prompts": 0.7241945829065073,
+      "n_prompts": 42
+    },
+    "main | displacement cosine r1 r3 (other prompt)": {
+      "median_over_prompts": 0.009595042967703193,
+      "mean_over_prompts": 0.016279449343398613,
+      "n_prompts": 42
+    },
+    "main | displacement cosine r2 r3": {
+      "median_over_prompts": 0.4950043149292469,
+      "mean_over_prompts": 0.4986862788043384,
+      "n_prompts": 42
+    },
+    "main | displacement cosine r2 r3 (other prompt)": {
+      "median_over_prompts": 0.009506334841717035,
+      "mean_over_prompts": 0.009354878578700923,
+      "n_prompts": 42
+    },
+    "main | r1 vs r2": {
+      "median_over_prompts": 0.036240097135305405,
+      "mean_over_prompts": 0.040007272912632855,
+      "n_prompts": 42
+    },
+    "main | r1 vs r3": {
+      "median_over_prompts": 0.021897438913583755,
+      "mean_over_prompts": 0.029086976977331296,
+      "n_prompts": 42
+    },
+    "main | r2 vs r3": {
+      "median_over_prompts": 0.03467538580298424,
+      "mean_over_prompts": 0.03939643653020972,
+      "n_prompts": 42
+    },
+    "sweep | base seed vs seed": {
+      "median_over_prompts": 0.2427363395690918,
+      "mean_over_prompts": 0.29621003443996113,
+      "n_prompts": 12
+    },
+    "sweep | base vs c100": {
+      "median_over_prompts": 0.005387861281633377,
+      "mean_over_prompts": 0.0075129059453805285,
+      "n_prompts": 12
+    },
+    "sweep | base vs c200": {
+      "median_over_prompts": 0.007575321942567825,
+      "mean_over_prompts": 0.018976716324687004,
+      "n_prompts": 12
+    },
+    "sweep | base vs c300": {
+      "median_over_prompts": 0.01475439965724945,
+      "mean_over_prompts": 0.017546360691388447,
+      "n_prompts": 12
+    },
+    "sweep | base vs c400": {
+      "median_over_prompts": 0.03368391841650009,
+      "mean_over_prompts": 0.04587610624730587,
+      "n_prompts": 12
+    },
+    "sweep | base vs s0": {
+      "median_over_prompts": -4.470348358154297e-08,
+      "mean_over_prompts": -4.284083843231201e-08,
+      "n_prompts": 12
+    },
+    "sweep | base vs s0.25": {
+      "median_over_prompts": 0.00926191359758377,
+      "mean_over_prompts": 0.011393006891012192,
+      "n_prompts": 12
+    },
+    "sweep | base vs s0.5": {
+      "median_over_prompts": 0.014138665050268173,
+      "mean_over_prompts": 0.018073960517843563,
+      "n_prompts": 12
+    },
+    "sweep | base vs s0.75": {
+      "median_over_prompts": 0.020418453961610794,
+      "mean_over_prompts": 0.0351926734050115,
+      "n_prompts": 12
+    },
+    "sweep | base vs s1.0": {
+      "median_over_prompts": 0.03447374701499939,
+      "mean_over_prompts": 0.046068353578448296,
+      "n_prompts": 12
+    },
+    "sweep | base vs s1.5": {
+      "median_over_prompts": 0.05539249628782272,
+      "mean_over_prompts": 0.06382214277982712,
+      "n_prompts": 12
+    }
+  },
+  "side_bars": {
+    "training_composites": {
+      "n": 381,
+      "share_with_bars_over_5pct": 1.0,
+      "median_fraction": 0.4375
+    },
+    "base": {
+      "n": 168,
+      "share_with_bars_over_5pct": 0.0,
+      "median_fraction": 0.0
+    },
+    "r1": {
+      "n": 168,
+      "share_with_bars_over_5pct": 0.0,
+      "median_fraction": 0.0
+    },
+    "r2": {
+      "n": 168,
+      "share_with_bars_over_5pct": 0.0,
+      "median_fraction": 0.0
+    },
+    "r3": {
+      "n": 168,
+      "share_with_bars_over_5pct": 0.0,
+      "median_fraction": 0.0
+    },
+    "sweep s1.5": {
+      "n": 24,
+      "share_with_bars_over_5pct": 0.0,
+      "median_fraction": 0.0
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "azimuth_sign": {
+    "n_pairs": 252,
+    "accuracy_sign_+1": 0.29365079365079366,
+    "accuracy_sign_-1": 0.4166666666666667,
+    "chosen_sign": -1
+  },
+  "mde": [
+    {
+      "metric": "identity_dino",
+      "base_mean": 0.6598488035064841,
+      "null_sd_single_seed": 0.19960634690685428,
+      "mde": 0.04314431150386527
+    },
+    {
+      "metric": "identity_dreamsim",
+      "base_mean": 0.7060857963349138,
+      "null_sd_single_seed": 0.16321504623531577,
+      "mde": 0.03527844132221042
+    },
+    {
+      "metric": "any_same_view",
+      "base_mean": 0.8214285714285714,
+      "null_sd_single_seed": 0.46790113809333267,
+      "mde": 0.10113542363626421
+    },
+    {
+      "metric": "distinct_views",
+      "base_mean": 2.1785714285714284,
+      "null_sd_single_seed": 1.1346613794401532,
+      "mde": 0.24525364430829327
+    }
+  ]
+}

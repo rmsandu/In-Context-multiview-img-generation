@@ -1,0 +1,39 @@
+{
+  "git_commit": "4231b863e7f15d7fd2417268a99d3b1b910de9b4",
+  "mask_long_side": 1024,
+  "masker": {
+    "model": "isnet-general-use",
+    "providers": [
+      "CUDAExecutionProvider",
+      "CPUExecutionProvider"
+    ]
+  },
+  "min_object_fraction": 0.01,
+  "objects_dir": "data_runb",
+  "python_sources_dirty": false,
+  "software_versions": {
+    "numpy": "2.4.6",
+    "onnxruntime-gpu": "1.22.0",
+    "pillow": "13.0.0",
+    "rembg": "2.0.87",
+    "scipy": "1.17.1"
+  },
+  "source_manifest": "training/composites_4view_grid_runb/manifest.jsonl",
+  "source_split": "training/runb_new",
+  "source_split_manifest_sha256": "6caa1f051733b739a8c4354b44b9b4a047ca914e14df48e2e45e5aaf3ad3103b",
+  "summary": {
+    "by_split": {
+      "train": 936
+    },
+    "composites": 936,
+    "composites_all_views_inside": 752,
+    "cut_fraction_max": 0.4375,
+    "cut_fraction_p90": 0.1367,
+    "landscape_views": 216,
+    "mask_fallback_views": 24,
+    "object_inside_share": 0.864,
+    "portrait_views": 3528,
+    "views": 3744
+  },
+  "tile_size": 512
+}

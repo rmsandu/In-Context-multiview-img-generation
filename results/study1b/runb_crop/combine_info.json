@@ -1,0 +1,10 @@
+{
+  "parts": {
+    "training/study1b_crop": 381,
+    "training/runb_new_crop": 936
+  },
+  "train": 1317,
+  "runa_record": "results/study1b/crop/split_manifest.jsonl",
+  "runa_record_sha256": "e88bd5b32e2522088a7ddb982f003c07bc7ab6b1a9777637666db2e27a3a1bf7",
+  "split_manifest_sha256": "0287c59094b50413f62997d71184b6afe927d77e8d8443496cc86e3a60511191"
+}

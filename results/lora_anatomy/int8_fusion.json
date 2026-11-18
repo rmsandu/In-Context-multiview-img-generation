@@ -1,0 +1,95 @@
+{
+  "lora": "output/study1_pilot/study1_pilot.safetensors",
+  "modules": [
+    {
+      "module": "transformer_blocks.9.ff.net.0.proj",
+      "stream": "double",
+      "role": "image MLP",
+      "rel_norm": 0.0005561571451835334,
+      "median_update_over_step": 0.009739674627780914,
+      "changed": 0.012852138839662075,
+      "cos": 0.148114413022995,
+      "error_over_update": 17.714696884155273
+    },
+    {
+      "module": "transformer_blocks.9.attn.to_k",
+      "stream": "double",
+      "role": "image attention",
+      "rel_norm": 0.0005765309324488044,
+      "median_update_over_step": 0.011540964245796204,
+      "changed": 0.014757580123841763,
+      "cos": 0.15333814918994904,
+      "error_over_update": 16.05023765563965
+    },
+    {
+      "module": "transformer_blocks.9.norm1.linear",
+      "stream": "double",
+      "role": "modulation (adaLN)",
+      "rel_norm": 0.0009511846583336592,
+      "median_update_over_step": 0.013307267799973488,
+      "changed": 0.030085492879152298,
+      "cos": 0.26854726672172546,
+      "error_over_update": 8.122693061828613
+    },
+    {
+      "module": "transformer_blocks.9.ff_context.net.0.proj",
+      "stream": "double",
+      "role": "text MLP",
+      "rel_norm": 0.0003222706727683544,
+      "median_update_over_step": 0.0017233069520443678,
+      "changed": 0.004878229461610317,
+      "cos": 0.13188238441944122,
+      "error_over_update": 29.956329345703125
+    },
+    {
+      "module": "transformer_blocks.9.attn.add_k_proj",
+      "stream": "double",
+      "role": "text attention",
+      "rel_norm": 0.0003195948665961623,
+      "median_update_over_step": 0.0050707110203802586,
+      "changed": 0.007929165847599506,
+      "cos": 0.1219881996512413,
+      "error_over_update": 27.568763732910156
+    },
+    {
+      "module": "single_transformer_blocks.19.proj_mlp",
+      "stream": "single",
+      "role": "joint MLP",
+      "rel_norm": 0.0007781898602843285,
+      "median_update_over_step": 0.013451650738716125,
+      "changed": 0.018464909866452217,
+      "cos": 0.17814792692661285,
+      "error_over_update": 12.8143949508667
+    },
+    {
+      "module": "single_transformer_blocks.19.attn.to_k",
+      "stream": "single",
+      "role": "joint attention",
+      "rel_norm": 0.0005285919760353863,
+      "median_update_over_step": 0.008576047606766224,
+      "changed": 0.012137730605900288,
+      "cos": 0.14736537635326385,
+      "error_over_update": 18.897619247436523
+    },
+    {
+      "module": "single_transformer_blocks.19.proj_out",
+      "stream": "single",
+      "role": "joint attn+MLP out",
+      "rel_norm": 0.00032598510733805597,
+      "median_update_over_step": 0.004484937991946936,
+      "changed": 0.005989435128867626,
+      "cos": 0.09955769777297974,
+      "error_over_update": 40.93153381347656
+    },
+    {
+      "module": "single_transformer_blocks.19.norm.linear",
+      "stream": "single",
+      "role": "modulation (adaLN)",
+      "rel_norm": 0.0006938048754818738,
+      "median_update_over_step": 0.011192312464118004,
+      "changed": 0.04349030554294586,
+      "cos": 0.3106245994567871,
+      "error_over_update": 10.4539213180542
+    }
+  ]
+}

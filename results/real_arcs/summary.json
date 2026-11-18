@@ -1,0 +1,55 @@
+{
+  "composites_with_poses": {
+    "accepted": 189,
+    "abstention": 42
+  },
+  "without": {
+    "accepted": 234,
+    "abstention": 64
+  },
+  "abstention": {
+    "median_span_deg": 119.1,
+    "iqr_span_deg": [
+      112.7,
+      127.2
+    ],
+    "median_consecutive_deg": 40.4,
+    "median_video_arc_deg": 146.1,
+    "median_elevation_deg": 54.0,
+    "mean_distinct_views_30deg": 3.405,
+    "median_planarity": 0.0698
+  },
+  "accepted": {
+    "median_span_deg": 109.2,
+    "iqr_span_deg": [
+      79.0,
+      130.1
+    ],
+    "median_consecutive_deg": 35.5,
+    "median_video_arc_deg": 134.8,
+    "median_elevation_deg": 48.3,
+    "mean_distinct_views_30deg": 2.91,
+    "median_planarity": 0.0627
+  },
+  "gemini_vs_colmap": {
+    "n_pairs": 1117,
+    "n_composites": 187,
+    "sign": -1,
+    "median_abs_error_deg": 66.4,
+    "within_45deg": 0.397,
+    "pearson_abs": 0.55,
+    "median_abs_measured": 90.0,
+    "median_abs_reference": 49.6,
+    "median_abs_span_gemini": 90.0
+  },
+  "orient_anything_vs_colmap": {
+    "n_pairs": 114,
+    "n_composites": 19,
+    "sign": 1,
+    "median_abs_error_deg": 18.0,
+    "within_45deg": 0.798,
+    "pearson_abs": 0.466,
+    "median_abs_measured": 42.5,
+    "median_abs_reference": 48.9
+  }
+}
